@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Geojson data
+src/data/FullData
+/src/data/*.geojson
+
