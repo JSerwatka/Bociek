@@ -26,3 +26,7 @@ yarn-error.log*
 src/data/FullData
 /src/data/*.geojson
 
+# helper functions
+/helper_functions/polygonsCenters/node_modules
+/helper_functions/polygonsCenters/admin-m.json
+
