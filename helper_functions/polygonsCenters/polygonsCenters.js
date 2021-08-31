@@ -45,9 +45,10 @@ function findMaxAreaIndex(feature) {
  * that contains the feature' centers in their properties
  * 
  * @param {FeatureCollection} coords FeatureCollection - without feature' centers 
+ * @param {number} precision - round centers to given places after comma
  * @returns {FeatureCollection} FeatureCollection that contains feature' centers in their properties
  */
-function generateNewFeatureCollection(coords) {
+function generateNewFeatureCollection(coords, precision) {
     const newFeatureCollectionArr = [];
     let mainArea;
 
@@ -64,8 +65,9 @@ function generateNewFeatureCollection(coords) {
             mainArea = curr.geometry.coordinates;
         }
 
-        // Find the center of the feature
-        const mainAreaCenter = centroid(polygon(mainArea)).geometry.coordinates;
+        // Find the center of the feature and round it
+        let mainAreaCenter = centroid(polygon(mainArea)).geometry.coordinates;
+        mainAreaCenter = mainAreaCenter.map((coord) => parseFloat(coord.toFixed(precision)))
 
         // Add caululated centeroid to the feature's properties
         curr.properties.center = mainAreaCenter;
@@ -80,14 +82,16 @@ function generateNewFeatureCollection(coords) {
  * Generates a GeoJson file that icludes feature' centers coords
  * 
  * @param {string} oldFilePath input geojson file path 
+ * @param {number} precision - round centers to given places after comma
  * @param {string} fileName output geojson filename
  */
-function generateNewGeoJson(oldFilePath, fileName) {
+function generateNewGeoJson(oldFilePath, fileName, precision) {
     const coords = JSON.parse(fs.readFileSync(oldFilePath, { encoding: 'utf8', flag: 'r' }));
-    const newCoords = generateNewFeatureCollection(coords);
+    const newCoords = generateNewFeatureCollection(coords, precision);
 
     fs.writeFile(`${fileName}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
 }
 
-// generateNewGeoJson("./admin-m.json", "admin-ceneter-m");
-export default generateNewGeoJson;
+const data_path = "./helper_functions/polygonsCenters/data/"
+generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-ceneter-m", 3);
+// export default generateNewGeoJson;
