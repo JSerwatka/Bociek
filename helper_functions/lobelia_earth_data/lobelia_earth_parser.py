@@ -124,15 +124,71 @@ class LobeliaEarthParser:
         with open(f'{data_type}_{month}.json', 'w') as f:
             json.dump(all_data, f)
 
-    def _load_polygon_centers(self, path: str) -> None:
-        pass
+    def _load_polygons(self, path: str) -> None:
+        with open(path, 'r', encoding='utf-8') as f:
+            polygons = json.load(f)
+        
+        return polygons['features']
 
-    def polygon_centers_data_to_json(self, path: str, data_type: str):
-        pass
-        # with open(f'{data_type}_centers.json', 'w') as f:
-        #     json.dump(all_data, f)
+    def data_for_polygon_centers_to_json(self, path: str, data_type: str):
+        '''
+            Generates new json file for all polygons' centers and given weather data type from the db data
+        '''
+        
+        all_data = {
+            'month': {
+                '0': [],
+                '1': [],
+                '2': [],
+                '3': [],
+                '4': [],
+                '5': [],
+                '6': [],
+                '7': [],
+                '8': [],
+                '9': [],
+                '10': [],
+                '11': []
+            }
+        }
+
+        polygons = self._load_polygons(path)
+        
+        for polygon in polygons:
+            lon, lat = polygon['properties']['center']
+            id = polygon['properties']['id']
+
+            # Get the avg value from the db closest to the center coordinates
+            query_context = {
+                'lon_min': lon-0.25,
+                'lon_max': lon+0.25,
+                'lat_min': lat-0.25,
+                'lat_max': lat+0.25
+            }
+            
+            for month in range(12):
+                query_context['month'] = month
+
+                self.cursor.execute("""
+                    SELECT AVG(value) FROM {}
+                    WHERE (lon BETWEEN :lon_min AND :lon_max)
+                    AND (lat BETWEEN :lat_min AND :lat_max)
+                    AND month=:month
+                """.format(data_type), query_context)
+
+                avg_data = round(self.cursor.fetchone()[0], 1)
+
+                # Insert new data to a dict
+                all_data['month'][str(month)].append({
+                    'id': id,
+                    'value': avg_data
+                })
+
+        # Save to a json
+        with open(f'{data_type}_centers.json', 'w') as f:
+            json.dump(all_data, f)
 
 
 parser = LobeliaEarthParser('test.db')
+parser.data_for_polygon_centers_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
 # parser.parse_all_data_for_data_type('average_air_temperature')
-parser.weather_data_to_json('average_air_temperature')
