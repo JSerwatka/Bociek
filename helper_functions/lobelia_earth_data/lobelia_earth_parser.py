@@ -130,7 +130,7 @@ class LobeliaEarthParser:
         
         return polygons['features']
 
-    def export_data_for_polygon_centers_to_json(self, path: str, data_type: str):
+    def export_center_data_to_json(self, path: str, data_type: str):
         '''
             Generates new json file for all polygons' centers and given weather data type from the db data
         '''
@@ -190,4 +190,4 @@ class LobeliaEarthParser:
 
 if __name__ == "__main__":
     parser = LobeliaEarthParser('test.db')
-    parser.export_data_for_polygon_centers_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
+    parser.export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
