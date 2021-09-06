@@ -85,7 +85,7 @@ class LobeliaEarthParser:
         for month in range(12):
             self.parse_data_for_single_month(month, data_type)
 
-    def weather_data_to_json(self, data_type: str, month: int = -1) -> None:
+    def export_weather_data_to_json(self, data_type: str, month: int = -1) -> None:
         '''
             For a given data_type (average air temperature, precipitation, ...)
             generates a json file for a single month or for all months
@@ -130,7 +130,7 @@ class LobeliaEarthParser:
         
         return polygons['features']
 
-    def data_for_polygon_centers_to_json(self, path: str, data_type: str):
+    def export_data_for_polygon_centers_to_json(self, path: str, data_type: str):
         '''
             Generates new json file for all polygons' centers and given weather data type from the db data
         '''
@@ -188,7 +188,6 @@ class LobeliaEarthParser:
         with open(f'{data_type}_centers.json', 'w') as f:
             json.dump(all_data, f)
 
-
-parser = LobeliaEarthParser('test.db')
-parser.data_for_polygon_centers_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
-# parser.parse_all_data_for_data_type('average_air_temperature')
+if __name__ == "__main__":
+    parser = LobeliaEarthParser('test.db')
+    parser.export_data_for_polygon_centers_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
