@@ -71,6 +71,9 @@ function generateNewFeatureCollection(coords, precision) {
 
         // Add caululated centeroid to the feature's properties
         curr.properties.center = mainAreaCenter;
+
+        // Update polygon id (fixes incorrect ids in oryginal geojson file)
+        curr.properties.id = idx;
         
         newFeatureCollectionArr.push(curr);
     })
@@ -93,5 +96,5 @@ function generateNewGeoJson(oldFilePath, fileName, precision) {
 }
 
 const data_path = "./helper_functions/polygonsCenters/data/"
-generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-ceneter-m", 3);
-// export default generateNewGeoJson;
+// generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3);
+export default generateNewGeoJson;
