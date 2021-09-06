@@ -3,6 +3,20 @@ import json
 import sqlite3
 
 class LobeliaEarthParser:
+    '''
+        Required:
+            1. Create a db: 
+                parser = LobeliaEarthParser('./data/wather_data.db')
+            2. Load data to the db:
+                parser.parse_all_data_for_data_type('average_air_temperature')
+                ...
+        Options:
+            * Export data to json
+                parser.export_weather_data_to_json('average_air_temperature', month=0)
+            * Generate weather data for polygon centers
+                export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
+    '''
+
     data_type_to_url = {
         'average_air_temperature': 'https://files.isardsat.co.uk/era5/seasonalityTimeSlices/tasDayAvgMonthAvg/tasDayAvgMonthAvg',
         'maximum_air_temperature': 'https://files.isardsat.co.uk/era5/seasonalityTimeSlices/tasDayMaxMonthAvg/tasDayMaxMonthAvg',
@@ -121,7 +135,7 @@ class LobeliaEarthParser:
                     'value': row[2] 
                 })
 
-        with open(f'{data_type}_{month}.json', 'w') as f:
+        with open(f'./data/{data_type}_{month}.json', 'w') as f:
             json.dump(all_data, f)
 
     def _load_polygons(self, path: str) -> None:
@@ -185,9 +199,10 @@ class LobeliaEarthParser:
                 })
 
         # Save to a json
-        with open(f'{data_type}_centers.json', 'w') as f:
+        with open(f'./data/{data_type}_centers.json', 'w') as f:
             json.dump(all_data, f)
 
 if __name__ == "__main__":
-    parser = LobeliaEarthParser('test.db')
-    parser.export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
+    parser = LobeliaEarthParser('./data/wather_data.db')
+    parser.export_weather_data_to_json('average_air_temperature')
+    # parser.export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
