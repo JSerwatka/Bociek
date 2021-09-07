@@ -28,5 +28,5 @@ src/data/FullData
 
 # helper functions
 /helper_functions/polygonsCenters/node_modules
-/helper_functions/polygonsCenters/data
-
+/helper_functions/**/data
+/helper_functions/**/venv

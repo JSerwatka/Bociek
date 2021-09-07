@@ -138,17 +138,17 @@ class LobeliaEarthParser:
         with open(f'./data/{data_type}_{month}.json', 'w') as f:
             json.dump(all_data, f)
 
-    def _load_polygons(self, path: str) -> None:
+    def _load_polygons(self, path: str) -> dict:
         with open(path, 'r', encoding='utf-8') as f:
             polygons = json.load(f)
         
         return polygons['features']
 
-    def export_center_data_to_json(self, path: str, data_type: str):
+    def export_center_data_to_json(self, path: str, data_type: str) -> None:
         '''
             Generates new json file for all polygons' centers and given weather data type from the db data
         '''
-        
+             
         all_data = {
             'month': {
                 '0': [],
@@ -170,7 +170,7 @@ class LobeliaEarthParser:
         
         for polygon in polygons:
             lon, lat = polygon['properties']['center']
-            id = polygon['properties']['id']
+            # id = polygon['properties']['id']
 
             # Get the avg value from the db closest to the center coordinates
             query_context = {
@@ -193,10 +193,18 @@ class LobeliaEarthParser:
                 avg_data = round(self.cursor.fetchone()[0], 1)
 
                 # Insert new data to a dict
-                all_data['month'][str(month)].append({
-                    'id': id,
-                    'value': avg_data
-                })
+                
+                # v1 id:id, value:value
+                # all_data['month'][str(month)].append({
+                #     'id': id,
+                #     'value': avg_data
+                # })
+                
+                # v2 - uses ids as keys
+                # all_data['month'][str(month)][str(id)] = avg_data
+                
+                # v3 - uses just indexes as ids
+                all_data['month'][str(month)].append(avg_data)
 
         # Save to a json
         with open(f'./data/{data_type}_centers.json', 'w') as f:
@@ -204,5 +212,13 @@ class LobeliaEarthParser:
 
 if __name__ == "__main__":
     parser = LobeliaEarthParser('./data/wather_data.db')
-    parser.export_weather_data_to_json('average_air_temperature')
-    # parser.export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', 'average_air_temperature')
+    
+    for data_type in LobeliaEarthParser.data_type_to_url:
+        # Loads all data to the db
+        # parser.parse_all_data_for_data_type(data_type)
+
+        # Export all data to json files
+        # parser.export_weather_data_to_json(data_type)
+        
+        # Generate weather data for polygon centers
+        parser.export_center_data_to_json('../polygonsCenters/data/admin-center-m.json', data_type)
