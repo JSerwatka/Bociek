@@ -1,0 +1,19 @@
+.data-type-wrapper {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.data-type-icon {
+    max-width: 30px;
+    max-height: 30px;
+    flex-grow: 1;
+    opacity: 0.6;
+}
+
+.data-type-icon:hover {
+    opacity: 1;
+    cursor: pointer;
+}

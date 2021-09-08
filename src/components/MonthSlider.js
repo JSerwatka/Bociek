@@ -24,11 +24,11 @@ function MonthSlider({handleMonthChange}) {
         handleMonthChange(value)
     }
     
-    return ( 
-        <div className="month-slider-wrapper">
-            <p style={{textAlign: "center"}}>Choose month</p>
+    return (
+        <>
+            {/* <p style={{textAlign: "center"}}>Choose month</p> */}
             <Slider min={0} max={11} defaultValue={0} marks={marks} step={null} onAfterChange={handleAfterChange}/>
-        </div>
+        </>
     );
 }
 
