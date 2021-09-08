@@ -10,6 +10,10 @@
     z-index: 9999;
 }
 
+.center {
+    text-align: center;
+}
+
 .rc-slider-mark-text {
     font-size: 1.1em;
     color: rgb(32 32 32 / 84%);

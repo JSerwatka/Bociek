@@ -18,16 +18,15 @@ const marks = {
     11: "Dec"
 }
 
-function handleAfterChange(e) {
-    //TODO load new data
-    console.log(e)
-}
-
-
-function MonthSlider() {
+function MonthSlider({handleMonthChange}) {
+    // Update global month value
+    function handleAfterChange(value) {
+        handleMonthChange(value)
+    }
+    
     return ( 
         <div className="month-slider-wrapper">
-            <p>Choose month</p>
+            <p style={{textAlign: "center"}}>Choose month</p>
             <Slider min={0} max={11} defaultValue={0} marks={marks} step={null} onAfterChange={handleAfterChange}/>
         </div>
     );
