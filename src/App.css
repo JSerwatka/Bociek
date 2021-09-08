@@ -1,4 +1,4 @@
-.leaflet-container {
-  width: 100vw;
-  height: 100vh;
+.map-wrapper {
+  width: 100%;
+  position: relative;
 }
