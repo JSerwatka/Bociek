@@ -26,12 +26,27 @@ function getTempColor(temp) {
 
 function Map({month}) {
     const geoJsonRef = useRef();
-    // const mapRef = useRef();
+    const monthRef = useRef(month)
+    const currentPopupLayerRef = useRef();
 
+    useEffect(() => {
+      // Required to use month in an event
+      monthRef.current = month
+
+      // Update currently opened popup data
+      if(
+        currentPopupLayerRef.current &&
+        currentPopupLayerRef.current.layer.isPopupOpen()
+      ) {
+        const layer = currentPopupLayerRef.current.layer;
+        const feature = currentPopupLayerRef.current.feature;
+        createNewPopup(feature, layer)
+      }
+    }, [month])
+    
     const mapStyles = (feature) => {
-      const id = feature.properties.id
-      const temp = avgTemp.month[month][id]
-      // console.log(feature.properties.name, temp)
+      const regionId = feature.properties.id
+      const temp = avgTemp.month[month][regionId]
 
       return {
         fillColor: getTempColor(temp),
@@ -43,27 +58,53 @@ function Map({month}) {
       };
     }
 
-    function highlightFeature(e) {
-      const layer = e.target;
+    // function highlightFeature(e) {
+    //   const layer = e.target;
     
-      layer.setStyle({
-        fillColor: "red",
-        fillOpacity: 0.4,
-      })
-    }
+    //   layer.setStyle({
+    //     fillColor: "red",
+    //     fillOpacity: 0.4,
+    //   })
+    // }
 
-    function resetHighlight(e) {
-      geoJsonRef.current.resetStyle(e.target)
+    // function resetHighlight(e) {
+    //   geoJsonRef.current.resetStyle(e.target)
+    // }
+
+    // Loads all feature's data to a popup
+    function createNewPopup(feature, layer) {
+      const regionName = feature.properties.name;
+      const regionId = feature.properties.id;
+      const temp = avgTemp.month[monthRef.current][regionId];
+
+      const popupContent = `
+        <h3>${regionName}</h3>
+        <p>Average Air Temperature: ${temp}</p>
+      `;
+
+      // Bind popup only if not alreay exits
+      if (!layer.getPopup()) {
+        const popupOptions = {
+          className: "division-popup",
+        };
+  
+        layer.bindPopup(popupContent,popupOptions).openPopup();
+      }
+      else {
+        layer.setPopupContent(popupContent);
+      }
+      
+      currentPopupLayerRef.current = {'layer': layer, 'feature': feature};
     }
 
   
     const onEachDivision = (feature, layer) => {
-      const division = feature.properties.name;
-      const popup = layer.bindPopup(division)
-      console.log(popup)
       layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight
+        // mouseover: highlightFeature,
+        // mouseout: resetHighlight,
+        click: () => {
+          createNewPopup(feature, layer)
+        }
       })
     }
 
