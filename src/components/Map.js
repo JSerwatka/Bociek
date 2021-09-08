@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup, useMap } from 'react-leaflet'
 import worldGeoJson from "../data/admin-center-m.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
+// import dayLength from "../data/sun data/daylength_centers.json"
 import './Map.css';
 
 
@@ -21,6 +22,10 @@ function getTempColor(temp) {
          temp > -30 ? '#74add1' :
                       '#4575b4';
 }
+
+// function getDaylengthColor(daylength) {
+
+// }
 
 
 
@@ -74,11 +79,14 @@ function Map({month}) {
     // Loads all feature's data to a popup
     function createNewPopup(feature, layer) {
       const regionName = feature.properties.name;
+      const countryName = feature.properties.country;
       const regionId = feature.properties.id;
       const temp = avgTemp.month[monthRef.current][regionId];
+      // console.log(regionName, regionId, temp)
 
       const popupContent = `
-        <h3>${regionName}</h3>
+        <h3>${countryName}</h3>
+        <h4>${regionName}</h4>
         <p>Average Air Temperature: ${temp}</p>
       `;
 
@@ -93,7 +101,7 @@ function Map({month}) {
       else {
         layer.setPopupContent(popupContent);
       }
-      
+
       currentPopupLayerRef.current = {'layer': layer, 'feature': feature};
     }
 
