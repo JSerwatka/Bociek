@@ -1,39 +1,80 @@
 import "leaflet/dist/leaflet.css"
-import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup } from 'react-leaflet'
-import world from "../data/admin-center-m.json"
-// import world from "./data/admin-m.json"
+import { useEffect, useRef } from "react";
+import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup, useMap } from 'react-leaflet'
+import worldGeoJson from "../data/admin-center-m.json"
+import avgTemp from "../data/weather data/average_air_temperature_centers.json"
 import './Map.css';
 
 
-const mapStyles = () => {
-    return {
-      // fillColor: "red",
-      // fillOpacity: 0.1,
-      weight: 1,
-      opacity: 1,
-      color: 'grey',
-      dashArray: '3',
-    };
-  }
-  
-  const changeDivisionColor = (e) => {
-    e.target.setStyle({
-      fillColor: "red",
-      fillOpacity: 0.4,
-    })
-  }
-  
-  const onEachDivision = (feature, layer) => {
-    const division = feature.properties.name;
-    layer.bindPopup(division)
-    layer.on({
-      click: changeDivisionColor
-    })
-  }
+// #TODO get new data from json for given motnh
+// #TODO send the data to the map and render
 
-function Map() {
+
+function getTempColor(temp) {
+  return temp > 40  ? '#d73027' :
+         temp > 30  ? '#f46d43' :
+         temp > 20  ? '#fdae61' :
+         temp > 10  ? '#fee090' :
+         temp > 0   ? '#ffffbf' :
+         temp > -10 ? '#e0f3f8' :
+         temp > -20 ? '#abd9e9' :
+         temp > -30 ? '#74add1' :
+                      '#4575b4';
+}
+
+
+
+function Map({month}) {
+    const geoJsonRef = useRef();
+    // const mapRef = useRef();
+
+    const mapStyles = (feature) => {
+      const id = feature.properties.id
+      const temp = avgTemp.month[month][id]
+      // console.log(feature.properties.name, temp)
+
+      return {
+        fillColor: getTempColor(temp),
+        fillOpacity: 0.7,
+        weight: 1,
+        opacity: 1,
+        color: 'grey',
+        dashArray: '3',
+      };
+    }
+
+    function highlightFeature(e) {
+      const layer = e.target;
+    
+      layer.setStyle({
+        fillColor: "red",
+        fillOpacity: 0.4,
+      })
+    }
+
+    function resetHighlight(e) {
+      geoJsonRef.current.resetStyle(e.target)
+    }
+
+  
+    const onEachDivision = (feature, layer) => {
+      const division = feature.properties.name;
+      const popup = layer.bindPopup(division)
+      console.log(popup)
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight
+      })
+    }
+
     return (
-        <MapContainer center={[51.505, -0.09]} zoom={3} minZoom={2} scrollWheelZoom={true} maxBounds={[[-90, -180], [90, 180]]}>
+        <MapContainer 
+          center={[51.505, -0.09]} 
+          zoom={3} minZoom={2} 
+          scrollWheelZoom={true} 
+          maxBounds={[[-90, -180], [90, 180]]}
+          // whenCreated={ mapInstance => { mapRef.current = mapInstance } }
+        >
                 <LayersControl position="topright">
                   <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
                     <TileLayer
@@ -74,7 +115,7 @@ function Map() {
                     />
                   </LayersControl.BaseLayer>
                 </LayersControl>
-                <GeoJSON data={ world.features } style={ mapStyles } onEachFeature={ onEachDivision } />
+                <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={geoJsonRef}/>
               </MapContainer>
     );
 }
