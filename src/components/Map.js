@@ -36,16 +36,11 @@ function Map({month, dataType}) {
     
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
-      let value;
-      if (dataType === 'temp') {
-        value = avgTemp.month[month][regionId]
-      }
-      else if (dataType === 'rain') {
-        value = precipitation.month[month][regionId]
-      }
-      else if (dataType === 'daylength') {
-        value = dayLength.month[month][regionId]
-      }
+      // Get value for fiven data type and region id
+      const value = dataType === 'temp'      ? avgTemp.month[month][regionId]       :
+                    dataType === 'rain'      ? precipitation.month[month][regionId] :
+                    dataType === 'daylength' ? dayLength.month[month][regionId]     :
+                                               null;
 
       return {
         fillColor: getColor(dataType, value),
@@ -76,15 +71,20 @@ function Map({month, dataType}) {
 
     // Loads all feature's data to a popup
     function createNewPopup(feature, layer) {
+      // Get feature data
       const regionName = feature.properties.name;
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
       
+      // Get weather data
       const temp = avgTemp.month[monthRef.current][regionId];
       const dayLengthData = dayLength.month[monthRef.current][regionId];
       const rain = precipitation.month[monthRef.current][regionId];
+
+      //#DEBUG
       console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData}`)
 
+      // Create/Update Popup
       const popupContent = `
         <h3>${countryName}</h3>
         <h4>${regionName}</h4>
@@ -95,10 +95,7 @@ function Map({month, dataType}) {
 
       // Bind popup only if not alreay exits
       if (!layer.getPopup()) {
-        const popupOptions = {
-          className: "division-popup",
-        };
-  
+        const popupOptions = {className: "division-popup",};
         layer.bindPopup(popupContent,popupOptions).openPopup();
       }
       else {
