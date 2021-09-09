@@ -3,33 +3,18 @@ import { useEffect, useRef } from "react";
 import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup, useMap } from 'react-leaflet'
 import worldGeoJson from "../data/admin-center-m.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
-// import dayLength from "../data/sun data/daylength_centers.json"
+import dayLength from "../data/sun data/daylength_centers.json"
+import precipitation from "../data/weather data/precipitation_centers.json"
 import './Map.css';
+import Legend from "./Legend";
+import getColor from "../utils/getColor"
 
 
 // #TODO get new data from json for given motnh
 // #TODO send the data to the map and render
 
 
-function getTempColor(temp) {
-  return temp > 40  ? '#d73027' :
-         temp > 30  ? '#f46d43' :
-         temp > 20  ? '#fdae61' :
-         temp > 10  ? '#fee090' :
-         temp > 0   ? '#ffffbf' :
-         temp > -10 ? '#e0f3f8' :
-         temp > -20 ? '#abd9e9' :
-         temp > -30 ? '#74add1' :
-                      '#4575b4';
-}
-
-// function getDaylengthColor(daylength) {
-
-// }
-
-
-
-function Map({month}) {
+function Map({month, dataType}) {
     const geoJsonRef = useRef();
     const monthRef = useRef(month)
     const currentPopupLayerRef = useRef();
@@ -51,10 +36,19 @@ function Map({month}) {
     
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
-      const temp = avgTemp.month[month][regionId]
+      let value;
+      if (dataType === 'temp') {
+        value = avgTemp.month[month][regionId]
+      }
+      else if (dataType === 'rain') {
+        value = precipitation.month[month][regionId]
+      }
+      else if (dataType === 'daylength') {
+        value = dayLength.month[month][regionId]
+      }
 
       return {
-        fillColor: getTempColor(temp),
+        fillColor: getColor(dataType, value),
         fillOpacity: 0.7,
         weight: 1,
         opacity: 1,
@@ -63,8 +57,8 @@ function Map({month}) {
       };
     }
 
-    // function highlightFeature(e) {
-    //   const layer = e.target;
+    // function highlightFeature(layer) {
+    //   // const layer = e.target;
     
     //   layer.setStyle({
     //     fillColor: "red",
@@ -72,8 +66,12 @@ function Map({month}) {
     //   })
     // }
 
-    // function resetHighlight(e) {
-    //   geoJsonRef.current.resetStyle(e.target)
+    // function resetHighlight(layer) {
+    //   if (currentPopupLayerRef.current){ 
+    //     const feature = currentPopupLayerRef.current.feature;
+    //     const styles = mapStyles(feature)
+    //     layer.setStyle(styles)
+    //   }
     // }
 
     // Loads all feature's data to a popup
@@ -81,13 +79,18 @@ function Map({month}) {
       const regionName = feature.properties.name;
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
+      
       const temp = avgTemp.month[monthRef.current][regionId];
-      // console.log(regionName, regionId, temp)
+      const dayLengthData = dayLength.month[monthRef.current][regionId];
+      const rain = precipitation.month[monthRef.current][regionId];
+      console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData}`)
 
       const popupContent = `
         <h3>${countryName}</h3>
         <h4>${regionName}</h4>
         <p>Average Air Temperature: ${temp}</p>
+        <p>Day length: ${dayLengthData}</p>
+        <p>Precipitation: ${rain}mm</p>
       `;
 
       // Bind popup only if not alreay exits
@@ -110,8 +113,10 @@ function Map({month}) {
       layer.on({
         // mouseover: highlightFeature,
         // mouseout: resetHighlight,
-        click: () => {
+        click: (e) => {
+          // resetHighlight(e.target)
           createNewPopup(feature, layer)
+          // highlightFeature(e.target)
         }
       })
     }
@@ -165,6 +170,7 @@ function Map({month}) {
                   </LayersControl.BaseLayer>
                 </LayersControl>
                 <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={geoJsonRef}/>
+                <Legend/>
               </MapContainer>
     );
 }
