@@ -3,10 +3,10 @@ import MonthSlider from './MonthSlider';
 import "./Input.css"
 
 
-function Input({handleMonthChange, handleDataTypeChange}) {
+function Input({handleMonthChange, handleDataTypeChange, dataType}) {
     return ( 
         <div className="input-wrapper">
-            <DataTypeIcons handleDataTypeChange={ handleDataTypeChange } />
+            <DataTypeIcons handleDataTypeChange={ handleDataTypeChange } dataType={ dataType }/>
             <MonthSlider handleMonthChange={ handleMonthChange }/>
         </div>
      );

@@ -6,7 +6,7 @@ import Input from './components/Input';
 
 function App() {
   const [month, setMonth] = useState(0)
-  const [dataType, setDataType] = useState(0)
+  const [dataType, setDataType] = useState("temp")
 
   function handleMonthChange(month) {
     setMonth(month)
@@ -18,8 +18,8 @@ function App() {
 
   return (
     <div className="map-wrapper">
-      <Input handleMonthChange={ handleMonthChange } handleDataTypeChange={ handleDataTypeChange }/>
-      <Map month={month} />
+      <Input handleMonthChange={ handleMonthChange } handleDataTypeChange={ handleDataTypeChange } dataType={ dataType }/>
+      <Map month={month} dataType={ dataType }/>
     </div>
   );
 }
