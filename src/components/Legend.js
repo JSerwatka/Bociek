@@ -52,7 +52,7 @@ function Legend() {
         };
     
         legend.addTo(map);
-    })
+    }, [])
 
     return ( <></> );
 }
