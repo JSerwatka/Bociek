@@ -96,18 +96,26 @@ function generateFeaturesWithCenters(coords, precision) {
     return featureCollection(newFeatureCollectionArr);
 }
 
+function generateMinifiedGeoJson(coords, precision) {
+    const newFeatureCollectionArr = [];
+
+    featureEach(coords, (curr, idx) => {
+
+    }
+}
+
 /**
  * Generates a GeoJson file that icludes feature' centers coords
  * 
- * @param {string} oldFilePath input geojson file path 
+ * @param {string} oldFile input geojson file path 
  * @param {number} precision - round centers to given places after comma
- * @param {string} fileName output geojson filename
+ * @param {string} newFile output geojson filename
  */
-function generateNewGeoJson(oldFilePath, fileName, precision) {
-    const coords = JSON.parse(fs.readFileSync(oldFilePath, { encoding: 'utf8', flag: 'r' }));
+function generateNewGeoJson(oldFile, newFile, precision) {
+    const coords = JSON.parse(fs.readFileSync(oldFile, { encoding: 'utf8', flag: 'r' }));
     const newCoords = generateFeaturesWithCenters(coords, precision);
 
-    fs.writeFile(`${fileName}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
+    fs.writeFile(`${newFile}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
 }
 
 
