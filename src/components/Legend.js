@@ -1,12 +1,13 @@
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect, useRef } from "react/cjs/react.development";
 import "./Legend.css"
 
 import getColor, {grades} from "../utils/getColor"
 
 function Legend({dataType}) {
     const map = useMap()
+    const currentLegend = useRef(null)
 
     function getlegendLabel() {
       return (
@@ -33,7 +34,7 @@ function Legend({dataType}) {
         from = currentGrade[i];
         to = currentGrade[i + 1];
         color = getColor(dataType, (from + 1))
-        //#TODO for daylength send hour minut in string or change oryginal sending daylength string
+
         // Create a proper range info based on: first, last or other
         if (i === 0) {
           range = '< ' + to
@@ -53,11 +54,19 @@ function Legend({dataType}) {
     }
 
     useEffect(() => {
+        // Remove previous legend from DOM
+        if (currentLegend.current) {
+          currentLegend.current.remove();
+        }
+        console.log('load');
+        // Add new legend to the map
         const legend = L.control({ position: "bottomright" });
 
         legend.onAdd = createLegend;
-    
         legend.addTo(map);
+
+        // Update info about current legend
+        currentLegend.current = legend;
     }, [dataType])
 
     return ( <></> );

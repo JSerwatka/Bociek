@@ -13,8 +13,6 @@ import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
 
 
-
-
 function Map({month, dataType}) {
     const geoJsonRef = useRef();
     const monthRef = useRef(month)
