@@ -63,7 +63,7 @@ function findMaxAreaIndex(feature) {
  * @param {number} precision - round centers to given places after comma
  * @returns {FeatureCollection} FeatureCollection that contains feature' centers in their properties
  */
-function generateNewFeatureCollection(coords, precision) {
+function generateFeaturesWithCenters(coords, precision) {
     const newFeatureCollectionArr = [];
     let mainArea;
 
@@ -105,7 +105,7 @@ function generateNewFeatureCollection(coords, precision) {
  */
 function generateNewGeoJson(oldFilePath, fileName, precision) {
     const coords = JSON.parse(fs.readFileSync(oldFilePath, { encoding: 'utf8', flag: 'r' }));
-    const newCoords = generateNewFeatureCollection(coords, precision);
+    const newCoords = generateFeaturesWithCenters(coords, precision);
 
     fs.writeFile(`${fileName}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
 }
