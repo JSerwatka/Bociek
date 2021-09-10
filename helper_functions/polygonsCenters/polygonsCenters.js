@@ -39,6 +39,21 @@ function findMaxAreaIndex(feature) {
     return findIndexOfMax(areaArr);
 }
 
+/**
+ * Debugging function to print data for a single feature
+ * 
+ * @param {string} path input geojson file path 
+ * @param {string} name - name of feature
+ */
+ function viewDataForFeature(path, name) {
+    const coords = JSON.parse(fs.readFileSync(path, { encoding: 'utf8', flag: 'r' }));
+
+    featureEach(coords, (curr, idx) => {
+        if (curr.properties.name === name) {
+            console.log(curr, idx)
+        }
+    })
+}
 
 /**
  * For each feature, computes its center and returns a new FeatureCollection \
@@ -95,6 +110,8 @@ function generateNewGeoJson(oldFilePath, fileName, precision) {
     fs.writeFile(`${fileName}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
 }
 
+
 const data_path = "./helper_functions/polygonsCenters/data/"
+// viewDataForFeature("./data/admin-center-m.json", 'Lesser Poland')
 // generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3);
 export default generateNewGeoJson;
