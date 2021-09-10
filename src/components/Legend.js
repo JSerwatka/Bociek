@@ -3,56 +3,62 @@ import { useMap } from "react-leaflet";
 import { useEffect } from "react/cjs/react.development";
 import "./Legend.css"
 
-function Legend() {
+import getColor, {grades} from "../utils/getColor"
+
+function Legend({dataType}) {
     const map = useMap()
 
-    const getColor = d => {
-        return d > 1000
-          ? "#800026"
-          : d > 500
-          ? "#BD0026"
-          : d > 200
-          ? "#E31A1C"
-          : d > 100
-          ? "#FC4E2A"
-          : d > 50
-          ? "#FD8D3C"
-          : d > 20
-          ? "#FEB24C"
-          : d > 10
-          ? "#FED976"
-          : "#FFEDA0";
-      };
+    function getlegendLabel() {
+      return (
+        dataType === 'temp'      ? 'Average air temperature in °C'        :
+        dataType === 'rain'      ? 'Average monthly precipitations in <em>mm</em>' :
+        dataType === 'daylength' ? 'Day length in hours for 15th day of given month' :
+                                    new Error('Incorrect data type')
+      );
+    }
+
+    function createLegend() {
+      const div = L.DomUtil.create("div", "info legend");
+      const currentGrade = grades[dataType];
+      
+      let from;
+      let to;
+      let range;
+      let color;
+
+      // Create legend label
+      div.innerHTML = `<div>${getlegendLabel()}</div>`
+
+      for (let i = 0; i < currentGrade.length; i++) {
+        from = currentGrade[i];
+        to = currentGrade[i + 1];
+        color = getColor(dataType, (from + 1))
+        //#TODO for daylength send hour minut in string or change oryginal sending daylength string
+        // Create a proper range info based on: first, last or other
+        if (i === 0) {
+          range = '< ' + to
+        }
+        else if (i === (currentGrade.length-1)) {
+          range = '> ' + from
+        }
+        else {
+          range = from + ' to ' + to
+        }
+
+        // Add range with color
+        div.innerHTML += `<div><i style="background:${color}"></i> ${range}</div>`
+      }
+
+      return div;
+    }
 
     useEffect(() => {
         const legend = L.control({ position: "bottomright" });
 
-        legend.onAdd = () => {
-          const div = L.DomUtil.create("div", "info legend");
-          const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
-          let labels = [];
-          let from;
-          let to;
-    
-          for (let i = 0; i < grades.length; i++) {
-            from = grades[i];
-            to = grades[i + 1];
-    
-            labels.push(
-              '<i style="background:' +
-                getColor(from + 1) +
-                '"></i> ' +
-                from +
-                (to ? "&ndash;" + to : "+")
-            );
-          }
-    
-          div.innerHTML = labels.join("<br>");
-          return div;
-        };
+        legend.onAdd = createLegend;
     
         legend.addTo(map);
-    }, [])
+    }, [dataType])
 
     return ( <></> );
 }

@@ -1,17 +1,18 @@
 import "leaflet/dist/leaflet.css"
 import { useEffect, useRef } from "react";
 import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup, useMap } from 'react-leaflet'
+import './Map.css';
+import Legend from "./Legend";
+
+import getColor from "../utils/getColor"
+import { getHoursFromTime } from "../utils/conversionFunctions";
+
 import worldGeoJson from "../data/admin-center-m.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
 import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
-import './Map.css';
-import Legend from "./Legend";
-import getColor from "../utils/getColor"
 
 
-// #TODO get new data from json for given motnh
-// #TODO send the data to the map and render
 
 
 function Map({month, dataType}) {
@@ -37,9 +38,9 @@ function Map({month, dataType}) {
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
-      const value = dataType === 'temp'      ? avgTemp.month[month][regionId]       :
-                    dataType === 'rain'      ? precipitation.month[month][regionId] :
-                    dataType === 'daylength' ? dayLength.month[month][regionId]     :
+      const value = dataType === 'temp'      ? avgTemp.month[month][regionId]                     :
+                    dataType === 'rain'      ? precipitation.month[month][regionId]               :
+                    dataType === 'daylength' ? getHoursFromTime(dayLength.month[month][regionId]) :
                                                null;
 
       return {
@@ -166,8 +167,8 @@ function Map({month, dataType}) {
                     />
                   </LayersControl.BaseLayer>
                 </LayersControl>
-                <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={geoJsonRef}/>
-                <Legend/>
+                <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={ geoJsonRef }/>
+                <Legend dataType={ dataType }/>
               </MapContainer>
     );
 }
