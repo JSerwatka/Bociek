@@ -33,3 +33,4 @@ src/data/FullData
 /helper_functions/polygonsCenters/node_modules
 /helper_functions/**/data
 /helper_functions/**/venv
+!/helper_functions/polygonsCenters/data

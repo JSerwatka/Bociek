@@ -7,7 +7,7 @@ import Legend from "./Legend";
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeoJson from "../data/admin-center-m.json"
+import worldGeoJson from "../data/admin-m.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
 import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
