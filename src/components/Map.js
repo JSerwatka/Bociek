@@ -7,7 +7,7 @@ import Legend from "./Legend";
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeoJson from "../data/admin-center-m.json"
+import worldGeoJson from "../data/world-admin1.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
 import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
@@ -74,7 +74,7 @@ function Map({month, dataType}) {
       const regionName = feature.properties.name;
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
-      
+
       // Get weather data
       const temp = avgTemp.month[monthRef.current][regionId];
       const dayLengthData = dayLength.month[monthRef.current][regionId];
