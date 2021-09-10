@@ -50,9 +50,9 @@ function findMaxAreaIndex(feature) {
 
     featureEach(coords, (curr, idx) => {
         if (curr.properties.name === name) {
-            console.log(curr, idx)
+            console.log(curr, idx);
         }
-    })
+    });
 }
 
 /**
@@ -82,7 +82,7 @@ function generateFeaturesWithCenters(coords, precision) {
 
         // Find the center of the feature and round it
         let mainAreaCenter = centroid(polygon(mainArea)).geometry.coordinates;
-        mainAreaCenter = mainAreaCenter.map((coord) => parseFloat(coord.toFixed(precision)))
+        mainAreaCenter = mainAreaCenter.map((coord) => parseFloat(coord.toFixed(precision)));
 
         // Add caululated centeroid to the feature's properties
         curr.properties.center = mainAreaCenter;
@@ -96,12 +96,23 @@ function generateFeaturesWithCenters(coords, precision) {
     return featureCollection(newFeatureCollectionArr);
 }
 
-function generateMinifiedGeoJson(coords, precision) {
+/**
+ * Generate a new FeatureCollection without 'ISO3166-1-Alpha-3'
+ * 
+ * @param {FeatureCollection} coords FeatureCollection
+ * @returns {FeatureCollection} FeatureCollection without 'ISO3166-1-Alpha-3'
+ */
+function generateMinifiedFeatures(coords) {
     const newFeatureCollectionArr = [];
 
     featureEach(coords, (curr, idx) => {
+        delete curr.properties['ISO3166-1-Alpha-3'];
+        curr.id = idx;
 
-    }
+        newFeatureCollectionArr.push(curr);
+    });
+
+    return featureCollection(newFeatureCollectionArr);
 }
 
 /**
@@ -110,10 +121,20 @@ function generateMinifiedGeoJson(coords, precision) {
  * @param {string} oldFile input geojson file path 
  * @param {number} precision - round centers to given places after comma
  * @param {string} newFile output geojson filename
+ * @param {string} fileToGenerate choose between 'full-with-centers' or 'minified'
  */
-function generateNewGeoJson(oldFile, newFile, precision) {
+function generateNewGeoJson(oldFile, newFile, precision, fileToGenerate) {
     const coords = JSON.parse(fs.readFileSync(oldFile, { encoding: 'utf8', flag: 'r' }));
-    const newCoords = generateFeaturesWithCenters(coords, precision);
+    let newCoords;
+    // Choose between geojson with full data and centers properties
+    // and geojson without ISO3166-1-Alpha-3
+    if (fileToGenerate === 'full-with-centers') {
+        newCoords = generateFeaturesWithCenters(coords, precision);
+    }
+    else if (fileToGenerate === 'minified') {
+        newCoords = generateMinifiedFeatures(coords, precision);
+    }
+    else {new Error('Incorrect fileToGenerate type')}
 
     fs.writeFile(`${newFile}.json`, JSON.stringify(newCoords), (err) => err ? console.log(err) : null);
 }
@@ -121,5 +142,11 @@ function generateNewGeoJson(oldFile, newFile, precision) {
 
 const data_path = "./helper_functions/polygonsCenters/data/"
 // viewDataForFeature("./data/admin-center-m.json", 'Lesser Poland')
-generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3);
-// export default generateNewGeoJson;
+
+// Creates new geojson with full data and centers properties
+// generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3, 'full-with-centers');
+
+// Creates new geojson without ISO3166-1-Alpha-3
+// generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-min-m", 3, 'minified');
+
+export default generateNewGeoJson;
