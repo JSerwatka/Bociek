@@ -3,6 +3,8 @@ import './App.css';
 import Map from './components/Map'
 import Input from './components/Input';
 
+// #TODO change precipitation to rainydays
+// #TODO change avg temp to max daily temp
 
 function App() {
   const [month, setMonth] = useState(0)

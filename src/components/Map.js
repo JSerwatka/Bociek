@@ -82,8 +82,8 @@ function Map({month, dataType}) {
       const dayLengthData = dayLength.month[monthRef.current][regionId];
       const rain = precipitation.month[monthRef.current][regionId];
 
-      //#DEBUG
-      console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData}`)
+      //#DEBUG #TODO
+      console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
 
       // Create/Update Popup
       const popupContent = `
