@@ -87,7 +87,7 @@ function Map({month, dataType}) {
       const popupContent = `
         <h3>${countryName}</h3>
         <h4>${regionName}</h4>
-        <p>Average Air Temperature: ${temp}</p>
+        <p>Average Air Temperature: ${temp}°C</p>
         <p>Day length: ${dayLengthData}</p>
         <p>Precipitation: ${rain}mm</p>
       `;
