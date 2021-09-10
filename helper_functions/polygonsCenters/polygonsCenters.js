@@ -107,7 +107,7 @@ function generateMinifiedFeatures(coords) {
 
     featureEach(coords, (curr, idx) => {
         delete curr.properties['ISO3166-1-Alpha-3'];
-        curr.id = idx;
+        curr.properties.id = idx;
 
         newFeatureCollectionArr.push(curr);
     });
