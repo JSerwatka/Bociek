@@ -69,7 +69,7 @@ function generateNewFeatureCollection(coords, precision) {
 
     featureEach(coords, (curr, idx) => {
         // Ignore empty features 
-        if (!curr.geometry) {return;}
+        // if (!curr.geometry) {return;}
     
         // For MultiPolyon treat the largest area as the main area
         if (curr.geometry.type === "MultiPolygon") {
@@ -113,5 +113,5 @@ function generateNewGeoJson(oldFilePath, fileName, precision) {
 
 const data_path = "./helper_functions/polygonsCenters/data/"
 // viewDataForFeature("./data/admin-center-m.json", 'Lesser Poland')
-// generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3);
-export default generateNewGeoJson;
+generateNewGeoJson(data_path+"admin-m.json", data_path+"admin-center-m", 3);
+// export default generateNewGeoJson;

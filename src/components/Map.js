@@ -7,7 +7,7 @@ import Legend from "./Legend";
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeoJson from "../data/admin-m.json"
+import worldGeoJson from "../data/admin-center-m.json"
 import avgTemp from "../data/weather data/average_air_temperature_centers.json"
 import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
@@ -122,7 +122,7 @@ function Map({month, dataType}) {
           center={[51.505, -0.09]} 
           zoom={3} minZoom={2} 
           scrollWheelZoom={true} 
-          maxBounds={[[-90, -180], [90, 180]]}
+          // maxBounds={[[-90, -180], [90, 180]]}
           // whenCreated={ mapInstance => { mapRef.current = mapInstance } }
         >
                 <LayersControl position="topright">
