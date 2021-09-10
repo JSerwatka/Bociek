@@ -20,15 +20,17 @@ const marks = {
 
 function MonthSlider({handleMonthChange}) {
     // Update global month value
-    function handleAfterChange(value) {
+    function handleOnChange(value) {
         handleMonthChange(value)
     }
     
     return (
-        <>
-            {/* <p style={{textAlign: "center"}}>Choose month</p> */}
-            <Slider min={0} max={11} defaultValue={0} marks={marks} step={null} onAfterChange={handleAfterChange}/>
-        </>
+        <Slider min={ 0 } 
+                max={ 11 } 
+                defaultValue={ 0 } 
+                marks={ marks } 
+                step={ null } 
+                onChange={ handleOnChange }/>
     );
 }
 
