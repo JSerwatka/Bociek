@@ -71,7 +71,7 @@ function Map({month, dataType}) {
     // Loads all feature's data to a popup
     function createNewPopup(feature, layer) {
       // Get feature data
-      const regionName = feature.properties.name;
+      const regionName = feature.properties.name ? feature.properties.name : "unknown";
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
 
