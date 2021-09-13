@@ -122,8 +122,7 @@ function Map({month, dataType}) {
           center={[51.505, -0.09]} 
           zoom={3} minZoom={2} 
           scrollWheelZoom={true} 
-          maxBounds={[[-90, -180], [90, 180]]} 
-          // #TODO make bounds a little bit more loose
+          maxBounds={[[-90, -220], [90, 220]]} 
           // whenCreated={ mapInstance => { mapRef.current = mapInstance } }
         >
                 <LayersControl position="topright">
