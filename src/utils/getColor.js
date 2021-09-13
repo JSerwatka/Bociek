@@ -1,6 +1,5 @@
 const tempGrades = [-9999, -25, -10, 0, 10, 15, 20, 30, 35] 
-// const tempGrades = [-9999, -30, -20, -10, 0, 10, 20, 30, 40]
-const precipitationGrades = [-9999, 20, 50, 80, 100, 150, 200, 300, 400] //#TODO fix when changing to % of rainy days
+const precipitationGrades = [-9999, 20, 50, 80, 100, 150, 200, 300, 400]
 const datLengthGrades = [-9999, 4, 6, 8, 10, 12, 14, 16, 18]
 
 
@@ -33,10 +32,7 @@ function getPrecipitationColor(precipitation) {
     );
 } 
   
-function getDaylengthColor(hours) {
-    //#DEBUG #TODO
-    if(hours === null){return '#ce1256'}
-    
+function getDaylengthColor(hours) {  
     return (
         hours >= datLengthGrades[8] ? '#ffffff' :
         hours >= datLengthGrades[7] ? '#f0f0f0' :
