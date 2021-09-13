@@ -17,6 +17,7 @@ function Map({month, dataType}) {
     const geoJsonRef = useRef();
     const monthRef = useRef(month)
     const currentPopupLayerRef = useRef();
+    const mapRef = useRef();
 
     useEffect(() => {
       // Required to use month in an event
@@ -69,7 +70,7 @@ function Map({month, dataType}) {
     // }
 
     // Loads all feature's data to a popup
-    function createNewPopup(feature, layer) {
+    function createNewPopup(feature, layer, e) {
       // Get feature data
       const regionName = feature.properties.name ? feature.properties.name : "unknown";
       const countryName = feature.properties.country;
@@ -95,7 +96,10 @@ function Map({month, dataType}) {
       // Bind popup only if not alreay exits
       if (!layer.getPopup()) {
         const popupOptions = {className: "division-popup",};
-        layer.bindPopup(popupContent,popupOptions).openPopup();
+        const {_popup: popup} = layer.bindPopup(popupContent,popupOptions);
+
+        // Open popup where user clicked not in the layer center
+        popup.setLatLng(e.latlng).openOn(mapRef.current);
       }
       else {
         layer.setPopupContent(popupContent);
@@ -111,7 +115,7 @@ function Map({month, dataType}) {
         // mouseout: resetHighlight,
         click: (e) => {
           // resetHighlight(e.target)
-          createNewPopup(feature, layer)
+          createNewPopup(feature, layer, e)
           // highlightFeature(e.target)
         }
       })
@@ -123,7 +127,7 @@ function Map({month, dataType}) {
           zoom={3} minZoom={2} 
           scrollWheelZoom={true} 
           maxBounds={[[-90, -220], [90, 220]]} 
-          // whenCreated={ mapInstance => { mapRef.current = mapInstance } }
+          whenCreated={ mapInstance => { mapRef.current = mapInstance } }
         >
                 <LayersControl position="topright">
                   <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
