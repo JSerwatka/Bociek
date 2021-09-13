@@ -58,7 +58,7 @@ function Legend({dataType}) {
         if (currentLegend.current) {
           currentLegend.current.remove();
         }
-        console.log('load');
+
         // Add new legend to the map
         const legend = L.control({ position: "bottomright" });
 

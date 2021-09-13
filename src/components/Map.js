@@ -18,7 +18,7 @@ function Map({month, dataType}) {
     const monthRef = useRef(month)
     const currentPopupLayerRef = useRef();
     const mapRef = useRef();
-
+    
     useEffect(() => {
       // Required to use month in an event
       monthRef.current = month
@@ -33,7 +33,8 @@ function Map({month, dataType}) {
         createNewPopup(feature, layer)
       }
     }, [month])
-    
+
+
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
@@ -53,19 +54,19 @@ function Map({month, dataType}) {
     }
 
     // function highlightFeature(layer) {
-    //   // const layer = e.target;
-    
     //   layer.setStyle({
     //     fillColor: "red",
     //     fillOpacity: 0.4,
     //   })
     // }
 
-    // function resetHighlight(layer) {
+    // function resetHighlight() {
     //   if (currentPopupLayerRef.current){ 
     //     const feature = currentPopupLayerRef.current.feature;
     //     const styles = mapStyles(feature)
-    //     layer.setStyle(styles)
+        
+
+    //     currentPopupLayerRef.current.layer.setStyle(styles)
     //   }
     // }
 
@@ -82,15 +83,19 @@ function Map({month, dataType}) {
       const rain = precipitation.month[monthRef.current][regionId];
 
       //#DEBUG #TODO
-      console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
+      // console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
 
       // Create/Update Popup
       const popupContent = `
-        <h3>${countryName}</h3>
-        <h4>${regionName}</h4>
-        <p>Maximum air temperature: ${temp}°C</p>
-        <p>Day length: ${dayLengthData}</p>
-        <p>Precipitations: ${rain}mm</p>
+        <div class="popup-title">
+          <div class="country-name">${countryName}</div>
+          <div class="region-name">${regionName}</div>
+        </div>
+        <ul class="weather-data">
+          <li>Maximum air temperature: ${temp}°C</li>
+          <li>Day length: ${dayLengthData}</li>
+          <li>Precipitations: ${rain}mm</li>
+        </ul>
       `;
 
       // Bind popup only if not alreay exits
@@ -111,12 +116,10 @@ function Map({month, dataType}) {
   
     const onEachDivision = (feature, layer) => {
       layer.on({
-        // mouseover: highlightFeature,
-        // mouseout: resetHighlight,
+        // popupclose: resetHighlight,
         click: (e) => {
-          // resetHighlight(e.target)
           createNewPopup(feature, layer, e)
-          // highlightFeature(e.target)
+          // highlightFeature(layer)
         }
       })
     }
@@ -129,43 +132,43 @@ function Map({month, dataType}) {
           maxBounds={[[-90, -220], [90, 220]]} 
           whenCreated={ mapInstance => { mapRef.current = mapInstance } }
         >
-                <LayersControl position="topright">
-                  <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
-                    <TileLayer
-                      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                  </LayersControl.BaseLayer>
-                  <LayersControl.BaseLayer name="Stadia.Outdoors">
-                    <TileLayer
-                      attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                      url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
-                    />
-                  </LayersControl.BaseLayer>             
-                  <LayersControl.BaseLayer name="Esri.NatGeoWorldMap">
-                    <TileLayer
-                      attribution='Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
-                      url="https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
-                    />
-                  </LayersControl.BaseLayer>                     
-                  <LayersControl.BaseLayer name="OpenTopoMap">
-                    <TileLayer
-                      attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                      url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-                    />
-                  </LayersControl.BaseLayer>     
-                  <LayersControl.BaseLayer name="Stamen.Watercolor">
-                    <TileLayer
-                      attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
-                      subdomains='abcd'
-                      ext='jpg'
-                    />
-                  </LayersControl.BaseLayer>
-                </LayersControl>
-                <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={ geoJsonRef }/>
-                <Legend dataType={ dataType }/>
-              </MapContainer>
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Stadia.Outdoors">
+            <TileLayer
+              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
+            />
+          </LayersControl.BaseLayer>             
+          <LayersControl.BaseLayer name="Esri.NatGeoWorldMap">
+            <TileLayer
+              attribution='Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+            />
+          </LayersControl.BaseLayer>                     
+          <LayersControl.BaseLayer name="OpenTopoMap">
+            <TileLayer
+              attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>     
+          <LayersControl.BaseLayer name="Stamen.Watercolor">
+            <TileLayer
+              attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
+              subdomains='abcd'
+              ext='jpg'
+            />
+          </LayersControl.BaseLayer>
+        </LayersControl>
+        <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={ geoJsonRef }/>
+        <Legend dataType={ dataType }/>
+      </MapContainer>
     );
 }
   

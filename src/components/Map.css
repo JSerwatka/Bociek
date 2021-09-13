@@ -2,3 +2,23 @@
     width: 100vw;
     height: 100vh;
 }
+
+.leaflet-popup-content .popup-title {
+    font-weight: bolder;
+    padding-bottom: 10px;
+}
+
+.leaflet-popup-content .country-name{
+    font-size: 1.22em;
+}
+
+.leaflet-popup-content .region-name{
+    font-size: 1.1em;    
+}
+
+.leaflet-popup-content .weather-data {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+    line-height: 25px;
+}
