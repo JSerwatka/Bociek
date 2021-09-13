@@ -89,7 +89,7 @@ function Map({month, dataType}) {
         <h4>${regionName}</h4>
         <p>Maximum air temperature: ${temp}°C</p>
         <p>Day length: ${dayLengthData}</p>
-        <p>Precipitation: ${rain}mm</p>
+        <p>Precipitations: ${rain}mm</p>
       `;
 
       // Bind popup only if not alreay exits
