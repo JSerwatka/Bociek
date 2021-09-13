@@ -11,7 +11,7 @@ function Legend({dataType}) {
 
     function getlegendLabel() {
       return (
-        dataType === 'temp'      ? 'Average air temperature in °C'        :
+        dataType === 'temp'      ? 'Average maximum air temperature in °C'        :
         dataType === 'rain'      ? 'Average monthly precipitations in <em>mm</em>' :
         dataType === 'daylength' ? 'Day length in hours for 15th day of given month' :
                                     new Error('Incorrect data type')

@@ -8,7 +8,7 @@ import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
 import worldGeoJson from "../data/world-admin1.json"
-import avgTemp from "../data/weather data/average_air_temperature_centers.json"
+import airTemp from "../data/weather data/maximum_air_temperature_centers.json"
 import dayLength from "../data/sun data/daylength_centers.json"
 import precipitation from "../data/weather data/precipitation_centers.json"
 
@@ -36,7 +36,7 @@ function Map({month, dataType}) {
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
-      const value = dataType === 'temp'      ? avgTemp.month[month][regionId]                     :
+      const value = dataType === 'temp'      ? airTemp.month[month][regionId]                     :
                     dataType === 'rain'      ? precipitation.month[month][regionId]               :
                     dataType === 'daylength' ? getHoursFromTime(dayLength.month[month][regionId]) :
                                                null;
@@ -76,7 +76,7 @@ function Map({month, dataType}) {
       const regionId = feature.properties.id;
 
       // Get weather data
-      const temp = avgTemp.month[monthRef.current][regionId];
+      const temp = airTemp.month[monthRef.current][regionId];
       const dayLengthData = dayLength.month[monthRef.current][regionId];
       const rain = precipitation.month[monthRef.current][regionId];
 
@@ -87,7 +87,7 @@ function Map({month, dataType}) {
       const popupContent = `
         <h3>${countryName}</h3>
         <h4>${regionName}</h4>
-        <p>Average Air Temperature: ${temp}°C</p>
+        <p>Maximum air temperature: ${temp}°C</p>
         <p>Day length: ${dayLengthData}</p>
         <p>Precipitation: ${rain}mm</p>
       `;
