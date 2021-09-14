@@ -8,10 +8,11 @@ function App() {
   const [month, setMonth] = useState(0)
   const [dataType, setDataType] = useState("temp")
 
+  // #TODO useCallback
   function handleMonthChange(month) {
     setMonth(month)
   }
-
+  // #TODO useCallback
   function handleDataTypeChange(dataType) {
     setDataType(dataType)
   }

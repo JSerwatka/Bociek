@@ -7,22 +7,30 @@ import Legend from "./Legend";
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeoJson from "../data/world-admin1.json"
-import airTemp from "../data/weather data/maximum_air_temperature_centers.json"
-import dayLength from "../data/sun data/daylength_centers.json"
-import precipitation from "../data/weather data/precipitation_centers.json"
+import worldGeoJson from "../data/world-admin1.json";
+import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
+import dayLength from "../data/sun data/daylength_centers.json";
+import precipitation from "../data/weather data/precipitation_centers.json";
+import avgTemp from "../data/weather data/average_air_temperature_centers.json";
+import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
+import rainyDays from "../data/weather data/rainy_days_centers.json";
+import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
+import cloudCover from "../data/weather data/cloud_cover_centers.json";
+
 
 
 function Map({month, dataType}) {
     const geoJsonRef = useRef();
-    const monthRef = useRef(month)
-    const currentPopupLayerRef = useRef();
     const mapRef = useRef();
+    const currentPopupLayerRef = useRef();
+    
+    // Required to use month and dataType in events
+    const monthRef = useRef(month)
+    const dataTypeRef = useRef(dataType)
+    monthRef.current = month
+    dataTypeRef.current = dataType
     
     useEffect(() => {
-      // Required to use month in an event
-      monthRef.current = month
-
       // Update currently opened popup data
       if(
         currentPopupLayerRef.current &&
@@ -38,13 +46,13 @@ function Map({month, dataType}) {
     const mapStyles = (feature) => {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
-      const value = dataType === 'temp'      ? airTemp.month[month][regionId]                     :
-                    dataType === 'rain'      ? precipitation.month[month][regionId]               :
-                    dataType === 'daylength' ? getHoursFromTime(dayLength.month[month][regionId]) :
-                                               null;
+      const value = dataTypeRef.current === 'temp'      ? airTemp.month[monthRef.current][regionId]                     :
+                    dataTypeRef.current === 'rain'      ? precipitation.month[monthRef.current][regionId]               :
+                    dataTypeRef.current === 'daylength' ? getHoursFromTime(dayLength.month[monthRef.current][regionId]) :
+                                                          null;
 
       return {
-        fillColor: getColor(dataType, value),
+        fillColor: getColor(dataTypeRef.current, value),
         fillOpacity: 0.7,
         weight: 1,
         opacity: 1,
@@ -53,22 +61,22 @@ function Map({month, dataType}) {
       };
     }
 
-    // function highlightFeature(layer) {
-    //   layer.setStyle({
-    //     fillColor: "red",
-    //     fillOpacity: 0.4,
-    //   })
-    // }
+    function highlightFeature(layer) {
+      layer.setStyle({
+        fillColor: "red",
+        fillOpacity: 0.4,
+      })
+    }
 
-    // function resetHighlight() {
-    //   if (currentPopupLayerRef.current){ 
-    //     const feature = currentPopupLayerRef.current.feature;
-    //     const styles = mapStyles(feature)
+    function resetHighlight() {
+      if (currentPopupLayerRef.current){ 
+        const feature = currentPopupLayerRef.current.feature;
+        const styles = mapStyles(feature)
         
 
-    //     currentPopupLayerRef.current.layer.setStyle(styles)
-    //   }
-    // }
+        currentPopupLayerRef.current.layer.setStyle(styles)
+      }
+    }
 
     // Loads all feature's data to a popup
     function createNewPopup(feature, layer, e) {
@@ -81,6 +89,11 @@ function Map({month, dataType}) {
       const temp = airTemp.month[monthRef.current][regionId];
       const dayLengthData = dayLength.month[monthRef.current][regionId];
       const rain = precipitation.month[monthRef.current][regionId];
+      const avgTempData = avgTemp.month[monthRef.current][regionId];
+      const minTempData = minTemp.month[monthRef.current][regionId];
+      const rainyDaysData = rainyDays.month[monthRef.current][regionId];
+      const veryRainyDaysData = veryRainyDays.month[monthRef.current][regionId];
+      const cloudCoverData = cloudCover.month[monthRef.current][regionId];
 
       //#DEBUG #TODO
       // console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
@@ -93,8 +106,13 @@ function Map({month, dataType}) {
         </div>
         <ul class="weather-data">
           <li>Maximum air temperature: ${temp}°C</li>
+          <li>Average air temperature: ${avgTempData}°C</li>
+          <li>Minimum air temperature: ${minTempData}°C</li>
           <li>Day length: ${dayLengthData}</li>
-          <li>Precipitations: ${rain}mm</li>
+          <li>Precipitations: ${rain}</li>
+          <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
+          <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
+          <li>Cloud cover: ${cloudCoverData}%</li>
         </ul>
       `;
 
@@ -116,10 +134,10 @@ function Map({month, dataType}) {
   
     const onEachDivision = (feature, layer) => {
       layer.on({
-        // popupclose: resetHighlight,
+        popupclose: resetHighlight,
         click: (e) => {
           createNewPopup(feature, layer, e)
-          // highlightFeature(layer)
+          highlightFeature(layer)
         }
       })
     }
