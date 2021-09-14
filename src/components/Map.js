@@ -44,6 +44,9 @@ function Map({month, dataType}) {
 
 
     const mapStyles = (feature) => {
+      // Don't change color of highlighted feature
+      if (feature === currentPopupLayerRef.current.feature) {return;}
+
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
       const value = dataTypeRef.current === 'temp'      ? airTemp.month[monthRef.current][regionId]                     :
