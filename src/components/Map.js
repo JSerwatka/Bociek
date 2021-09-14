@@ -42,11 +42,7 @@ function Map({month, dataType}) {
       }
     }, [month])
 
-
-    const mapStyles = (feature) => {
-      // Don't change color of highlighted feature
-      if (feature === currentPopupLayerRef.current.feature) {return;}
-
+    function mapNewStyle(feature) {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
       const value = dataTypeRef.current === 'temp'      ? airTemp.month[monthRef.current][regionId]                     :
@@ -64,6 +60,13 @@ function Map({month, dataType}) {
       };
     }
 
+    function mapStyles(feature) {
+      // Don't change color of highlighted feature
+      if (currentPopupLayerRef.current && currentPopupLayerRef.current.feature === feature) {return;}
+      return mapNewStyle(feature);
+    }
+
+
     function highlightFeature(layer) {
       layer.setStyle({
         fillColor: "red",
@@ -74,9 +77,8 @@ function Map({month, dataType}) {
     function resetHighlight() {
       if (currentPopupLayerRef.current){ 
         const feature = currentPopupLayerRef.current.feature;
-        const styles = mapStyles(feature)
-        
-
+        const styles = mapNewStyle(feature)
+  
         currentPopupLayerRef.current.layer.setStyle(styles)
       }
     }
