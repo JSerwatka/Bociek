@@ -27,7 +27,7 @@
     line-height: 25px;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 585px) {
     .leaflet-control-zoom {
         display: none;
     }

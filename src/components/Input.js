@@ -6,10 +6,10 @@ import "./Input.css"
 
 
 function Input({handleMonthChange, handleDataTypeChange, dataType}) {
-    const [isSmallScreen, setisSmallScreen] = useState(window.innerWidth < 460);
+    const [isSmallScreen, setisSmallScreen] = useState(window.innerWidth < 585);
     
     const updateMedia = () => {
-        setisSmallScreen(window.innerWidth < 460);
+        setisSmallScreen(window.innerWidth < 585);
     };
 
     useEffect(() => {
