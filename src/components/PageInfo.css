@@ -1,0 +1,35 @@
+.page-info {
+    left: 20px;
+    bottom: 10px;
+    /* -webkit-transform: translateX(-50%);
+    transform: translateX(-50%); */
+    position: absolute;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+
+.page-info-btn {
+    width: 32px;
+    height: 32px;
+}
+
+.page-info-btn:hover {
+    cursor: pointer;
+}
+
+.page-info-content {
+    width: 500px;
+    height: 100%;
+    padding: 10px 30px 30px 30px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.close-icon {
+    text-align: end;
+    font: 16px/14px Tahoma, Verdana, sans-serif;
+    color: #aeaeae;
+}
+
+.close-icon:hover {
+    cursor: pointer;
+}

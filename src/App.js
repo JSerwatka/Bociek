@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Map from './components/Map'
 import Input from './components/Input';
-
+import PageInfo from './components/PageInfo';
 
 function App() {
   const [month, setMonth] = useState(0)
@@ -19,6 +19,7 @@ function App() {
 
   return (
     <div className="map-wrapper">
+      <PageInfo />
       <Input handleMonthChange={ handleMonthChange } handleDataTypeChange={ handleDataTypeChange } dataType={ dataType }/>
       <Map month={month} dataType={ dataType }/>
     </div>
