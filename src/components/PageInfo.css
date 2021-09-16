@@ -20,6 +20,30 @@
     height: 100%;
     padding: 10px 30px 30px 30px;
     background: rgba(255, 255, 255, 1);
+    overflow: auto;
+}
+
+/* links */
+
+.page-info-content a {
+    text-decoration: none;
+}
+
+.page-info-content a:link {
+    color: rgb(20, 108, 215);
+}
+
+.page-info-content a:visited {
+    color: rgb(123, 61, 174);
+}
+
+.page-info-content a:active {
+    color: rgb(241, 68, 68);
+}
+
+/* close button */
+.close-btn-wrapper {
+    text-align: end;
 }
 
 .close-btn {
@@ -41,4 +65,46 @@
     top: 0.8px; 
     left: 0.2px;
 }
+
+/* single contribution block */
+.contribution-info {
+    margin-bottom: 40px;
+}
+
+.contribution-title {
+    color: #1e7eb6;
+    font-size: 1.15em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* rect-leflet */
+.react-leaflet-info img {
+    max-width: 70%;
+}
+
+/* lobelia */
+.lobelia-info-wrapper {
+    display: flex;
+}
+
+.lobelia-info-content {
+    margin-right: 15px;
+}
+
+.lobelia-info-wrapper img {
+    max-width: 20%;
+    border-radius: 20px;
+    flex-grow: 1;
+}
+
+/* tools list */
+.tools-list {
+    padding-inline-start: 20px;
+}
+
+.tools-list li {
+    margin-bottom: 5px;
+}
+
 /* ------------------- */
