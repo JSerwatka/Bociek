@@ -26,3 +26,9 @@
     margin: 0;
     line-height: 25px;
 }
+
+@media screen and (max-width: 550px) {
+    .leaflet-control-zoom {
+        display: none;
+    }
+}
