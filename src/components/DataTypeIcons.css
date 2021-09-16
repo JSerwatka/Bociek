@@ -1,9 +1,6 @@
+/* --- common --- */
 .data-type-wrapper {
     padding-top: 10px;
-    padding-bottom: 15px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
 }
 
 .data-type-icon {
@@ -20,4 +17,22 @@
 
 .data-type-icon.selected {
     opacity: 1;
+}
+
+/* --- large screens --- */
+.large-screen .data-type-wrapper {
+    padding-bottom: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+/* --- small screens --- */
+.small-screen .data-type-wrapper {
+    margin-bottom: 70px;
+}
+
+.small-screen .data-type-icon {
+    display: block;
+    margin: 0 auto 30px auto;
 }

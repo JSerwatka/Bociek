@@ -1,5 +1,6 @@
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+
 import "./MonthSlider.css"
 
 const marks = {
@@ -17,19 +18,22 @@ const marks = {
     11: "Dec"
 }
 
-function MonthSlider({handleMonthChange}) {
+function MonthSlider({handleMonthChange, isSmallScreen}) {
+
     // Update global month value
     function handleOnChange(value) {
         handleMonthChange(value)
     }
-    
+
     return (
         <Slider min={ 0 } 
-                max={ 11 } 
-                defaultValue={ 0 } 
-                marks={ marks } 
-                step={ null } 
-                onChange={ handleOnChange }/>
+            max={ 11 } 
+            defaultValue={ 0 } 
+            marks={ marks } 
+            step={ null }
+            vertical={isSmallScreen}
+            onChange={ handleOnChange }
+        />  
     );
 }
 

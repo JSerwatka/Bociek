@@ -2,3 +2,8 @@
     font-size: 1.1em;
     color: rgb(32 32 32 / 84%);
 }
+
+/* --- small screens --- */
+.rc-slider-vertical {
+    height: 300px;
+}
