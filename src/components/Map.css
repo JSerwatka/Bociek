@@ -3,6 +3,10 @@
     height: 100vh;
 }
 
+.leaflet-popup-content {
+    font-family: 'Lato', Arial, Helvetica, sans-serif;
+}
+
 .leaflet-popup-content .popup-title {
     font-weight: bolder;
     padding-bottom: 10px;
