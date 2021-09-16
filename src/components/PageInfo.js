@@ -16,7 +16,9 @@ function PageInfo() {
             }
             {openPopup && 
                 <div className="page-info page-info-content rounded-box">
-                    <div className="close-icon" onClick={() => setOpenPoup(false)}>x</div>
+                    <span className="close-btn" onClick={() => setOpenPoup(false)}>
+                        <span className="close-icon">&times;</span>
+                    </span>
                     <div className="contribution-info">
                         Built with <img src="https://react-leaflet.js.org/img/logo-title.svg"/>
                     </div>
