@@ -19,7 +19,7 @@ function Legend({dataType}) {
     }
 
     function createLegend() {
-      const div = L.DomUtil.create("div", "info legend");
+      const div = L.DomUtil.create("div", "info legend content-box");
       const currentGrade = grades[dataType];
       
       let from;
