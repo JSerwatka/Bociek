@@ -5,7 +5,7 @@ import "./Input.css"
 
 function Input({handleMonthChange, handleDataTypeChange, dataType}) {
     return ( 
-        <div className="input-wrapper content-box">
+        <div className="input-wrapper rounded-box">
             <DataTypeIcons handleDataTypeChange={ handleDataTypeChange } dataType={ dataType }/>
             <MonthSlider handleMonthChange={ handleMonthChange }/>
         </div>
