@@ -19,7 +19,7 @@ function Legend({dataType}) {
     }
 
     function createLegend() {
-      const div = L.DomUtil.create("div", "info legend rounded-box");
+      const div = L.DomUtil.create("div", "legend rounded-box");
       const currentGrade = grades[dataType];
       
       let from;
@@ -28,7 +28,7 @@ function Legend({dataType}) {
       let color;
 
       // Create legend label
-      div.innerHTML = `<div>${getlegendLabel()}</div>`
+      div.innerHTML = `${getlegendLabel()}`
 
       for (let i = 0; i < currentGrade.length; i++) {
         from = currentGrade[i];
