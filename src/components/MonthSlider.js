@@ -1,6 +1,5 @@
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import reactDom from 'react-dom';
 import "./MonthSlider.css"
 
 const marks = {
