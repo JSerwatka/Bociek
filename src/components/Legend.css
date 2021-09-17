@@ -42,8 +42,8 @@
 }
 
 .slide-out {
-  transform: translateX(95%);
-  -webkit-transform: translateX(95%);
+  transform: translateX(93%);
+  -webkit-transform: translateX(93%);
 }
 
 .slide-in .slide-btn::after {
