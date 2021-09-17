@@ -1,25 +1,23 @@
+/* main component */
 .legend {
-  padding: 6px 8px 6px 0;
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: white;
-  background: rgba(255, 255, 255, 0.8);
-  transition: transform .5s ease;
   display: flex;
   align-items: stretch;
   max-width: 190px;
-}
-
-.legend h4 {
-  margin: 0 0 5px;
-  color: #777;
-}
-
-.legend {
+  padding: 6px 8px 6px 0;
+  font: 14px/16px Arial, Helvetica, sans-serif;
   text-align: left;
   line-height: 18px;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  transition: transform .5s ease;
   color: #555;
 }
 
+.legend-title {
+  margin-bottom: 7px;
+}
+
+/* ranges */
 .legend i {
   width: 18px;
   height: 18px;
@@ -28,8 +26,8 @@
   opacity: 0.7;
 }
 
-
-.slide-button {
+/* slide buttons */
+.slide-btn {
   padding: 0px 10px;
   color: #808080;
   cursor: pointer;
@@ -48,11 +46,11 @@
   -webkit-transform: translateX(95%);
 }
 
-.slide-in .slide-button::after {
+.slide-in .slide-btn::after {
   content: "\2771";
 }
 
-.slide-out .slide-button::after {
+.slide-out .slide-btn::after {
   content: "\2770";
 }
 
@@ -62,7 +60,7 @@
     left: 2px;
   }
 
-  .slide-button {
+  .slide-btn {
     padding: 0px 7px;
   }
 }

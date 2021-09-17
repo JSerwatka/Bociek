@@ -9,13 +9,11 @@ function Legend({dataType}) {
     const map = useMap()
     const currentLegend = useRef(null)
 
-
-    // #TODO fix daylength title (for a/the given month)
     function getlegendLabel() {
       return (
         dataType === 'temp'      ? 'Average maximum air temperature in °C'        :
         dataType === 'rain'      ? 'Average monthly precipitations in <em>mm</em>' :
-        dataType === 'daylength' ? 'Day length in hours for 15th day of given month' :
+        dataType === 'daylength' ? 'Day length in hours for the 15th day of the month' :
                                     new Error('Incorrect data type')
       );
     }
@@ -30,7 +28,7 @@ function Legend({dataType}) {
       let color;
 
       // Slide button
-      const slideButton = L.DomUtil.create('div', 'slide-button')
+      const slideButton = L.DomUtil.create('div', 'slide-btn')
 
       slideButton.addEventListener('click', () => {
         div.classList.toggle('slide-in');
@@ -44,7 +42,7 @@ function Legend({dataType}) {
       div.appendChild(mainLegend);
 
       // Create legend label
-      mainLegend.innerHTML += `${getlegendLabel()}`;
+      mainLegend.innerHTML += `<div class="legend-title">${getlegendLabel()}</div>`;
 
       for (let i = 0; i < currentGrade.length; i++) {
         from = currentGrade[i];
