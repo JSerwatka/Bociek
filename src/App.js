@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Map from './components/Map'
 import Input from './components/Input';
@@ -10,8 +10,8 @@ function App() {
   const [month, setMonth] = useState(0)
   const [dataType, setDataType] = useState("temp")
 
-  const handleMonthChange = (month) => setMonth(month);
-  const handleDataTypeChange = (dataType) => setDataType(dataType)
+  const handleMonthChange = useCallback((month) => setMonth(month), [month]);
+  const handleDataTypeChange = useCallback((dataType) => setDataType(dataType), [dataType]);
 
   return (
     <div className="map-wrapper">

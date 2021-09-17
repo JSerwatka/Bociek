@@ -1,3 +1,5 @@
+import { memo } from "react/cjs/react.development";
+
 import Slider from 'rc-slider';
 import PropTypes from 'prop-types'
 import 'rc-slider/assets/index.css';
@@ -42,4 +44,4 @@ MonthSlider.propTypes = {
     isSmallScreen: PropTypes.bool
 }
 
-export default MonthSlider;
+export default memo(MonthSlider);
