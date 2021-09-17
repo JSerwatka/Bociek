@@ -2,7 +2,7 @@ import { memo, useState } from "react/cjs/react.development";
 
 import "./PageInfo.css"
 
-const PageInfo = memo(function PageInfo() {
+function PageInfo() {
     const [openPopup, setOpenPoup] = useState(false)
     const [popupLoaded, setPopupLoaded] = useState(false)
 
@@ -78,6 +78,6 @@ const PageInfo = memo(function PageInfo() {
             }
         </>
      );
-});
+}
 
-export default PageInfo;
+export default memo(PageInfo);

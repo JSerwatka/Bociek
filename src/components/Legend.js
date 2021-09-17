@@ -18,7 +18,7 @@ const getlegendLabel = (dataType) => {
   );
 }
 
-const Legend = memo(function Legend({dataType}) {
+function Legend({dataType}) {
     const map = useMap();
     const currentLegend = useRef(null);
 
@@ -88,10 +88,10 @@ const Legend = memo(function Legend({dataType}) {
     }, [dataType, map]);
 
     return ( <></> );
-})
+}
 
 Legend.propTypes = {
   dataType: PropTypes.string
 }
 
-export default Legend;
+export default memo(Legend);
