@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react/cjs/react.development";
+import { useEffect, useRef, memo } from "react/cjs/react.development";
 
 import L from "leaflet";
 import { useMap } from "react-leaflet";
@@ -18,11 +18,9 @@ const getlegendLabel = (dataType) => {
   );
 }
 
-function Legend({dataType}) {
-    const map = useMap()
-    const currentLegend = useRef(null)
-
-
+const Legend = memo(function Legend({dataType}) {
+    const map = useMap();
+    const currentLegend = useRef(null);
 
     useEffect(() => {
         const createLegend = () => {
@@ -35,7 +33,7 @@ function Legend({dataType}) {
           let color;
     
           // Slide button
-          const slideButton = L.DomUtil.create('div', 'slide-btn')
+          const slideButton = L.DomUtil.create('div', 'slide-btn');
     
           slideButton.addEventListener('click', () => {
             div.classList.toggle('slide-in');
@@ -87,10 +85,10 @@ function Legend({dataType}) {
 
         // Update info about current legend
         currentLegend.current = legend;
-    }, [dataType, map])
+    }, [dataType, map]);
 
     return ( <></> );
-}
+})
 
 Legend.propTypes = {
   dataType: PropTypes.string
