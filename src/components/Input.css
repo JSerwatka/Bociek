@@ -22,3 +22,11 @@
     padding: 10px 20px 30px 20px;
     text-align: center;
 }
+
+/* for extreme small screens */
+@media screen and (max-width: 400px) {
+    .input-wrapper.small-screen {
+        width: 50px;
+        margin-top: 10px;
+    }
+}

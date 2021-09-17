@@ -6,6 +6,7 @@
   transition: transform .5s ease;
   display: flex;
   align-items: stretch;
+  max-width: 190px;
 }
 
 .legend h4 {
@@ -32,9 +33,9 @@
   padding: 0px 10px;
   color: #808080;
   cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
 }
 
 .slide-in {
@@ -53,4 +54,15 @@
 
 .slide-out .slide-button::after {
   content: "\2770";
+}
+
+@media screen and (max-width: 335px) {
+  .legend {
+    padding-right: 0px;
+    left: 2px;
+  }
+
+  .slide-button {
+    padding: 0px 7px;
+  }
 }
