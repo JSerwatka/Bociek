@@ -19,7 +19,6 @@ const marks = {
 }
 
 function MonthSlider({handleMonthChange, isSmallScreen}) {
-
     // Update global month value
     function handleOnChange(value) {
         handleMonthChange(value)
