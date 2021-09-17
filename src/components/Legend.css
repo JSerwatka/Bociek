@@ -1,8 +1,11 @@
 .legend {
-  padding: 6px 8px;
+  padding: 6px 8px 6px 0;
   font: 14px/16px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255, 255, 255, 0.8);
+  transition: transform .5s ease;
+  display: flex;
+  align-items: stretch;
 }
 
 .legend h4 {
@@ -22,4 +25,32 @@
   float: left;
   margin-right: 8px;
   opacity: 0.7;
+}
+
+
+.slide-button {
+  padding: 0px 10px;
+  color: #808080;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.slide-in {
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+}
+
+.slide-out {
+  transform: translateX(95%);
+  -webkit-transform: translateX(95%);
+}
+
+.slide-in .slide-button::after {
+  content: "\2771";
+}
+
+.slide-out .slide-button::after {
+  content: "\2770";
 }
