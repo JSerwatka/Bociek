@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
 import './Map.css';
 import Legend from "./Legend";
+import PropTypes from 'prop-types'
 
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
@@ -192,6 +193,11 @@ function Map({month, dataType}) {
         <Legend dataType={ dataType }/>
       </MapContainer>
     );
+}
+
+Map.propTypes = {
+  month: PropTypes.number,
+  dataType: PropTypes.string
 }
   
 export default Map;

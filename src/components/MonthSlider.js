@@ -1,5 +1,6 @@
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import PropTypes from 'prop-types'
 
 import "./MonthSlider.css"
 
@@ -34,6 +35,11 @@ function MonthSlider({handleMonthChange, isSmallScreen}) {
             onChange={ handleOnChange }
         />  
     );
+}
+
+MonthSlider.propTypes = {
+    handleMonthChange: PropTypes.func,
+    isSmallScreen: PropTypes.bool
 }
 
 export default MonthSlider;

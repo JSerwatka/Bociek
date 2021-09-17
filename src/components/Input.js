@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react/cjs/react.development";
+import PropTypes from 'prop-types'
 
 import DataTypeIcons from './DataTypeIcons';
 import MonthSlider from './MonthSlider';
@@ -24,6 +25,12 @@ function Input({handleMonthChange, handleDataTypeChange, dataType}) {
             <MonthSlider handleMonthChange={ handleMonthChange } isSmallScreen={ isSmallScreen } />
         </div>
      );
+}
+
+Input.propTypes = {
+    handleMonthChange: PropTypes.func,
+    handleDataTypeChange: PropTypes.func,
+    dataType: PropTypes.string
 }
 
 export default Input;

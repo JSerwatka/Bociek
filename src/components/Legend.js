@@ -2,6 +2,7 @@ import L from "leaflet";
 import { useMap } from "react-leaflet";
 import { useEffect, useRef } from "react/cjs/react.development";
 import "./Legend.css"
+import PropTypes from 'prop-types'
 
 import getColor, {grades} from "../utils/getColor"
 
@@ -14,7 +15,7 @@ const getlegendLabel = (dataType) => {
   );
 }
 
-function Legend({ dataType }) {
+function Legend({dataType}) {
     const map = useMap()
     const currentLegend = useRef(null)
 
@@ -86,6 +87,10 @@ function Legend({ dataType }) {
     }, [dataType, map])
 
     return ( <></> );
+}
+
+Legend.propTypes = {
+  dataType: PropTypes.string
 }
 
 export default Legend;
