@@ -13,6 +13,7 @@ function PageInfo() {
                      onClick={() => setOpenPoup(true)}
                      title="About page"
                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoJPGc+CgkJPHBhdGggZD0iTTI1NiwwQzExNC40OTcsMCwwLDExNC41MDcsMCwyNTZjMCwxNDEuNTAzLDExNC41MDcsMjU2LDI1NiwyNTZjMTQxLjUwMywwLDI1Ni0xMTQuNTA3LDI1Ni0yNTYgICAgQzUxMiwxMTQuNDk3LDM5Ny40OTIsMCwyNTYsMHogTTI1Niw0NzJjLTExOS4zOTMsMC0yMTYtOTYuNjE1LTIxNi0yMTZjMC0xMTkuMzkzLDk2LjYxNS0yMTYsMjE2LTIxNiAgICBjMTE5LjM5MywwLDIxNiw5Ni42MTUsMjE2LDIxNkM0NzIsMzc1LjM5MywzNzUuMzg0LDQ3MiwyNTYsNDcyeiIgZmlsbD0iIzA4NjU5OSIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8cGF0aCBkPSJNMjU2LDIxNC4zM2MtMTEuMDQ2LDAtMjAsOC45NTQtMjAsMjB2MTI4Ljc5M2MwLDExLjA0Niw4Ljk1NCwyMCwyMCwyMHMyMC04Ljk1NSwyMC0yMC4wMDFWMjM0LjMzICAgIEMyNzYsMjIzLjI4NCwyNjcuMDQ2LDIxNC4zMywyNTYsMjE0LjMzeiIgZmlsbD0iIzA4NjU5OSIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPgoJPC9nPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8Zz4KCQk8Y2lyY2xlIGN4PSIyNTYiIGN5PSIxNjIuODQiIHI9IjI3IiBmaWxsPSIjMDg2NTk5IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L2NpcmNsZT4KCTwvZz4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8L2c+PC9zdmc+"
+                     alt="About page button"                
                 />
             }
             {openPopup && 
@@ -33,7 +34,7 @@ function PageInfo() {
                     <div style={{visibility: popupLoaded ? "visible" : "hidden"}} onLoad={() => setPopupLoaded(true)}>
                         <div className="contribution-info react-leaflet-info">
                             <div className="contribution-title">Built with</div>
-                            <img src="https://react-leaflet.js.org/img/logo-title.svg"/>
+                            <img src="https://react-leaflet.js.org/img/logo-title.svg" alt="React Leaflet logo"/>
                         </div>
                         <div className="contribution-info">
                             <div className="contribution-title">Data source</div>
@@ -41,7 +42,7 @@ function PageInfo() {
                                 <div className="lobelia-info-content">
                                     I am especially grateful to <a href="https://www.lobelia.earth/">Lobelia Earth</a> for allowing me to use their processed <a href="https://www.ecmwf.int/">ECMWF's</a> <a href="https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5">ERA5 dataset</a>. 
                                 </div>
-                                <img src="https://pbs.twimg.com/profile_images/1061224343282290698/IUdQW-R0.jpg"/>
+                                <img src="https://pbs.twimg.com/profile_images/1061224343282290698/IUdQW-R0.jpg" alt="Lobelia Earth logo"/>
                             </div>
                         </div>
                         <div className="contribution-info">
