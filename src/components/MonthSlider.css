@@ -7,3 +7,10 @@
 .rc-slider-vertical {
     height: 300px;
 }
+
+/* for extreme small screens */
+@media screen and (max-height: 630px) {
+    .rc-slider-vertical {
+        height: 270px;
+    }
+}

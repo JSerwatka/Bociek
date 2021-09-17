@@ -11,7 +11,7 @@ function Input({handleMonthChange, handleDataTypeChange, dataType}) {
     const updateMedia = () => {
         setisSmallScreen(window.innerWidth < 585);
     };
-
+    //#TODO try to debunse resizing
     useEffect(() => {
         window.addEventListener("resize", updateMedia);
         return () => window.removeEventListener("resize", updateMedia);

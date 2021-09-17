@@ -35,3 +35,10 @@
     display: block;
     margin: 0 auto 30px auto;
 }
+
+/* for extreme small screens */
+@media screen and (max-height: 630px) {
+    .small-screen  .data-type-wrapper {
+        margin-bottom: 35px;
+    }
+}

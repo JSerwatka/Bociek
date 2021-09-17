@@ -17,12 +17,12 @@ function DataTypeIcons({handleDataTypeChange, dataType}) {
         })
     }
     
-    const handleIconClick = (e) => handleDataTypeChange(e.target.name);
-
     useEffect(selectIcon, [dataType])
-
+    
+    const handleIconClick = (e) => handleDataTypeChange(e.target.name);
+    
     return ( 
-        <div className="data-type-wrapper" ref={icons}>
+        <div className="data-type-wrapper" ref={ icons }>
             <img name="temp" 
                  title="air temperature"
                  onClick={ handleIconClick } 

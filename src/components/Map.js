@@ -17,7 +17,7 @@ import rainyDays from "../data/weather data/rainy_days_centers.json";
 import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
 import cloudCover from "../data/weather data/cloud_cover_centers.json";
 
-
+//#TODO bug - if you click on feature and than change month or data-type it doesnt change
 
 function Map({month, dataType}) {
     const geoJsonRef = useRef();
