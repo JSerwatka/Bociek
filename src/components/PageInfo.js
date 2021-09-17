@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./PageInfo.css"
 
+import "./PageInfo.css"
 
 function PageInfo() {
     const [openPopup, setOpenPoup] = useState(false)

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import './App.css';
+
 import Map from './components/Map'
 import Input from './components/Input';
 import PageInfo from './components/PageInfo';
+
+import './App.css';
 
 function App() {
   const [month, setMonth] = useState(0)

@@ -1,9 +1,12 @@
-import "leaflet/dist/leaflet.css"
 import { useEffect, useRef } from "react";
+
 import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
-import './Map.css';
+import "leaflet/dist/leaflet.css"
+
 import Legend from "./Legend";
 import PropTypes from 'prop-types'
+
+import './Map.css';
 
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
@@ -19,7 +22,6 @@ import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
 import cloudCover from "../data/weather data/cloud_cover_centers.json";
 
 function Map({month, dataType}) {
-    const geoJsonRef = useRef();
     const mapRef = useRef();
     const currentPopupLayerRef = useRef();
     
@@ -189,7 +191,7 @@ function Map({month, dataType}) {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
-        <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision } ref={ geoJsonRef }/>
+        <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision }/>
         <Legend dataType={ dataType }/>
       </MapContainer>
     );

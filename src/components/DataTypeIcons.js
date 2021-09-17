@@ -1,7 +1,9 @@
-import "./DataTypeIcons.css"
-import { useRef } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useRef, useEffect } from "react/cjs/react.development";
+
 import PropTypes from 'prop-types'
+
+import "./DataTypeIcons.css"
+
 
 function DataTypeIcons({handleDataTypeChange, dataType}) {
     const icons = useRef()

@@ -1,10 +1,13 @@
+import { useEffect, useRef } from "react/cjs/react.development";
+
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import { useEffect, useRef } from "react/cjs/react.development";
-import "./Legend.css"
+
 import PropTypes from 'prop-types'
+import "./Legend.css"
 
 import getColor, {grades} from "../utils/getColor"
+
 
 const getlegendLabel = (dataType) => {
   return (
