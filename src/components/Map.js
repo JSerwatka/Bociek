@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css"
 import { useEffect, useRef } from "react";
-import { MapContainer, LayersControl, TileLayer, Popup, GeoJSON, LayerGroup, useMap } from 'react-leaflet'
+import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
 import './Map.css';
 import Legend from "./Legend";
 
@@ -16,8 +16,6 @@ import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
 import rainyDays from "../data/weather data/rainy_days_centers.json";
 import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
 import cloudCover from "../data/weather data/cloud_cover_centers.json";
-
-//#TODO bug - if you click on feature and than change month or data-type it doesnt change
 
 function Map({month, dataType}) {
     const geoJsonRef = useRef();
@@ -62,7 +60,10 @@ function Map({month, dataType}) {
 
     function mapStyles(feature) {
       // Don't change color of highlighted feature
-      if (currentPopupLayerRef.current && currentPopupLayerRef.current.feature === feature) {return;}
+      if (currentPopupLayerRef.current &&
+          currentPopupLayerRef.current.layer.isPopupOpen() &&
+          currentPopupLayerRef.current.feature === feature    
+      ) {return;}
       return mapNewStyle(feature);
     }
 
@@ -75,12 +76,10 @@ function Map({month, dataType}) {
     }
 
     function resetHighlight() {
-      if (currentPopupLayerRef.current){ 
-        const feature = currentPopupLayerRef.current.feature;
-        const styles = mapNewStyle(feature)
-  
-        currentPopupLayerRef.current.layer.setStyle(styles)
-      }
+      const feature = currentPopupLayerRef.current.feature;
+      const styles = mapNewStyle(feature)
+
+      currentPopupLayerRef.current.layer.setStyle(styles)
     }
 
     // Loads all feature's data to a popup
