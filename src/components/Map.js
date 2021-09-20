@@ -2,29 +2,29 @@ import { useEffect, useRef } from "react";
 
 import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
+import PropTypes from 'prop-types'
 
 import Legend from "./Legend";
-import PropTypes from 'prop-types'
 
 import './Map.css';
 
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeoJson from "../data/world-admin1.json";
-import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
-import dayLength from "../data/sun data/daylength_centers.json";
-import precipitation from "../data/weather data/precipitation_centers.json";
+// import worldGeoJson from "../data/world-admin1.json";
+// import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
+// import dayLength from "../data/sun data/daylength_centers.json";
+// import precipitation from "../data/weather data/precipitation_centers.json";
 import avgTemp from "../data/weather data/average_air_temperature_centers.json";
 import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
 import rainyDays from "../data/weather data/rainy_days_centers.json";
 import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
 import cloudCover from "../data/weather data/cloud_cover_centers.json";
 
-function Map({month, dataType}) {
+function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {
     const mapRef = useRef();
     const currentPopupLayerRef = useRef();
-    
+
     // Required to use month and dataType in events
     const monthRef = useRef(month)
     const dataTypeRef = useRef(dataType)
@@ -191,7 +191,7 @@ function Map({month, dataType}) {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
-        <GeoJSON data={ worldGeoJson } style={ mapStyles } onEachFeature={ onEachDivision }/>
+        <GeoJSON data={ worldGeojson } style={ mapStyles } onEachFeature={ onEachDivision }/>
         <Legend dataType={ dataType }/>
       </MapContainer>
     );
@@ -199,7 +199,30 @@ function Map({month, dataType}) {
 
 Map.propTypes = {
   month: PropTypes.number,
-  dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
+  dataType: PropTypes.oneOf(['temp', 'rain', 'daylength']),
+  worldGeojson: PropTypes.any,
+  airTemp: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.number
+      )
+    )
+  }),
+  precipitation: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.number
+      )
+    )
+  }),
+  dayLength: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.string
+      )
+    )
+  }),
+  
 }
   
 export default Map;
