@@ -36,12 +36,12 @@ class LobeliaEarthParser:
         self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
 
-        self._create_tables()
+        self.__create_tables()
 
     def __del__(self):
         self.connection.close()
 
-    def _create_tables(self):
+    def __create_tables(self):
         for data_type in LobeliaEarthParser.data_type_to_url:
             self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS {} (
