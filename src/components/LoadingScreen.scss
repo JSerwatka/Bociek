@@ -17,50 +17,38 @@ $color-rainbow-green: #899C3B;
 
 body {
   background-color: $color-main-background;
-  // min-width: 500px;
   font-family: 'Poppins', sans-serif;
   color: $color-snow-cloud;
-  a {
-    text-decoration: none;
-    color: $color-cloud;
-  }
 }
 
-.showbox {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.title {
-  position: absolute;
-  width: 100%;
-  margin: 10px 0 0 0;
-  text-align: center;
-  .heading {
-    font-size: 32px;
-    margin: 0px;
-  }
-}
-
-.div-icons {
-  position: relative;
-  display: block;
-  width: 620px;
-  text-align: center;
-  top: 50%;
+.loading-msg {
+  padding: 0.5em 2.2em 0.5em 1em; 
+  border-radius: .3em;
+  color: rgba(255, 255, 255, 0.703);
+  display: block; 
+  position: absolute; 
+  top: 58%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%)  translateY(-50%);
+  font: 300 1em/1.5 'Lato',sans-serif; 
+  letter-spacing: 1px;
+  &:after { 
+    content: '...';
+    width: 0;
+    position: absolute;
+    overflow: hidden;
+    animation: loading-dots 2s linear infinite;     
+  }
 }
 
 .icon {
-  // margin: 15px 25px;
+  position: absolute;
   width: 100px;
   height: 100px;
-  position: absolute;
   opacity: 0%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .sunny-body path {
@@ -315,4 +303,10 @@ body {
   13% {opacity: 100%;}
   20% {opacity: 0%;}
   100% {opacity: 0%;}
+}
+
+@keyframes loading-dots {
+  0%   { width:0.0em; }  
+  50%  { width:1.2em; }      
+  100% { width:0.0em; }    
 }
