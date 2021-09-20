@@ -1,0 +1,318 @@
+$color-sun: #EDC951;
+$color-cloud: #00A0B0;
+$color-cloud-light: #00cee3;
+$color-cloud-dark: #008997;
+$color-rain-cloud: #666;
+$color-rain-cloud-light: #999;
+$color-rain-cloud-dark: #555;
+$color-snow-cloud: #CCC;
+$color-main-background: #222;
+$color-rainbow-red: #BD1E52;
+$color-rainbow-red: #BD1E52;
+$color-rainbow-orange: #E88024;
+$color-rainbow-yellow: #F8CB10;
+$color-rainbow-green: #899C3B;
+
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+
+body {
+  background-color: $color-main-background;
+  // min-width: 500px;
+  font-family: 'Poppins', sans-serif;
+  color: $color-snow-cloud;
+  a {
+    text-decoration: none;
+    color: $color-cloud;
+  }
+}
+
+.showbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.title {
+  position: absolute;
+  width: 100%;
+  margin: 10px 0 0 0;
+  text-align: center;
+  .heading {
+    font-size: 32px;
+    margin: 0px;
+  }
+}
+
+.div-icons {
+  position: relative;
+  display: block;
+  width: 620px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon {
+  // margin: 15px 25px;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0%;
+}
+
+.sunny-body path {
+  fill: $color-sun;
+}
+
+.sunny-long-ray {
+  transform-origin: 50% 50%;
+  animation: spin 9s linear infinite;
+}
+
+.sunny-long-ray-cloudy {
+  transform-origin: 66% 49.5%;
+  animation: spin 9s linear infinite;
+}
+
+.sunny-long-ray path, .sunny-long-ray-cloudy path {
+  fill: $color-sun;
+}
+
+.sunny-short-ray {
+  transform-origin: 50% 50%;
+  animation: spin 9s linear infinite;
+}
+
+.sunny-short-ray-cloudy {
+  transform-origin: 66% 49.5%;
+  animation: spin 9s linear infinite;
+}
+
+.sunny-short-ray path, .sunny-short-ray-cloudy path {
+  fill: $color-sun;
+}
+
+.cloud-offset path {
+  fill: $color-main-background;
+}
+
+.main-cloud path {
+  fill: $color-cloud;
+}
+
+.small-cloud path {
+  fill: $color-cloud;
+  animation: flyby 6s linear infinite;
+}
+
+.rain-cloud path {
+  fill: $color-cloud;
+  animation: rain-cloud-color 6s ease infinite;
+}
+
+.rain-drops path {
+  fill: $color-cloud;
+  opacity: 0;
+}
+
+.rain-drops path:nth-child(1) {
+  animation: rain-drop 1.2s linear infinite;
+}
+
+.rain-drops path:nth-child(2) {
+  animation: rain-drop 1.2s linear infinite 0.4s;
+}
+
+.rain-drops path:nth-child(3) {
+  animation: rain-drop 1.2s linear infinite 0.8s;
+}
+
+.wind-string path {
+  stroke: $color-snow-cloud;
+  stroke-linecap: round;
+  stroke-width: 7px;
+  animation: wind-blow 3s linear infinite;
+}
+
+.rainbows path {
+  stroke-linecap: round;
+  animation: rainbow 4.5s linear infinite;
+}
+
+.rainbows path:nth-child(1) {
+  stroke: $color-rainbow-red;
+  stroke-width: 6px;
+}
+
+.rainbows path:nth-child(2) {
+  stroke: $color-rainbow-orange;
+  stroke-width: 8px;
+}
+
+.rainbows path:nth-child(3) {
+  stroke: $color-rainbow-yellow;
+  stroke-width: 6px;
+}
+
+.rainbows path:nth-child(4) {
+  stroke: $color-rainbow-green;
+  stroke-width: 14px;
+}
+
+.icon-sunny {
+  animation: show-hide 25s 0s ease-in-out infinite;
+}
+
+.icon-partly-cloudy {
+  animation: show-hide 25s 5s ease-in-out infinite;
+}
+
+.icon-windy {
+  animation: show-hide 25s 10s ease-in-out infinite;
+}
+
+.icon-rainy {
+  animation: show-hide 25s 15s ease-in-out infinite;
+}
+
+.icon-rainbow {
+  animation: show-hide 25s 20s ease-in-out infinite;
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flyby {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+    opacity: 0;
+  }
+  30% {
+    -webkit-transform: translate(39px, 0px);
+    transform: translate(39px, 0px);
+    opacity: 1;
+  }
+  70% {
+    -webkit-transform: translate(91px, 0px);
+    transform: translate(91px, 0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translate(130px, 0px);
+    transform: translate(130px, 0px);
+    opacity: 0;
+  }
+}
+
+@keyframes rain-cloud-color {
+  100%,
+  0% {
+    fill: $color-rain-cloud;
+  }
+  20% {
+    fill: $color-rain-cloud-dark;
+  }
+  21.5% {
+    fill: $color-rain-cloud-light;
+  }
+  25% {
+    fill: $color-rain-cloud-dark;
+  }
+  27.5% {
+    fill: $color-rain-cloud-light;
+  }
+  30% {
+    fill: $color-rain-cloud-dark;
+  }
+  40% {
+    fill: $color-rain-cloud-light;
+  }
+  90% {
+    fill: $color-rain-cloud-dark;
+  }
+}
+
+@keyframes rain-drop {
+  0% {
+    -webkit-transform: translate(0px, -60px);
+    transform: translate(0px, -60px);
+    opacity: 0;
+  }
+  30% {
+    -webkit-transform: translate(0px, -36px);
+    transform: translate(0px, -36px);
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: translate(0px, 4px);
+    transform: translate(0px, 4px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translate(0px, 20px);
+    transform: translate(0px, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes wind-blow {
+  0% {
+    stroke-dasharray: 5 300;
+    stroke-dashoffset: -200;
+    opacity: 1;
+  }
+  50% {
+    stroke-dasharray: 300 300;
+    stroke-dashoffset: -100;
+    opacity: 1;
+  }
+  90% {
+    stroke-dasharray: 50 300;
+    stroke-dashoffset: -20;
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    stroke-dasharray: 10 210;
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  30% {
+    stroke-dasharray: 210 210;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  70% {
+    stroke-dasharray: 210 210;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 0 210;
+    stroke-dashoffset: -210;
+    opacity: 0;
+  }
+}
+
+@keyframes show-hide {
+  0% {opacity: 0%;}
+  7% {opacity: 100%;}
+  13% {opacity: 100%;}
+  20% {opacity: 0%;}
+  100% {opacity: 0%;}
+}
