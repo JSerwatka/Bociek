@@ -1,20 +1,41 @@
-@import url(https://fonts.googleapis.com/css?family=Poppins);
 body {
   background-color: #222;
-  font-family: 'Poppins', sans-serif;
   color: #CCC;
 }
 
+.loading-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
+}
+
+.weather-icons {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
 .loading-msg {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
   padding: 0.5em 2.2em 0.5em 1em;
   border-radius: .3em;
   color: rgba(255, 255, 255, 0.703);
-  display: block;
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   font: 300 1em/1.5 'Lato',sans-serif;
   letter-spacing: 1px;
 }
@@ -33,10 +54,9 @@ body {
   width: 100px;
   height: 100px;
   opacity: 0%;
-  top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 .sunny-body path {

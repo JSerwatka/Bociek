@@ -13,23 +13,29 @@ $color-rainbow-orange: #E88024;
 $color-rainbow-yellow: #F8CB10;
 $color-rainbow-green: #899C3B;
 
-@import url(https://fonts.googleapis.com/css?family=Poppins);
-
 body {
   background-color: $color-main-background;
-  font-family: 'Poppins', sans-serif;
   color: $color-snow-cloud;
 }
 
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.weather-icons {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: flex-end;
+}
+
 .loading-msg {
+  flex: 1 0 auto;
   padding: 0.5em 2.2em 0.5em 1em; 
   border-radius: .3em;
   color: rgba(255, 255, 255, 0.703);
-  display: block; 
-  position: absolute; 
-  top: 58%;
-  left: 50%;
-  transform: translateX(-50%)  translateY(-50%);
+  align-self: center;
   font: 300 1em/1.5 'Lato',sans-serif; 
   letter-spacing: 1px;
   &:after { 
@@ -46,9 +52,8 @@ body {
   width: 100px;
   height: 100px;
   opacity: 0%;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .sunny-body path {
