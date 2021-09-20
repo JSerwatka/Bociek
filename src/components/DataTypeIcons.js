@@ -52,7 +52,7 @@ function DataTypeIcons({handleDataTypeChange, dataType}) {
 
 DataTypeIcons.propTypes = {
     handleDataTypeChange: PropTypes.func,
-    dataType: PropTypes.string
+    dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
 }
 
 

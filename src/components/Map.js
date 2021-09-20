@@ -199,7 +199,7 @@ function Map({month, dataType}) {
 
 Map.propTypes = {
   month: PropTypes.number,
-  dataType: PropTypes.string
+  dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
 }
   
 export default Map;

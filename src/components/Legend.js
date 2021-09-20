@@ -91,7 +91,7 @@ function Legend({dataType}) {
 }
 
 Legend.propTypes = {
-  dataType: PropTypes.string
+  dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
 }
 
 export default memo(Legend);

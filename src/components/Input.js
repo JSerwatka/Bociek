@@ -30,7 +30,7 @@ function Input({handleMonthChange, handleDataTypeChange, dataType}) {
 Input.propTypes = {
     handleMonthChange: PropTypes.func,
     handleDataTypeChange: PropTypes.func,
-    dataType: PropTypes.string
+    dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
 }
 
 export default Input;

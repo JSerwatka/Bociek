@@ -6,6 +6,8 @@ import PageInfo from './components/PageInfo';
 
 import './App.css';
 
+//#TODO make sure ract leflet img loads
+//#TODO https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
 function App() {
   const [month, setMonth] = useState(0)
   const [dataType, setDataType] = useState("temp")
