@@ -160,13 +160,13 @@ function Map({month, dataType}) {
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
             <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              attribution='&copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Stadia.Outdoors">
             <TileLayer
-              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+              attribution='&copy; <a href="https://stadiamaps.com/" target="_blank" rel="noopener noreferrer">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
               url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
             />
           </LayersControl.BaseLayer>             
@@ -178,13 +178,13 @@ function Map({month, dataType}) {
           </LayersControl.BaseLayer>                     
           <LayersControl.BaseLayer name="OpenTopoMap">
             <TileLayer
-              attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org" target="_blank" rel="noopener noreferrer">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org" target="_blank" rel="noopener noreferrer">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC-BY-SA</a>)'
               url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>     
           <LayersControl.BaseLayer name="Stamen.Watercolor">
             <TileLayer
-              attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution='Map tiles by <a href="http://stamen.com" target="_blank" rel="noopener noreferrer">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener noreferrer">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
               url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
               subdomains='abcd'
               ext='jpg'
