@@ -83,9 +83,6 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
 
-      //#DEBUG #TODO
-      // console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
-
       // Loading data popup
       let popupContent = `
         <div class="popup-title">
