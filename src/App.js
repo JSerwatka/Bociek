@@ -9,8 +9,11 @@ import LoadingScreen from './components/LoadingScreen'
 
 import fetchData from './utils/fetchData';
 
-//#TODO make sure react leflet img loads
-
+//TODO make sure react leflet img loads correctly
+//TODO split additional weather data to multiple files to reduce size (based on month)
+//TODO cache data in indexb
+//TODO add turning geojson layer on/off button
+//TODO fix names of places with name=null (geojson) 
 
 function App() {
   const [month, setMonth] = useState(0)
