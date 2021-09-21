@@ -18,7 +18,7 @@
 /* --- info content --- */
 .page-info-content {
   max-width: 500px;
-  height: 100%;
+  min-height: 100%;
   padding: 10px 30px 30px 30px;
   background: white;
   overflow: auto;

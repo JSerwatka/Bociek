@@ -16,6 +16,7 @@ import fetchData from './utils/fetchData';
 //TODO fix names of places with name=null (geojson)
 //TODO Add geojson  to page info
 //TODO popup loading spinner only for the first load 
+//TODO overall optimalization
 
 function App() {
   const [month, setMonth] = useState(0)
@@ -32,6 +33,7 @@ function App() {
   const handleDataTypeChange = useCallback((dataType) => setDataType(dataType), [dataType]);
 
   useEffect(() => {
+    //TODO run function without declaring
     const asyncFunction = async() => {     
       try {
         const fetchedWorldGeojson = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/world-admin1.json');
