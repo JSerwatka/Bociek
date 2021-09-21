@@ -32,3 +32,17 @@
         display: none;
     }
 }
+
+
+/* --- popup loading ring --- */
+.leaflet-popup-content {
+    height: 248px; 
+    min-width: 177px;
+    box-sizing: border-box;
+}
+
+.leaflet-popup-content .lds-ring {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
