@@ -11,17 +11,21 @@ import './Map.css';
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-// import worldGeoJson from "../data/world-admin1.json";
-// import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
-// import dayLength from "../data/sun data/daylength_centers.json";
-// import precipitation from "../data/weather data/precipitation_centers.json";
-import avgTemp from "../data/weather data/average_air_temperature_centers.json";
-import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
-import rainyDays from "../data/weather data/rainy_days_centers.json";
-import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
-import cloudCover from "../data/weather data/cloud_cover_centers.json";
+import worldGeojson from "../data/world-admin1.json";
+import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
+import dayLength from "../data/sun data/daylength_centers.json";
+import precipitation from "../data/weather data/precipitation_centers.json";
+// import avgTemp from "../data/weather data/average_air_temperature_centers.json";
+// import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
+// import rainyDays from "../data/weather data/rainy_days_centers.json";
+// import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
+// import cloudCover from "../data/weather data/cloud_cover_centers.json";
 
-function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {
+import fetchData from '../utils/fetchData';
+
+
+function Map({month, dataType}) {
+// function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {
     const mapRef = useRef();
     const currentPopupLayerRef = useRef();
 
@@ -78,7 +82,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
       })
     }
 
-    function resetHighlight() {
+    async function resetHighlight() {
       const feature = currentPopupLayerRef.current.feature;
       const styles = mapNewStyle(feature)
 
@@ -86,27 +90,58 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
     }
 
     // Loads all feature's data to a popup
-    function createNewPopup(feature, layer, e) {
+    async function createNewPopup(feature, layer, e) {
       // Get feature data
       const regionName = feature.properties.name ? feature.properties.name : "unknown";
       const countryName = feature.properties.country;
       const regionId = feature.properties.id;
 
+      //#DEBUG #TODO
+      // console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
+
+      // Loading data popup
+      let popupContent = `
+        <div class="popup-title">
+          <div class="country-name">${countryName}</div>
+          <div class="region-name">${regionName}</div>
+        </div>
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      `
+
+      // Bind popup only if not alreay exits
+      if (!layer.getPopup()) {
+        const popupOptions = {className: "division-popup",};
+        const {_popup: popup} = layer.bindPopup(popupContent,popupOptions);
+
+        // Open popup where user clicked not in the layer center
+        popup.setLatLng(e.latlng).openOn(mapRef.current);
+      } else {
+        layer.setPopupContent(popupContent);
+      }
+
       // Get weather data
       const temp = airTemp.month[monthRef.current][regionId];
       const dayLengthData = dayLength.month[monthRef.current][regionId];
       const rain = precipitation.month[monthRef.current][regionId];
+      
+      const avgTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/average_air_temperature_centers.json')
+      const minTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/minimum_air_temperature_centers.json')
+      const rainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/rainy_days_centers.json')
+      const veryRainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/very_rainy_days_centers.json')
+      const cloudCover = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/cloud_cover_centers.json')
       const avgTempData = avgTemp.month[monthRef.current][regionId];
       const minTempData = minTemp.month[monthRef.current][regionId];
       const rainyDaysData = rainyDays.month[monthRef.current][regionId];
       const veryRainyDaysData = veryRainyDays.month[monthRef.current][regionId];
       const cloudCoverData = cloudCover.month[monthRef.current][regionId];
 
-      //#DEBUG #TODO
-      // console.log(`${regionName} (id:${regionId}} temp: ${temp} daylength: ${dayLengthData} daylength_norm: ${getHoursFromTime(dayLengthData)}`)
-
-      // Create/Update Popup
-      const popupContent = `
+      // // Update Popup
+      popupContent = `
         <div class="popup-title">
           <div class="country-name">${countryName}</div>
           <div class="region-name">${regionName}</div>
@@ -122,18 +157,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
           <li>Cloud cover: ${cloudCoverData}%</li>
         </ul>
       `;
-
-      // Bind popup only if not alreay exits
-      if (!layer.getPopup()) {
-        const popupOptions = {className: "division-popup",};
-        const {_popup: popup} = layer.bindPopup(popupContent,popupOptions);
-
-        // Open popup where user clicked not in the layer center
-        popup.setLatLng(e.latlng).openOn(mapRef.current);
-      }
-      else {
-        layer.setPopupContent(popupContent);
-      }
+      layer.setPopupContent(popupContent);
 
       currentPopupLayerRef.current = {'layer': layer, 'feature': feature};
     }
@@ -200,28 +224,28 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
 Map.propTypes = {
   month: PropTypes.number,
   dataType: PropTypes.oneOf(['temp', 'rain', 'daylength']),
-  worldGeojson: PropTypes.any,
-  airTemp: PropTypes.exact({
-    month: PropTypes.objectOf(
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    )
-  }),
-  precipitation: PropTypes.exact({
-    month: PropTypes.objectOf(
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    )
-  }),
-  dayLength: PropTypes.exact({
-    month: PropTypes.objectOf(
-      PropTypes.arrayOf(
-        PropTypes.string
-      )
-    )
-  }),
+  // worldGeojson: PropTypes.any,
+  // airTemp: PropTypes.exact({
+  //   month: PropTypes.objectOf(
+  //     PropTypes.arrayOf(
+  //       PropTypes.number
+  //     )
+  //   )
+  // }),
+  // precipitation: PropTypes.exact({
+  //   month: PropTypes.objectOf(
+  //     PropTypes.arrayOf(
+  //       PropTypes.number
+  //     )
+  //   )
+  // }),
+  // dayLength: PropTypes.exact({
+  //   month: PropTypes.objectOf(
+  //     PropTypes.arrayOf(
+  //       PropTypes.string
+  //     )
+  //   )
+  // }),
   
 }
   
