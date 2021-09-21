@@ -1,16 +1,17 @@
 .rc-slider-mark-text {
-    font-size: 1.1em;
-    color: rgb(32 32 32 / 84%);
+  font-size: 1.1em;
+  color: rgba(32, 32, 32, 0.84);
 }
 
 /* --- small screens --- */
 .rc-slider-vertical {
-    height: 300px;
+  height: 300px;
 }
 
 /* for very small screens */
 @media screen and (max-height: 630px) {
-    .rc-slider-vertical {
-        height: 270px;
-    }
+  .rc-slider-vertical {
+    height: 270px;
+  }
 }
+/*# sourceMappingURL=MonthSlider.css.map */

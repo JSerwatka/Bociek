@@ -1,44 +1,49 @@
 /* --- common --- */
 .data-type-wrapper {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .data-type-icon {
-    max-width: 30px;
-    max-height: 30px;
-    opacity: 0.6;
+  max-width: 30px;
+  max-height: 30px;
+  opacity: 0.6;
 }
 
 .data-type-icon:hover {
-    opacity: 1;
-    cursor: pointer;
+  opacity: 1;
+  cursor: pointer;
 }
 
 .data-type-icon.selected {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* --- large screens --- */
 .large-screen .data-type-wrapper {
-    padding-bottom: 15px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+  padding-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 /* --- small screens --- */
 .small-screen .data-type-wrapper {
-    margin-bottom: 70px;
+  margin-bottom: 70px;
 }
 
 .small-screen .data-type-icon {
-    display: block;
-    margin: 0 auto 30px auto;
+  display: block;
+  margin: 0 auto 30px auto;
 }
 
 /* for very small screens */
 @media screen and (max-height: 630px) {
-    .small-screen  .data-type-wrapper {
-        margin-bottom: 35px;
-    }
+  .small-screen .data-type-wrapper {
+    margin-bottom: 35px;
+  }
 }
+/*# sourceMappingURL=DataTypeIcons.css.map */

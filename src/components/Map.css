@@ -1,48 +1,53 @@
 .leaflet-container {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 .leaflet-popup-content {
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
+  font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
 
 .leaflet-popup-content .popup-title {
-    font-weight: bolder;
-    padding-bottom: 10px;
+  font-weight: bolder;
+  padding-bottom: 10px;
 }
 
-.leaflet-popup-content .country-name{
-    font-size: 1.22em;
+.leaflet-popup-content .country-name {
+  font-size: 1.22em;
 }
 
-.leaflet-popup-content .region-name{
-    font-size: 1.1em;    
+.leaflet-popup-content .region-name {
+  font-size: 1.1em;
 }
 
 .leaflet-popup-content .weather-data {
-    list-style-type: none; 
-    padding: 0;
-    margin: 0;
-    line-height: 25px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  line-height: 25px;
 }
 
 @media screen and (max-width: 585px) {
-    .leaflet-control-zoom {
-        display: none;
-    }
+  .leaflet-control-zoom {
+    display: none;
+  }
 }
-
 
 /* --- popup loading ring --- */
 .leaflet-popup-content {
-    height: 248px; 
-    min-width: 177px;
-    box-sizing: border-box;
+  height: 248px;
+  min-width: 177px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .leaflet-popup-content .lds-ring {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
+/*# sourceMappingURL=Map.css.map */

@@ -1,8 +1,7 @@
 .page-info {
   position: absolute;
   z-index: 9999;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* --- info button --- */
@@ -13,14 +12,14 @@
   height: 32px;
   cursor: pointer;
 }
-
 /* ------------------- */
+
 /* --- info content --- */
 .page-info-content {
   max-width: 500px;
   height: 100%;
   padding: 10px 30px 30px 30px;
-  background: white;
+  background: rgba(255, 255, 255, 1);
   overflow: auto;
   font-family: "Lato", Arial, Helvetica, sans-serif;
 }
@@ -31,15 +30,15 @@
 }
 
 .page-info-content a:link {
-  color: #146cd7;
+  color: rgb(20, 108, 215);
 }
 
 .page-info-content a:visited {
-  color: #7b3dae;
+  color: rgb(123, 61, 174);
 }
 
 .page-info-content a:active {
-  color: #f14444;
+  color: rgb(241, 68, 68);
 }
 
 /* close button */
@@ -52,7 +51,6 @@
   border-radius: 50px;
   cursor: pointer;
   background: #3697d1;
-  -webkit-transition: background-color 0.15s;
   transition: background-color 0.15s;
 }
 
@@ -89,30 +87,24 @@
 
 /* lobelia */
 .lobelia-info-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .lobelia-info-content {
   margin-right: 15px;
-  -ms-flex-negative: 1;
-      flex-shrink: 1;
+  flex-shrink: 1;
 }
 
 .lobelia-info-wrapper img {
   width: 88px;
   height: 88px;
   border-radius: 20px;
-  -webkit-box-flex: 5;
-      -ms-flex-positive: 5;
-          flex-grow: 5;
+  flex-grow: 5;
 }
 
 /* tools list */
 .info-list {
-  -webkit-padding-start: 20px;
-          padding-inline-start: 20px;
+  padding-inline-start: 20px;
 }
 
 .info-list li {
@@ -125,33 +117,27 @@
 }
 
 .github-logo a {
-  -webkit-transition: opacity 0.15s;
   transition: opacity 0.15s;
 }
 
 .github-logo a:hover {
   opacity: 0.6;
 }
-
 /* ------------------- */
+
+
 /* --- loading ring --- */
 .loader-wrapper {
-  margin-top: 100px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
 }
 
 .page-info .lds-ring {
-  position: relative;
+  position: relative;    
 }
 
 .page-info .lds-ring div {
   left: -30px;
 }
-
 /* ------------------- */
-/*# sourceMappingURL=PageInfo.css.map */
