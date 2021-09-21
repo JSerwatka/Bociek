@@ -11,10 +11,10 @@ import './Map.css';
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
 
-import worldGeojson from "../data/world-admin1.json";
-import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
-import dayLength from "../data/sun data/daylength_centers.json";
-import precipitation from "../data/weather data/precipitation_centers.json";
+// import worldGeojson from "../data/world-admin1.json";
+// import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
+// import dayLength from "../data/sun data/daylength_centers.json";
+// import precipitation from "../data/weather data/precipitation_centers.json";
 // import avgTemp from "../data/weather data/average_air_temperature_centers.json";
 // import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
 // import rainyDays from "../data/weather data/rainy_days_centers.json";
@@ -24,8 +24,7 @@ import precipitation from "../data/weather data/precipitation_centers.json";
 import fetchData from '../utils/fetchData';
 
 
-function Map({month, dataType}) {
-// function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {
+function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {
     const mapRef = useRef();
     const currentPopupLayerRef = useRef();
 
@@ -224,28 +223,28 @@ function Map({month, dataType}) {
 Map.propTypes = {
   month: PropTypes.number,
   dataType: PropTypes.oneOf(['temp', 'rain', 'daylength']),
-  // worldGeojson: PropTypes.any,
-  // airTemp: PropTypes.exact({
-  //   month: PropTypes.objectOf(
-  //     PropTypes.arrayOf(
-  //       PropTypes.number
-  //     )
-  //   )
-  // }),
-  // precipitation: PropTypes.exact({
-  //   month: PropTypes.objectOf(
-  //     PropTypes.arrayOf(
-  //       PropTypes.number
-  //     )
-  //   )
-  // }),
-  // dayLength: PropTypes.exact({
-  //   month: PropTypes.objectOf(
-  //     PropTypes.arrayOf(
-  //       PropTypes.string
-  //     )
-  //   )
-  // }),
+  worldGeojson: PropTypes.any,
+  airTemp: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.number
+      )
+    )
+  }),
+  precipitation: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.number
+      )
+    )
+  }),
+  dayLength: PropTypes.exact({
+    month: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.string
+      )
+    )
+  }),
   
 }
   

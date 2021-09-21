@@ -2,6 +2,8 @@ import { memo, useState } from "react/cjs/react.development";
 
 import "./PageInfo.css"
 
+//#TODO add info about weather animation and loading screen
+
 function PageInfo() {
     const [openPopup, setOpenPoup] = useState(false)
     const [popupLoaded, setPopupLoaded] = useState(false)

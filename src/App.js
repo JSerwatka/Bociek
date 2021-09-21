@@ -1,3 +1,4 @@
+// import React, { useCallback, useState } from 'react';
 import React, { useCallback, useState, useEffect } from 'react';
 
 import './App.css';
@@ -64,6 +65,9 @@ function App() {
               precipitation = { precipitation }
               dayLength = { dayLength }
           />
+          {/* <Map month={ month } 
+              dataType={ dataType } 
+          /> */}
         </div>
       }
     </>
