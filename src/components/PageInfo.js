@@ -1,8 +1,7 @@
-import { memo, useState } from "react/cjs/react.development";
+import React, { useState } from 'react';
 
 import "./PageInfo.css"
 
-//#TODO add info about weather animation and loading screen
 
 function PageInfo() {
     const [openPopup, setOpenPoup] = useState(false)
@@ -92,4 +91,4 @@ function PageInfo() {
      );
 }
 
-export default memo(PageInfo);
+export default React.memo(PageInfo);

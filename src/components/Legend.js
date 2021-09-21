@@ -1,8 +1,7 @@
-import { useEffect, useRef, memo } from "react/cjs/react.development";
+import React, { useEffect, useRef } from 'react';
 
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-
 import PropTypes from 'prop-types'
 import "./Legend.css"
 
@@ -94,4 +93,4 @@ Legend.propTypes = {
   dataType: PropTypes.oneOf(['temp', 'rain', 'daylength'])
 }
 
-export default memo(Legend);
+export default React.memo(Legend);

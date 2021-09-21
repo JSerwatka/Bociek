@@ -1,4 +1,4 @@
-import { memo } from "react/cjs/react.development";
+import React from 'react';
 
 import Slider from 'rc-slider';
 import PropTypes from 'prop-types'
@@ -20,6 +20,7 @@ const marks = {
     10: "Nov",
     11: "Dec"
 }
+
 
 function MonthSlider({handleMonthChange, isSmallScreen}) {
     // Update global month value
@@ -44,4 +45,4 @@ MonthSlider.propTypes = {
     isSmallScreen: PropTypes.bool
 }
 
-export default memo(MonthSlider);
+export default React.memo(MonthSlider);

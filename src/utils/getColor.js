@@ -2,7 +2,6 @@ const tempGrades = [-9999, -25, -10, 0, 10, 15, 20, 30, 35]
 const precipitationGrades = [-9999, 20, 50, 80, 100, 150, 200, 300, 400]
 const datLengthGrades = [-9999, 4, 6, 8, 10, 12, 14, 16, 18]
 
-
 function getTempColor(temp) {
     return (
         temp >= tempGrades[8] ? '#d73027' :

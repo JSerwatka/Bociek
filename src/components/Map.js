@@ -1,25 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import PropTypes from 'prop-types'
 
 import Legend from "./Legend";
-
 import './Map.css';
-
 import getColor from "../utils/getColor"
 import { getHoursFromTime } from "../utils/conversionFunctions";
-
-// import worldGeojson from "../data/world-admin1.json";
-// import airTemp from "../data/weather data/maximum_air_temperature_centers.json";
-// import dayLength from "../data/sun data/daylength_centers.json";
-// import precipitation from "../data/weather data/precipitation_centers.json";
-// import avgTemp from "../data/weather data/average_air_temperature_centers.json";
-// import minTemp from "../data/weather data/minimum_air_temperature_centers.json";
-// import rainyDays from "../data/weather data/rainy_days_centers.json";
-// import veryRainyDays from "../data/weather data/very_rainy_days_centers.json";
-// import cloudCover from "../data/weather data/cloud_cover_centers.json";
 
 import fetchData from '../utils/fetchData';
 

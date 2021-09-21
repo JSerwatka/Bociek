@@ -1,6 +1,4 @@
-const fetchData = async(url) => {
-	console.log('fetching ', url)
-
+const fetchData = async (url) => {
 	const response = await fetch(url)
 
 	if (response.ok) {

@@ -453,37 +453,37 @@ body {
 
 @-webkit-keyframes show-hide {
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
   7% {
-    opacity: 100%;
+    opacity: 1;
   }
   13% {
-    opacity: 100%;
+    opacity: 1;
   }
   20% {
-    opacity: 0%;
+    opacity: 0;
   }
   100% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
 @keyframes show-hide {
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
   7% {
-    opacity: 100%;
+    opacity: 1;
   }
   13% {
-    opacity: 100%;
+    opacity: 1;
   }
   20% {
-    opacity: 0%;
+    opacity: 0;
   }
   100% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 

@@ -1,4 +1,4 @@
-import { useRef, useEffect, memo } from "react/cjs/react.development";
+import React, { useRef, useEffect } from 'react';
 
 import PropTypes from 'prop-types'
 
@@ -57,4 +57,4 @@ DataTypeIcons.propTypes = {
 
 
 
-export default memo(DataTypeIcons);
+export default React.memo(DataTypeIcons);
