@@ -135,7 +135,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
           <li>Average air temperature: ${avgTempData}°C</li>
           <li>Minimum air temperature: ${minTempData}°C</li>
           <li>Day length: ${dayLengthData}</li>
-          <li>Precipitations: ${rain}</li>
+          <li>Precipitations: ${rain} mm</li>
           <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
           <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
           <li>Cloud cover: ${cloudCoverData}%</li>
