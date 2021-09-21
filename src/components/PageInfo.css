@@ -103,11 +103,11 @@
 }
 
 /* tools list */
-.tools-list {
+.info-list {
   padding-inline-start: 20px;
 }
 
-.tools-list li {
+.info-list li {
   margin-bottom: 5px;
 }
 
