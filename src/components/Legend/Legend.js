@@ -5,7 +5,7 @@ import { useMap } from "react-leaflet";
 import PropTypes from 'prop-types'
 import "./Legend.css"
 
-import getColor, {grades} from "../utils/getColor"
+import getColor, {grades} from "../../utils/getColor"
 
 
 const getlegendLabel = (dataType) => {

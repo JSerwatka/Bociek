@@ -4,12 +4,12 @@ import { MapContainer, LayersControl, TileLayer, GeoJSON} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import PropTypes from 'prop-types'
 
-import Legend from "./Legend";
 import './Map.css';
-import getColor from "../utils/getColor"
-import { getHoursFromTime } from "../utils/conversionFunctions";
+import Legend from "../Legend/Legend";
+import getColor from "../../utils/getColor"
+import { getHoursFromTime } from "../../utils/conversionFunctions";
 
-import fetchData from '../utils/fetchData';
+import fetchData from '../../utils/fetchData';
 
 
 function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }) {

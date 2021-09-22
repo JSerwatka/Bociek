@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'
 
-import DataTypeIcons from './DataTypeIcons';
-import MonthSlider from './MonthSlider';
+import DataTypeIcons from '../DataTypeIcons/DataTypeIcons';
+import MonthSlider from '../MonthSlider/MonthSlider';
 import "./Input.css"
 
 

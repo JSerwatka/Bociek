@@ -2,10 +2,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
 
 import './App.css';
-import Map from './components/Map'
-import Input from './components/Input';
-import PageInfo from './components/PageInfo';
-import LoadingScreen from './components/LoadingScreen'
+import Map from './components/Map/Map'
+import Input from './components/Input/Input';
+import PageInfo from './components/PageInfo/PageInfo';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 
 import fetchData from './utils/fetchData';
 
@@ -14,7 +14,7 @@ import fetchData from './utils/fetchData';
 //TODO cache data in indexdb
 //TODO add turning geojson layer on/off button
 //TODO fix names of places with name=null (geojson)
-//TODO Add geojson  to page info
+//TODO add geojson to PageInfo
 //TODO popup loading spinner only for the first load 
 //TODO overall optimalization
 
