@@ -12,9 +12,8 @@ import fetchData from './utils/fetchData';
 //TODO make sure react leflet img loads correctly
 //TODO split additional weather data to multiple files to reduce size (based on month)
 //TODO cache data in indexdb
-//TODO add turning geojson layer on/off button
+//TODO allow turning geojson layer on/off
 //TODO fix names of places with name=null (geojson)
-//TODO add geojson to PageInfo
 //TODO popup loading spinner only for the first load 
 //TODO overall optimalization
 

@@ -45,6 +45,9 @@ function PageInfo() {
                                 </div>
                                 <img src="https://pbs.twimg.com/profile_images/1061224343282290698/IUdQW-R0.jpg" alt="Lobelia Earth logo"/>
                             </div>
+                            <div className="geojson-info">
+                                Original (before processing) admin1 polygons GeoJSON from <a href="https://datahub.io/core/geo-ne-admin1" target="_blank" rel="noopener noreferrer">datahub</a>
+                            </div>
                         </div>
                         <div className="contribution-info">
                             <div className="contribution-title">Icons and animations</div>

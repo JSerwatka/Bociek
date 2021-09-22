@@ -109,6 +109,12 @@
           flex-grow: 5;
 }
 
+/* geojson */
+.geojson-info {
+  margin-top: 15px;
+  width: 70%;
+}
+
 /* tools list */
 .info-list {
   -webkit-padding-start: 20px;
