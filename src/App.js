@@ -32,8 +32,7 @@ function App() {
   const handleDataTypeChange = useCallback((dataType) => setDataType(dataType), [dataType]);
 
   useEffect(() => {
-    //TODO run function without declaring
-    const asyncFunction = async() => {     
+    (async() => {     
       try {
         const fetchedWorldGeojson = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/world-admin1.json');
         const fetchedTempJson = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/maximum_air_temperature_centers.json');
@@ -51,9 +50,7 @@ function App() {
       }
       
       setIsPending(false);
-    };
-
-    asyncFunction()
+    })();
   }, []);
 
   return (
