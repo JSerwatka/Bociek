@@ -9,6 +9,7 @@ import "./Input.css"
 function Input({handleMonthChange, handleDataTypeChange, dataType}) {
     const [isSmallScreen, setisSmallScreen] = useState(window.innerWidth < 585);
     
+    //TODO use maslianok/react-resize-detector
     const updateMedia = () => {
         setisSmallScreen(window.innerWidth < 585);
     };
