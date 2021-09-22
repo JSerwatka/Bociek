@@ -68,9 +68,6 @@ function App() {
               precipitation = { precipitation }
               dayLength = { dayLength }
           />
-          {/* <Map month={ month } 
-              dataType={ dataType } 
-          /> */}
         </div>
       }
     </>
