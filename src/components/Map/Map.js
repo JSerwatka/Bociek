@@ -34,7 +34,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
       }
     }, [month])
 
-    function mapNewStyle(feature) {
+    const mapNewStyle = (feature) => {
       const regionId = feature.properties.id
       // Get value for fiven data type and region id
       const value = dataTypeRef.current === 'temp'      ? airTemp.month[monthRef.current][regionId]                     :
@@ -52,7 +52,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
       };
     }
 
-    function mapStyles(feature) {
+    const mapStyles = (feature) => {
       // Don't change color of highlighted feature
       if (currentPopupLayerRef.current &&
           currentPopupLayerRef.current.layer.isPopupOpen() &&
@@ -62,14 +62,14 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
     }
 
 
-    function highlightFeature(layer) {
+    const highlightFeature = (layer) => {
       layer.setStyle({
         fillColor: "red",
         fillOpacity: 0.4,
       })
     }
 
-    async function resetHighlight() {
+    const resetHighlight = () => {
       const feature = currentPopupLayerRef.current.feature;
       const styles = mapNewStyle(feature)
 
@@ -77,7 +77,7 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
     }
 
     // Loads all feature's data to a popup
-    async function createNewPopup(feature, layer, e) {
+    const createNewPopup = async (feature, layer, e) => {
       // Get feature data
       const regionName = feature.properties.name ? feature.properties.name : "unknown";
       const countryName = feature.properties.country;
