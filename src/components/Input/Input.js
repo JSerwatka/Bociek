@@ -7,11 +7,11 @@ import "./Input.css"
 
 
 function Input({handleMonthChange, handleDataTypeChange, dataType}) {
-    const [isSmallScreen, setisSmallScreen] = useState(window.innerWidth < 585);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 585);
     
     //TODO use maslianok/react-resize-detector
     const updateMedia = () => {
-        setisSmallScreen(window.innerWidth < 585);
+        setIsSmallScreen(window.innerWidth < 585);
     };
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function Input({handleMonthChange, handleDataTypeChange, dataType}) {
 
     return ( 
         <div className={`input-wrapper rounded-box ${isSmallScreen ? "small-screen" : "large-screen"}` }>
-            <DataTypeIcons handleDataTypeChange={ handleDataTypeChange } dataType={ dataType } isSmallScreen={ isSmallScreen } />
+            <DataTypeIcons handleDataTypeChange={ handleDataTypeChange } dataType={ dataType }/>
             <MonthSlider handleMonthChange={ handleMonthChange } isSmallScreen={ isSmallScreen } />
         </div>
      );
