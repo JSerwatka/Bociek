@@ -31,5 +31,5 @@ $ npm start
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### :clap: Credits
+### :pray: Credits
 I am especially grateful to [Lobelia Earth](https://www.lobelia.earth/) for allowing me to use their processed [ECMWF's](https://www.ecmwf.int/) [ERA5 dataset](https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5).
