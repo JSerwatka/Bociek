@@ -109,38 +109,46 @@ function Map({month, dataType, worldGeojson, airTemp, precipitation, dayLength }
       }
 
       // Get weather data
-      const temp = airTemp.month[monthRef.current][regionId];
-      const dayLengthData = dayLength.month[monthRef.current][regionId];
-      const rain = precipitation.month[monthRef.current][regionId];
-      
-      const avgTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/average_air_temperature_centers.json')
-      const minTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/minimum_air_temperature_centers.json')
-      const rainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/rainy_days_centers.json')
-      const veryRainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/very_rainy_days_centers.json')
-      const cloudCover = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/cloud_cover_centers.json')
-      const avgTempData = avgTemp.month[monthRef.current][regionId];
-      const minTempData = minTemp.month[monthRef.current][regionId];
-      const rainyDaysData = rainyDays.month[monthRef.current][regionId];
-      const veryRainyDaysData = veryRainyDays.month[monthRef.current][regionId];
-      const cloudCoverData = cloudCover.month[monthRef.current][regionId];
+      try {
+        const temp = airTemp.month[monthRef.current][regionId];
+        const dayLengthData = dayLength.month[monthRef.current][regionId];
+        const rain = precipitation.month[monthRef.current][regionId];
+        
+        const avgTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/average_air_temperature_centers.json')
+        const minTemp = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/minimum_air_temperature_centers.json')
+        const rainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/rainy_days_centers.json')
+        const veryRainyDays = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/very_rainy_days_centers.json')
+        const cloudCover = await fetchData('https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/cloud_cover_centers.json')
+        const avgTempData = avgTemp.month[monthRef.current][regionId];
+        const minTempData = minTemp.month[monthRef.current][regionId];
+        const rainyDaysData = rainyDays.month[monthRef.current][regionId];
+        const veryRainyDaysData = veryRainyDays.month[monthRef.current][regionId];
+        const cloudCoverData = cloudCover.month[monthRef.current][regionId];
 
-      // // Update Popup
-      popupContent = `
-        <div class="popup-title">
-          <div class="country-name">${countryName}</div>
-          <div class="region-name">${regionName}</div>
-        </div>
-        <ul class="weather-data">
-          <li>Maximum air temperature: ${temp}°C</li>
-          <li>Average air temperature: ${avgTempData}°C</li>
-          <li>Minimum air temperature: ${minTempData}°C</li>
-          <li>Day length: ${dayLengthData}</li>
-          <li>Precipitations: ${rain} mm</li>
-          <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
-          <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
-          <li>Cloud cover: ${cloudCoverData}%</li>
-        </ul>
-      `;
+        // // Update Popup
+        popupContent = `
+          <div class="popup-title">
+            <div class="country-name">${countryName}</div>
+            <div class="region-name">${regionName}</div>
+          </div>
+          <ul class="weather-data">
+            <li>Maximum air temperature: ${temp}°C</li>
+            <li>Average air temperature: ${avgTempData}°C</li>
+            <li>Minimum air temperature: ${minTempData}°C</li>
+            <li>Day length: ${dayLengthData}</li>
+            <li>Precipitations: ${rain} mm</li>
+            <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
+            <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
+            <li>Cloud cover: ${cloudCoverData}%</li>
+          </ul>
+        `;
+      }
+      catch(err) {
+        console.error(err.message);
+
+        popupContent = `Error while fetching data`;
+      }
+
       layer.setPopupContent(popupContent);
 
       currentPopupLayerRef.current = {'layer': layer, 'feature': feature};

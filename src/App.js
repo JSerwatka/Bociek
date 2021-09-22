@@ -1,4 +1,3 @@
-// import React, { useCallback, useState } from 'react';
 import React, { useCallback, useState, useEffect } from 'react';
 
 import './App.css';
@@ -9,13 +8,6 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 
 import fetchData from './utils/fetchData';
 
-//TODO make sure react leflet img loads correctly
-//TODO split additional weather data to multiple files to reduce size (based on month)
-//TODO cache data in indexdb
-//TODO allow turning geojson layer on/off
-//TODO fix names of places with name=null (geojson)
-//TODO popup loading spinner only for the first load 
-//TODO overall optimalization
 
 function App() {
   const [month, setMonth] = useState(0)
@@ -45,7 +37,7 @@ function App() {
         setDayLength(fetchedDaylengthJson);
       }
       catch(err) {
-        console.log('catch', err)
+        console.error(err.message)
         setError(err.message);
       }
       
