@@ -138,7 +138,7 @@ class LobeliaEarthParser:
         with open(f'./data/{data_type}_{month}.json', 'w') as f:
             json.dump(all_data, f)
 
-    def _load_polygons(self, path: str) -> dict:
+    def __load_polygons(self, path: str) -> dict:
         with open(path, 'r', encoding='utf-8') as f:
             polygons = json.load(f)
         
@@ -166,7 +166,7 @@ class LobeliaEarthParser:
             }
         }
 
-        polygons = self._load_polygons(path)
+        polygons = self.__load_polygons(path)
         
         for polygon in polygons:
             lon, lat = polygon['properties']['center']
