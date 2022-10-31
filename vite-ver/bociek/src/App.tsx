@@ -11,7 +11,7 @@ function App() {
 
     const handleMonthChange = useCallback((month: MonthsType) => setMonth(month), [month]);
     const handleDataTypeChange = useCallback((dataType: DataType) => setDataType(dataType), [dataType]);
-    console.log({ month, dataType });
+
     return (
         <DataSelector
             dataType={dataType}
