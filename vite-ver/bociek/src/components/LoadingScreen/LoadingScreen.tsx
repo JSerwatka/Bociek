@@ -1,8 +1,8 @@
-import SunnyIcon from "./segments/SunnyIcon";
-import PartlyCloudyIcon from "./segments/PartlyCloudyIcon";
-import WindyIcon from "./segments/WindyIcon";
-import RainyIcon from "./segments/RainyIcon";
-import RainbowIcon from "./segments/RainbowIcon";
+import SunnyIcon from "./partials/SunnyIcon";
+import PartlyCloudyIcon from "./partials/PartlyCloudyIcon";
+import WindyIcon from "./partials/WindyIcon";
+import RainyIcon from "./partials/RainyIcon";
+import RainbowIcon from "./partials/RainbowIcon";
 
 import "../../styles/LoadingScreen/loading-screen.css";
 

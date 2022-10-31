@@ -3,11 +3,11 @@ import "../../styles/PageInfo/page-info.css";
 import Loader from "../Loader/Loader";
 import CloseButton from "./buttons/CloseButton";
 import PageInfoButton from "./buttons/PageInfoButton";
-import AdditionalTools from "./segments/AdditionalTools";
-import DataSource from "./segments/DataSource";
-import GithubLogo from "./segments/GithubLogo";
-import IconsAndAnimations from "./segments/IconsAndAnimations";
-import ReactLeaflet from "./segments/ReactLeaflet";
+import AdditionalTools from "./partials/AdditionalTools";
+import DataSource from "./partials/DataSource";
+import GithubLogo from "./partials/GithubLogo";
+import IconsAndAnimations from "./partials/IconsAndAnimations";
+import ReactLeaflet from "./partials/ReactLeaflet";
 
 function PageInfo() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -35,4 +35,4 @@ function PageInfo() {
     );
 }
 
-export default PageInfo;
+export default memo(PageInfo);
