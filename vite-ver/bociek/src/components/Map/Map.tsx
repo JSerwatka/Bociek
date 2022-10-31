@@ -1,29 +1,30 @@
 import { useEffect, useRef } from "react";
-
 import { MapContainer, LayersControl, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import PropTypes from "prop-types";
 
-import "./Map.css";
+import "../../styles/Map/map.css";
+
 import Legend from "../Legend/Legend";
+
 import getColor from "../../utils/getColor";
-import { getHoursFromTime } from "../../utils/conversionFunctions";
-
-import fetchData from "../../utils/fetchData";
+import { getHoursFromTime } from "../../utils/hoursFromTime";
+import { fetchData } from "../../utils/fetchData";
 import { DataType, MonthsType } from "../../types/commonTypes";
+import { map } from "leaflet";
 
+// #TODO fix types
 interface MapProps {
     month: MonthsType;
     dataType: DataType;
-    airTemp: unknown;
-    precipitation: unknown;
-    dayLength: unknown;
-    worldGeojson: unknown;
+    airTemp: any;
+    precipitation: any;
+    dayLength: any;
+    worldGeojson: any;
 }
 
 const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength }: MapProps) => {
-    const mapRef = useRef();
-    const currentPopupLayerRef = useRef();
+    const mapRef = useRef<any>();
+    const currentPopupLayerRef = useRef<any>(); // #TODO use proper type
 
     // Required to use month and dataType in events
     const monthRef = useRef(month);
@@ -89,36 +90,44 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
     };
 
     // Loads all feature's data to a popup
-    const createNewPopup = async (feature, layer) => {
+    const createNewPopup = async (feature, layer, e) => {
         // Get feature data
         const regionName = feature.properties.name ? feature.properties.name : "unknown";
         const countryName = feature.properties.country;
         const regionId = feature.properties.id;
-
         // Loading data popup
         let popupContent = `
-        <div class="popup-title">
-          <div class="country-name">${countryName}</div>
-          <div class="region-name">${regionName}</div>
-        </div>
-        <div class="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      `;
+                <div class="popup-title">
+                  <div class="country-name">${countryName}</div>
+                  <div class="region-name">${regionName}</div>
+                </div>
+                <div class="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              `;
 
-        // Bind popup only if not alreay exits
-        if (!layer.getPopup()) {
-            const popupOptions = { className: "division-popup" };
-            const { _popup: popup } = layer.bindPopup(popupContent, popupOptions);
+        try {
+            // Bind popup only if not alreay exits
+            if (!layer.getPopup()) {
+                const popupOptions = { className: "division-popup" };
+                const { _popup: popup } = layer.bindPopup(popupContent, popupOptions);
+                console.log(popup);
+                console.log("test0");
 
-            // Open popup where user clicked not in the layer center
-            popup.setLatLng(e.latlng).openOn(mapRef.current);
-        } else {
-            layer.setPopupContent(popupContent);
+                // Open popup where user clicked not in the layer center
+                console.log({ popup, e, mapRef: mapRef.current });
+                popup.setLatLng(e.latlng).openOn(mapRef.current);
+                console.log("test1");
+            } else {
+                layer.setPopupContent(popupContent);
+            }
+        } catch (err) {
+            console.log("error", err);
         }
+        console.log("test2");
 
         // Get weather data
         try {
@@ -165,7 +174,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
           </ul>
         `;
         } catch (err) {
-            console.error(err.message);
+            console.error((err as Error).message);
 
             popupContent = `Error while fetching data`;
         }
@@ -195,9 +204,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
                 [-90, -220],
                 [90, 220]
             ]}
-            whenCreated={(mapInstance) => {
-                mapRef.current = mapInstance;
-            }}
+            ref={mapRef}
         >
             <LayersControl position="topright">
                 <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">

@@ -19,6 +19,7 @@
     "@types/leaflet": "^1.9.0",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "@types/react-leaflet": "^2.8.2",
     "@vitejs/plugin-react": "^2.2.0",
     "autoprefixer": "^10.4.13",
     "sass": "^1.55.0",
