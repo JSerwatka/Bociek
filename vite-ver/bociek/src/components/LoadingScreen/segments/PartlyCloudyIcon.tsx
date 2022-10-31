@@ -1,5 +1,4 @@
 import { memo } from "react";
-import "../../../styles/LoadingScreen/icons/partly-cloud-icon.css";
 
 const PartlyCloudyIcon = () => {
     return (

@@ -1,5 +1,10 @@
 @use "./abstracts/colors";
 @use "./partials/icons-common";
+@use "./partials/partly-cloud-icon";
+@use "./partials/rainbow-icon";
+@use "./partials/rainy-icon";
+@use "./partials/sunny-icon";
+@use "./partials/windy-icon";
 
 body {
     background-color: colors.$color-main-background;

@@ -1,5 +1,4 @@
 import { memo } from "react";
-import "../../../styles/LoadingScreen/icons/rainy-icon.css";
 
 const RainyIcon = () => {
     return (

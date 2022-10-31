@@ -1,5 +1,4 @@
 import { memo } from "react";
-import "../../../styles/LoadingScreen/icons/rainbow-icon.css";
 
 const RainbowIcon = () => {
     return (
