@@ -95,11 +95,8 @@
   flex-shrink: 1;
 }
 
-.lobelia-info-wrapper img {
-  width: 88px;
-  height: 88px;
-  border-radius: 20px;
-  flex-grow: 5;
+.lobelia-earth-img-wrapper img {
+  width: 100px;
 }
 
 /* geojson */
@@ -131,16 +128,15 @@
 }
 /* ------------------- */
 
-
 /* --- loading ring --- */
 .loader-wrapper {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .page-info .lds-ring {
-  position: relative;    
+  position: relative;
 }
 
 .page-info .lds-ring div {
