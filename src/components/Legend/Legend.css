@@ -1,11 +1,8 @@
+@charset "UTF-8";
 /* main component */
 .legend {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  align-items: stretch;
   max-width: 190px;
   padding: 6px 8px 6px 0;
   font: 14px/16px Arial, Helvetica, sans-serif;
@@ -13,10 +10,7 @@
   line-height: 18px;
   background: white;
   background: rgba(255, 255, 255, 0.8);
-  -webkit-transition: -webkit-transform .5s ease;
-  transition: -webkit-transform .5s ease;
-  transition: transform .5s ease;
-  transition: transform .5s ease, -webkit-transform .5s ease;
+  transition: transform 0.5s ease;
   color: #555;
 }
 
@@ -38,33 +32,25 @@
   padding: 0px 10px;
   color: #808080;
   cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .slide-in {
-  -webkit-transform: translateX(0%);
-          transform: translateX(0%);
+  transform: translateX(0%);
 }
 
 .slide-out {
-  -webkit-transform: translateX(94%);
-          transform: translateX(94%);
+  transform: translateX(94%);
 }
 
 .slide-in .slide-btn::after {
-  content: "\2771";
+  content: "❱";
 }
 
 .slide-out .slide-btn::after {
-  content: "\2770";
+  content: "❰";
 }
 
 @media screen and (max-width: 335px) {
@@ -75,5 +61,4 @@
   .slide-btn {
     padding: 0px 7px;
   }
-}
-/*# sourceMappingURL=Legend.css.map */
+}/*# sourceMappingURL=Legend.css.map */

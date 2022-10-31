@@ -21,13 +21,9 @@
 /* --- large screens --- */
 .large-screen .data-type-wrapper {
   padding-bottom: 15px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }
 
 /* --- small screens --- */
@@ -48,5 +44,4 @@
   .small-screen .data-type-icon {
     margin-bottom: 20px;
   }
-}
-/*# sourceMappingURL=DataTypeIcons.css.map */
+}/*# sourceMappingURL=DataTypeIcons.css.map */

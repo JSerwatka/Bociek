@@ -3,44 +3,28 @@ body {
 }
 
 .loading-page {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   height: 100vh;
 }
 
 .weather-icons {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex: 1 0 auto;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  align-items: flex-end;
 }
 
 .loading-msg {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  flex: 1 0 auto;
   padding: 0.5em 2.2em 0.5em 1em;
-  border-radius: .3em;
+  border-radius: 0.3em;
   color: rgba(255, 255, 255, 0.703);
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  font: 300 1em/1.5 'Lato',sans-serif;
+  align-self: center;
+  font: 300 1em/1.5 "Lato", sans-serif;
   letter-spacing: 1px;
 }
-
 .loading-msg:after {
-  content: '...';
+  content: "...";
   width: 0;
   position: absolute;
   overflow: hidden;
@@ -54,8 +38,7 @@ body {
   height: 100px;
   opacity: 0%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .sunny-body path {
@@ -63,15 +46,13 @@ body {
 }
 
 .sunny-long-ray {
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
   -webkit-animation: spin 9s linear infinite;
           animation: spin 9s linear infinite;
 }
 
 .sunny-long-ray-cloudy {
-  -webkit-transform-origin: 66% 49.5%;
-          transform-origin: 66% 49.5%;
+  transform-origin: 66% 49.5%;
   -webkit-animation: spin 9s linear infinite;
           animation: spin 9s linear infinite;
 }
@@ -81,15 +62,13 @@ body {
 }
 
 .sunny-short-ray {
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
   -webkit-animation: spin 9s linear infinite;
           animation: spin 9s linear infinite;
 }
 
 .sunny-short-ray-cloudy {
-  -webkit-transform-origin: 66% 49.5%;
-          transform-origin: 66% 49.5%;
+  transform-origin: 66% 49.5%;
   -webkit-animation: spin 9s linear infinite;
           animation: spin 9s linear infinite;
 }
@@ -199,67 +178,53 @@ body {
 
 @-webkit-keyframes spin {
   100% {
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
   100% {
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
-
 @-webkit-keyframes flyby {
   0% {
-    -webkit-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
     opacity: 0;
   }
   30% {
-    -webkit-transform: translate(39px, 0px);
     transform: translate(39px, 0px);
     opacity: 1;
   }
   70% {
-    -webkit-transform: translate(91px, 0px);
     transform: translate(91px, 0px);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translate(130px, 0px);
     transform: translate(130px, 0px);
     opacity: 0;
   }
 }
-
 @keyframes flyby {
   0% {
-    -webkit-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
     opacity: 0;
   }
   30% {
-    -webkit-transform: translate(39px, 0px);
     transform: translate(39px, 0px);
     opacity: 1;
   }
   70% {
-    -webkit-transform: translate(91px, 0px);
     transform: translate(91px, 0px);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translate(130px, 0px);
     transform: translate(130px, 0px);
     opacity: 0;
   }
 }
-
 @-webkit-keyframes rain-cloud-color {
-  100%,
-  0% {
+  100%, 0% {
     fill: #666;
   }
   20% {
@@ -284,10 +249,8 @@ body {
     fill: #555;
   }
 }
-
 @keyframes rain-cloud-color {
-  100%,
-  0% {
+  100%, 0% {
     fill: #666;
   }
   20% {
@@ -312,53 +275,42 @@ body {
     fill: #555;
   }
 }
-
 @-webkit-keyframes rain-drop {
   0% {
-    -webkit-transform: translate(0px, -60px);
     transform: translate(0px, -60px);
     opacity: 0;
   }
   30% {
-    -webkit-transform: translate(0px, -36px);
     transform: translate(0px, -36px);
     opacity: 1;
   }
   80% {
-    -webkit-transform: translate(0px, 4px);
     transform: translate(0px, 4px);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translate(0px, 20px);
     transform: translate(0px, 20px);
     opacity: 0;
   }
 }
-
 @keyframes rain-drop {
   0% {
-    -webkit-transform: translate(0px, -60px);
     transform: translate(0px, -60px);
     opacity: 0;
   }
   30% {
-    -webkit-transform: translate(0px, -36px);
     transform: translate(0px, -36px);
     opacity: 1;
   }
   80% {
-    -webkit-transform: translate(0px, 4px);
     transform: translate(0px, 4px);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translate(0px, 20px);
     transform: translate(0px, 20px);
     opacity: 0;
   }
 }
-
 @-webkit-keyframes wind-blow {
   0% {
     stroke-dasharray: 5 300;
@@ -381,7 +333,6 @@ body {
     opacity: 0.2;
   }
 }
-
 @keyframes wind-blow {
   0% {
     stroke-dasharray: 5 300;
@@ -404,7 +355,6 @@ body {
     opacity: 0.2;
   }
 }
-
 @-webkit-keyframes rainbow {
   0% {
     stroke-dasharray: 10 210;
@@ -427,7 +377,6 @@ body {
     opacity: 0;
   }
 }
-
 @keyframes rainbow {
   0% {
     stroke-dasharray: 10 210;
@@ -450,7 +399,6 @@ body {
     opacity: 0;
   }
 }
-
 @-webkit-keyframes show-hide {
   0% {
     opacity: 0;
@@ -468,7 +416,6 @@ body {
     opacity: 0;
   }
 }
-
 @keyframes show-hide {
   0% {
     opacity: 0;
@@ -486,28 +433,25 @@ body {
     opacity: 0;
   }
 }
-
 @-webkit-keyframes loading-dots {
   0% {
-    width: 0.0em;
+    width: 0em;
   }
   50% {
     width: 1.2em;
   }
   100% {
-    width: 0.0em;
+    width: 0em;
   }
 }
-
 @keyframes loading-dots {
   0% {
-    width: 0.0em;
+    width: 0em;
   }
   50% {
     width: 1.2em;
   }
   100% {
-    width: 0.0em;
+    width: 0em;
   }
-}
-/*# sourceMappingURL=LoadingScreen.css.map */
+}/*# sourceMappingURL=LoadingScreen.css.map */

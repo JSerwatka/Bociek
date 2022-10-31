@@ -1,8 +1,7 @@
 .page-info {
   position: absolute;
   z-index: 9999;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* --- info button --- */
@@ -20,7 +19,7 @@
   max-width: 500px;
   min-height: 100%;
   padding: 10px 30px 30px 30px;
-  background: white;
+  background: rgb(255, 255, 255);
   overflow: auto;
   font-family: "Lato", Arial, Helvetica, sans-serif;
 }
@@ -31,15 +30,15 @@
 }
 
 .page-info-content a:link {
-  color: #146cd7;
+  color: rgb(20, 108, 215);
 }
 
 .page-info-content a:visited {
-  color: #7b3dae;
+  color: rgb(123, 61, 174);
 }
 
 .page-info-content a:active {
-  color: #f14444;
+  color: rgb(241, 68, 68);
 }
 
 /* close button */
@@ -52,7 +51,6 @@
   border-radius: 50px;
   cursor: pointer;
   background: #3697d1;
-  -webkit-transition: background-color 0.15s;
   transition: background-color 0.15s;
 }
 
@@ -89,24 +87,16 @@
 
 /* lobelia */
 .lobelia-info-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .lobelia-info-content {
   margin-right: 15px;
-  -ms-flex-negative: 1;
-      flex-shrink: 1;
+  flex-shrink: 1;
 }
 
-.lobelia-info-wrapper img {
-  width: 88px;
-  height: 88px;
-  border-radius: 20px;
-  -webkit-box-flex: 5;
-      -ms-flex-positive: 5;
-          flex-grow: 5;
+.lobelia-earth-img-wrapper img {
+  width: 100px;
 }
 
 /* geojson */
@@ -131,7 +121,6 @@
 }
 
 .github-logo a {
-  -webkit-transition: opacity 0.15s;
   transition: opacity 0.15s;
 }
 
@@ -143,12 +132,8 @@
 /* --- loading ring --- */
 .loader-wrapper {
   margin-top: 100px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 .page-info .lds-ring {
@@ -159,5 +144,4 @@
   left: -30px;
 }
 
-/* ------------------- */
-/*# sourceMappingURL=PageInfo.css.map */
+/* ------------------- *//*# sourceMappingURL=PageInfo.css.map */
