@@ -1,4 +1,5 @@
 import { memo } from "react";
+import "../../../styles/LoadingScreen/icons/windy-icon.css";
 
 const WindyIcon = () => {
     return (

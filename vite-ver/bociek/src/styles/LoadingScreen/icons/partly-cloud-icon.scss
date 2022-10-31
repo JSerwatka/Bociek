@@ -1,0 +1,23 @@
+@use "../abstracts/colors";
+
+.icon-partly-cloudy {
+    animation: show-hide 25s 5s ease-in-out infinite;
+}
+
+.sunny-short-ray-cloudy {
+    transform-origin: 66% 49.5%;
+    animation: spin 9s linear infinite;
+}
+
+.sunny-long-ray-cloudy {
+    transform-origin: 66% 49.5%;
+    animation: spin 9s linear infinite;
+}
+
+.sunny-long-ray-cloudy path {
+    fill: colors.$color-sun;
+}
+
+.sunny-short-ray-cloudy path {
+    fill: colors.$color-sun;
+}

@@ -1,0 +1,53 @@
+@use "../abstracts/colors";
+
+.icon-rainbow {
+    animation: show-hide 25s 20s ease-in-out infinite;
+}
+
+.rainbows path {
+    stroke-linecap: round;
+    animation: rainbow 4.5s linear infinite;
+}
+
+.rainbows path:nth-child(1) {
+    stroke: colors.$color-rainbow-red;
+    stroke-width: 6px;
+}
+
+.rainbows path:nth-child(2) {
+    stroke: colors.$color-rainbow-orange;
+    stroke-width: 8px;
+}
+
+.rainbows path:nth-child(3) {
+    stroke: colors.$color-rainbow-yellow;
+    stroke-width: 6px;
+}
+
+.rainbows path:nth-child(4) {
+    stroke: colors.$color-rainbow-green;
+    stroke-width: 14px;
+}
+
+@keyframes rainbow {
+    0% {
+        stroke-dasharray: 10 210;
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+    30% {
+        stroke-dasharray: 210 210;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+    70% {
+        stroke-dasharray: 210 210;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+    100% {
+        stroke-dasharray: 0 210;
+        stroke-dashoffset: -210;
+        opacity: 0;
+    }
+}

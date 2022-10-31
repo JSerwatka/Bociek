@@ -1,4 +1,5 @@
 import { memo } from "react";
+import "../../../styles/LoadingScreen/icons/sunny-icon.css";
 
 const SunnyIcon = () => {
     return (

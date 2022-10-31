@@ -1,0 +1,23 @@
+@use "../abstracts/colors";
+
+.icon-sunny {
+    animation: show-hide 25s 0s ease-in-out infinite;
+}
+
+.sunny-long-ray {
+    transform-origin: 50% 50%;
+    animation: spin 9s linear infinite;
+}
+
+.sunny-short-ray {
+    transform-origin: 50% 50%;
+    animation: spin 9s linear infinite;
+}
+
+.sunny-long-ray path {
+    fill: colors.$color-sun;
+}
+
+.sunny-short-ray path {
+    fill: colors.$color-sun;
+}

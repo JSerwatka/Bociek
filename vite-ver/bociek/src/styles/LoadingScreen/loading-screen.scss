@@ -1,0 +1,56 @@
+@use "./abstracts/colors";
+@use "./partials/icons-common";
+
+body {
+    background-color: colors.$color-main-background;
+}
+
+.loading-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.weather-icons {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: flex-end;
+}
+
+.loading-msg {
+    flex: 1 0 auto;
+    padding: 0.5em 2.2em 0.5em 1em;
+    border-radius: 0.3em;
+    color: rgba(255, 255, 255, 0.703);
+    align-self: center;
+    font: 300 1em/1.5 "Lato", sans-serif;
+    letter-spacing: 1px;
+    &:after {
+        content: "...";
+        width: 0;
+        position: absolute;
+        overflow: hidden;
+        animation: loading-dots 2s linear infinite;
+    }
+}
+
+.icon {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    opacity: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes loading-dots {
+    0% {
+        width: 0em;
+    }
+    50% {
+        width: 1.2em;
+    }
+    100% {
+        width: 0em;
+    }
+}
