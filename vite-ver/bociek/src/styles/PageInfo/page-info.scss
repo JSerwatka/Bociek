@@ -1,16 +1,15 @@
+@use "./partials/additional-tools";
+@use "./partials/close-button";
+@use "./partials/data-source";
+@use "./partials/github-logo";
+@use "./partials/icons-and-animations";
+@use "./partials/page-info-button";
+@use "./partials/react_leaflet";
+
 .page-info {
     position: absolute;
     z-index: 9999;
     box-sizing: border-box;
-}
-
-/* --- info button --- */
-.page-info-btn {
-    left: 3.5vw;
-    bottom: 1.5vh;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
 }
 /* ------------------- */
 
@@ -41,31 +40,6 @@
     color: rgb(241, 68, 68);
 }
 
-/* close button */
-.close-btn-wrapper {
-    text-align: end;
-}
-
-.close-btn {
-    padding: 2px 4px 2px 4px;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #3697d1;
-    transition: background-color 0.15s;
-}
-
-.close-btn:hover {
-    background-color: #f7a715;
-}
-
-.close-icon {
-    font-size: 25px;
-    color: white;
-    position: relative;
-    top: 1.8px;
-    left: 0.2px;
-}
-
 /* single contribution block */
 .contribution-info {
     margin-bottom: 40px;
@@ -76,55 +50,6 @@
     font-size: 1.15em;
     font-weight: bold;
     margin-bottom: 5px;
-}
-
-/* rect-leflet */
-.react-leaflet-info img {
-    width: 80%;
-    display: block;
-    margin: auto;
-}
-
-/* lobelia */
-.lobelia-info-wrapper {
-    display: flex;
-}
-
-.lobelia-info-content {
-    margin-right: 15px;
-    flex-shrink: 1;
-}
-
-.lobelia-earth-img-wrapper img {
-    width: 100px;
-}
-
-/* geojson */
-.geojson-info {
-    margin-top: 15px;
-    width: 70%;
-}
-
-/* tools list */
-.info-list {
-    padding-inline-start: 20px;
-}
-
-.info-list li {
-    margin-bottom: 5px;
-}
-
-/* github-logo */
-.github-logo {
-    text-align: center;
-}
-
-.github-logo a {
-    transition: opacity 0.15s;
-}
-
-.github-logo a:hover {
-    opacity: 0.6;
 }
 /* ------------------- */
 

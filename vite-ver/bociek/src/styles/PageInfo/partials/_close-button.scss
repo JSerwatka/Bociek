@@ -1,0 +1,23 @@
+.close-btn-wrapper {
+    text-align: end;
+}
+
+.close-btn {
+    padding: 3px 4px 3px 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    background: #3697d1;
+    transition: background-color 0.15s;
+}
+
+.close-btn:hover {
+    background-color: #f7a715;
+}
+
+.close-icon {
+    font-size: 25px;
+    color: white;
+    position: relative;
+    top: 2.5px;
+    left: -0.1px;
+}
