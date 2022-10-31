@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# CSS files - use only Sass
+*.css
+*.css.map
+!index.css
