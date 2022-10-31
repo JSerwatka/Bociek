@@ -1,5 +1,6 @@
 import "rc-slider/assets/index.css";
 import Slider from "rc-slider";
+import { MonthsType } from "../../../types/commonTypes";
 
 const marks = {
     0: "Jan",
@@ -18,13 +19,13 @@ const marks = {
 
 interface MonthSliderProps {
     isLargeScreen: boolean;
-    handleMonthChange: () => void;
+    handleMonthChange: (month: MonthsType) => void;
 }
 
 const MonthSlider = ({ isLargeScreen, handleMonthChange }: MonthSliderProps) => {
     // Update global month value
-    const handleOnChange = (value) => {
-        handleMonthChange(value);
+    const handleOnChange = (value: number | number[]) => {
+        handleMonthChange(value as MonthsType);
     };
 
     return (

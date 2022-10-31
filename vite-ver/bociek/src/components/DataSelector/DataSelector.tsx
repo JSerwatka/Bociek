@@ -1,5 +1,5 @@
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { DataType } from "../../types/commonTypes";
+import { DataType, MonthsType } from "../../types/commonTypes";
 import DataTypeIcons from "./partials/DataTypeIcons";
 import MonthSlider from "./partials/MonthSlider";
 
@@ -7,11 +7,11 @@ import "../../styles/DataSelector/data-selector.css";
 
 interface DataSelectorInterface {
     dataType: DataType;
-    handleMonthChange: () => void;
-    handleDataTypeChange: () => void;
+    handleDataTypeChange: (dataType: DataType) => void;
+    handleMonthChange: (month: MonthsType) => void;
 }
 
-const DataSelector = ({ dataType, handleMonthChange, handleDataTypeChange }: DataSelectorInterface) => {
+const DataSelector = ({ dataType, handleDataTypeChange, handleMonthChange }: DataSelectorInterface) => {
     const isLargeScreen = useMediaQuery("(min-width: 585px)");
 
     return (
