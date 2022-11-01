@@ -1,6 +1,6 @@
-import { Layer, LeafletMouseEvent, Popup as PopupType, StyleFunction } from "leaflet";
+import { Layer, LeafletMouseEvent, Map as MapType, Popup as PopupType, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useRef } from "react";
+import React, { Ref, RefObject, useEffect, useRef } from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
@@ -11,7 +11,7 @@ import { getHoursFromTime } from "../../utils/hoursFromTime";
 import LayerChoice from "./partials/LayersChoice";
 import Legend from "./partials/Legend";
 
-// #TODO fix types
+// #TODO use better types
 interface MapProps {
     month: MonthsType;
     dataType: DataType;
@@ -27,8 +27,8 @@ interface LayerLeaflet extends Layer {
 }
 
 const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength }: MapProps) => {
-    const mapRef = useRef<any>(); // #TODO use proper typ
-    const currentPopupLayerRef = useRef<any>(); // #TODO use proper type
+    const mapRef = useRef<any>();
+    const currentPopupLayerRef = useRef<any>();
 
     // Required to use month and dataType in events
     const monthRef = useRef(month);

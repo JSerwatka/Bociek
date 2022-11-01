@@ -11,7 +11,7 @@ interface LegendProps {
 
 function Legend({ dataType }: LegendProps) {
     const map = useMap();
-    const currentLegend = useRef<HTMLElement>(null);
+    const currentLegend = useRef<HTMLElement>();
 
     const getlegendLabel = (dataType: DataType): string => {
         switch (dataType) {
@@ -80,16 +80,13 @@ function Legend({ dataType }: LegendProps) {
         }
 
         // Add new legend to the map
-        // TODO remove
-        //@ts-ignore
+        //@ts-ignore // wrong types from leaflet
         const legend = L.control({ position: "bottomright" });
 
         legend.onAdd = createLegend;
         legend.addTo(map);
 
         // Update info about current legend
-        //@ts-ignore
-        // TODO remove
         currentLegend.current = legend;
     }, [dataType, map]);
 

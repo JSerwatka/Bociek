@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+
 import DataSelector from "./components/DataSelector/DataSelector";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
-import PageInfo from "./components/PageInfo/PageInfo";
 import Map from "./components/Map/Map";
+import PageInfo from "./components/PageInfo/PageInfo";
 import { DataType, MonthsType } from "./types/commonTypes";
 import { fetchData } from "./utils/fetchData";
 
@@ -10,7 +11,6 @@ function App() {
     const [month, setMonth] = useState<MonthsType>(0);
     const [dataType, setDataType] = useState<DataType>("temp");
 
-    // TODO to remove
     const [error, setError] = useState<string>("");
     const [isPending, setIsPending] = useState(true);
     const [worldGeojson, setWorldGeojson] = useState(null);
