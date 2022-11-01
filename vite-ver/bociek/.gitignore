@@ -27,3 +27,13 @@ dist-ssr
 *.css
 *.css.map
 !index.css
+
+# Geojson data
+/src/data/FullData
+/src/data/*.geojson
+
+# helper functions
+/helper_functions/polygonsCenters/node_modules
+/helper_functions/**/data
+/helper_functions/**/venv
+!/helper_functions/polygonsCenters/data

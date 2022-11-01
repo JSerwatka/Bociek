@@ -1,0 +1,9 @@
+Package         Version
+--------------- -------
+numpy           1.21.2
+pip             21.1.1
+python-dateutil 2.8.2
+setuptools      56.0.0
+six             1.16.0
+suntime         1.2.5
+timezonefinder  5.2.0
