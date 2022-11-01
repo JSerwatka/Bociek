@@ -1,17 +1,17 @@
 import { useEffect, useRef } from "react";
-import { MapContainer, GeoJSON } from "react-leaflet";
+import { MapContainer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 import "../../styles/Map/map.css";
 
-import Legend from "../Legend/Legend";
+import Legend from "./partials/Legend";
 
 import getColor from "../../utils/getColor";
 import { getHoursFromTime } from "../../utils/hoursFromTime";
 import { fetchData } from "../../utils/fetchData";
 import { DataType, MonthsType } from "../../types/commonTypes";
-import { map } from "leaflet";
-import LayerChoice from "./segments/LayersChoice";
+import LayerChoice from "./partials/LayersChoice";
+import { GeoJSON } from "react-leaflet";
 
 // #TODO fix types
 interface MapProps {

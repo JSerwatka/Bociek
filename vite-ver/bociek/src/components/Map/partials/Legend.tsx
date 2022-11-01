@@ -2,9 +2,9 @@ import { memo, useEffect, useRef } from "react";
 
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import "../../styles/Legend/legend.css";
-import { DataType } from "../../types/commonTypes";
-import getColor, { grades } from "../../utils/getColor";
+
+import { DataType } from "../../../types/commonTypes";
+import getColor, { grades } from "../../../utils/getColor";
 
 interface LegendProps {
     dataType: DataType;
