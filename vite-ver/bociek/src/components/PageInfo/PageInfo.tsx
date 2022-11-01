@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+
 import "../../styles/PageInfo/page-info.css";
 import Loader from "../Loader/Loader";
 import CloseButton from "./buttons/CloseButton";

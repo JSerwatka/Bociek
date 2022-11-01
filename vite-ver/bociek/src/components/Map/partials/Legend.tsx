@@ -1,6 +1,5 @@
-import { memo, useEffect, useRef } from "react";
-
 import L from "leaflet";
+import { memo, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 import { DataType } from "../../../types/commonTypes";

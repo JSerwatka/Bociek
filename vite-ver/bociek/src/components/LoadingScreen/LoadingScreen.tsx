@@ -1,10 +1,9 @@
-import SunnyIcon from "./partials/SunnyIcon";
-import PartlyCloudyIcon from "./partials/PartlyCloudyIcon";
-import WindyIcon from "./partials/WindyIcon";
-import RainyIcon from "./partials/RainyIcon";
-import RainbowIcon from "./partials/RainbowIcon";
-
 import "../../styles/LoadingScreen/loading-screen.css";
+import PartlyCloudyIcon from "./partials/PartlyCloudyIcon";
+import RainbowIcon from "./partials/RainbowIcon";
+import RainyIcon from "./partials/RainyIcon";
+import SunnyIcon from "./partials/SunnyIcon";
+import WindyIcon from "./partials/WindyIcon";
 
 const LoadingScreen = () => {
     return (

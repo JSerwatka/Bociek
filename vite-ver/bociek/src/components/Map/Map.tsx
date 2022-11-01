@@ -1,17 +1,15 @@
-import { useEffect, useRef } from "react";
-import { MapContainer } from "react-leaflet";
+import { Layer, LeafletMouseEvent, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useEffect, useRef } from "react";
+import { Feature, GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
-
-import Legend from "./partials/Legend";
-
+import { DataType, MonthsType } from "../../types/commonTypes";
+import { fetchData } from "../../utils/fetchData";
 import getColor from "../../utils/getColor";
 import { getHoursFromTime } from "../../utils/hoursFromTime";
-import { fetchData } from "../../utils/fetchData";
-import { DataType, MonthsType } from "../../types/commonTypes";
 import LayerChoice from "./partials/LayersChoice";
-import { GeoJSON } from "react-leaflet";
+import Legend from "./partials/Legend";
 
 // #TODO fix types
 interface MapProps {
@@ -42,8 +40,8 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         }
     }, [month]);
 
-    const mapNewStyle = (feature) => {
-        const regionId = feature.properties.id;
+    const mapNewStyle = (feature: Feature) => {
+        const regionId = feature.properties?.id;
         // Get value for fiven data type and region id
         const value =
             dataTypeRef.current === "temp"
@@ -64,7 +62,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         };
     };
 
-    const mapStyles = (feature) => {
+    const mapStyles = (feature: Feature) => {
         // Don't change color of highlighted feature
         if (
             currentPopupLayerRef.current &&
@@ -76,7 +74,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         return mapNewStyle(feature);
     };
 
-    const highlightFeature = (layer) => {
+    const highlightFeature = (layer: Layer) => {
         layer.setStyle({
             fillColor: "red",
             fillOpacity: 0.4
@@ -91,7 +89,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
     };
 
     // Loads all feature's data to a popup
-    const createNewPopup = async (feature, layer, e) => {
+    const createNewPopup = async (feature: Feature, layer: Layer, e: LeafletMouseEvent) => {
         // Get feature data
         const regionName = feature.properties.name ? feature.properties.name : "unknown";
         const countryName = feature.properties.country;
@@ -111,24 +109,19 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
               `;
 
         try {
-            // Bind popup only if not alreay exits
+            // Bind popup only if doesn't already exitst
             if (!layer.getPopup()) {
                 const popupOptions = { className: "division-popup" };
                 const { _popup: popup } = layer.bindPopup(popupContent, popupOptions);
-                console.log(popup);
-                console.log("test0");
-
+                console.log(e);
                 // Open popup where user clicked not in the layer center
-                console.log({ popup, e, mapRef: mapRef.current });
                 popup.setLatLng(e.latlng).openOn(mapRef.current);
-                console.log("test1");
             } else {
                 layer.setPopupContent(popupContent);
             }
         } catch (err) {
             console.log("error", err);
         }
-        console.log("test2");
 
         // Get weather data
         try {
@@ -159,24 +152,23 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
 
             // // Update Popup
             popupContent = `
-          <div class="popup-title">
-            <div class="country-name">${countryName}</div>
-            <div class="region-name">${regionName}</div>
-          </div>
-          <ul class="weather-data">
-            <li>Maximum air temperature: ${temp}°C</li>
-            <li>Average air temperature: ${avgTempData}°C</li>
-            <li>Minimum air temperature: ${minTempData}°C</li>
-            <li>Day length: ${dayLengthData}</li>
-            <li>Precipitations: ${rain} mm</li>
-            <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
-            <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
-            <li>Cloud cover: ${cloudCoverData}%</li>
-          </ul>
-        `;
+                <div class="popup-title">
+                    <div class="country-name">${countryName}</div>
+                    <div class="region-name">${regionName}</div>
+                </div>
+                <ul class="weather-data">
+                    <li>Maximum air temperature: ${temp}°C</li>
+                    <li>Average air temperature: ${avgTempData}°C</li>
+                    <li>Minimum air temperature: ${minTempData}°C</li>
+                    <li>Day length: ${dayLengthData}</li>
+                    <li>Precipitations: ${rain} mm</li>
+                    <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
+                    <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
+                    <li>Cloud cover: ${cloudCoverData}%</li>
+                </ul>
+            `;
         } catch (err) {
             console.error((err as Error).message);
-
             popupContent = `Error while fetching data`;
         }
 
@@ -185,10 +177,10 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         currentPopupLayerRef.current = { layer: layer, feature: feature };
     };
 
-    const onEachDivision = (feature, layer) => {
+    const onEachDivision = (feature, layer: Layer) => {
         layer.on({
             popupclose: resetHighlight,
-            click: (e) => {
+            click: (e: LeafletMouseEvent) => {
                 createNewPopup(feature, layer, e);
                 highlightFeature(layer);
             }
@@ -208,7 +200,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
             ref={mapRef}
         >
             <LayerChoice />
-            <GeoJSON data={worldGeojson} style={mapStyles} onEachFeature={onEachDivision} />
+            <GeoJSON data={worldGeojson} style={mapStyles as StyleFunction} onEachFeature={onEachDivision} />
             <Legend dataType={dataType} />
         </MapContainer>
     );

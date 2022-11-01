@@ -1,9 +1,8 @@
 import useMediaQuery from "../../hooks/useMediaQuery";
+import "../../styles/DataSelector/data-selector.css";
 import { DataType, MonthsType } from "../../types/commonTypes";
 import DataTypeIcons from "./partials/DataTypeIcons";
 import MonthSlider from "./partials/MonthSlider";
-
-import "../../styles/DataSelector/data-selector.css";
 
 interface DataSelectorInterface {
     dataType: DataType;

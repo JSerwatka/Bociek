@@ -1,4 +1,5 @@
 import { memo } from "react";
+
 import "../../styles/Loader/loader.css";
 
 const Loader = () => {
