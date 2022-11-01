@@ -1,4 +1,4 @@
-import { LeafletMouseEvent, StyleFunction } from "leaflet";
+import { Layer, LeafletMouseEvent, Popup as PopupType, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
@@ -19,6 +19,11 @@ interface MapProps {
     precipitation: any;
     dayLength: any;
     worldGeojson: any;
+}
+
+interface LayerLeaflet extends Layer {
+    _popup: PopupType;
+    setStyle: (styles: Record<string, string | number>) => void;
 }
 
 const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength }: MapProps) => {
@@ -74,7 +79,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         return mapNewStyle(feature);
     };
 
-    const highlightFeature = (layer: LayerContainer) => {
+    const highlightFeature = (layer: LayerLeaflet) => {
         layer.setStyle({
             fillColor: "red",
             fillOpacity: 0.4
@@ -89,7 +94,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
     };
 
     // Loads all feature's data to a popup
-    const createNewPopup = async (feature: GeoJSON.Feature, layer: LayerContainer, e?: LeafletMouseEvent) => {
+    const createNewPopup = async (feature: GeoJSON.Feature, layer: LayerLeaflet, e?: LeafletMouseEvent) => {
         // Get feature data
         const regionName = feature.properties?.name ?? "unknown";
         const countryName = feature.properties?.country ?? "unknown";
@@ -181,12 +186,12 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         currentPopupLayerRef.current = { layer: layer, feature: feature };
     };
 
-    const onEachDivision = (feature: GeoJSON.Feature, layer: LayerContainer) => {
+    const onEachDivision = (feature: GeoJSON.Feature, layer: Layer) => {
         layer.on({
             popupclose: resetHighlight,
             click: (e: LeafletMouseEvent) => {
-                createNewPopup(feature, layer, e);
-                highlightFeature(layer);
+                createNewPopup(feature, layer as LayerLeaflet, e);
+                highlightFeature(layer as LayerLeaflet);
             }
         });
     };
