@@ -1,7 +1,7 @@
-import { Layer, LeafletMouseEvent, StyleFunction } from "leaflet";
+import { LeafletMouseEvent, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
-import { Feature, GeoJSON, MapContainer } from "react-leaflet";
+import { GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
 import { DataType, MonthsType } from "../../types/commonTypes";
@@ -22,7 +22,7 @@ interface MapProps {
 }
 
 const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength }: MapProps) => {
-    const mapRef = useRef<any>();
+    const mapRef = useRef<any>(); // #TODO use proper typ
     const currentPopupLayerRef = useRef<any>(); // #TODO use proper type
 
     // Required to use month and dataType in events
@@ -40,7 +40,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         }
     }, [month]);
 
-    const mapNewStyle = (feature: Feature) => {
+    const mapNewStyle = (feature: GeoJSON.Feature) => {
         const regionId = feature.properties?.id;
         // Get value for fiven data type and region id
         const value =
@@ -62,7 +62,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         };
     };
 
-    const mapStyles = (feature: Feature) => {
+    const mapStyles = (feature: GeoJSON.Feature) => {
         // Don't change color of highlighted feature
         if (
             currentPopupLayerRef.current &&
@@ -74,7 +74,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         return mapNewStyle(feature);
     };
 
-    const highlightFeature = (layer: Layer) => {
+    const highlightFeature = (layer: LayerContainer) => {
         layer.setStyle({
             fillColor: "red",
             fillOpacity: 0.4
@@ -89,11 +89,16 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
     };
 
     // Loads all feature's data to a popup
-    const createNewPopup = async (feature: Feature, layer: Layer, e: LeafletMouseEvent) => {
+    const createNewPopup = async (feature: GeoJSON.Feature, layer: LayerContainer, e?: LeafletMouseEvent) => {
         // Get feature data
-        const regionName = feature.properties.name ? feature.properties.name : "unknown";
-        const countryName = feature.properties.country;
-        const regionId = feature.properties.id;
+        const regionName = feature.properties?.name ?? "unknown";
+        const countryName = feature.properties?.country ?? "unknown";
+        const regionId = feature.properties?.id;
+
+        if (!regionId) {
+            throw Error("This region doesn't exist");
+        }
+
         // Loading data popup
         let popupContent = `
                 <div class="popup-title">
@@ -110,10 +115,9 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
 
         try {
             // Bind popup only if doesn't already exitst
-            if (!layer.getPopup()) {
+            if (!layer.getPopup() && e) {
                 const popupOptions = { className: "division-popup" };
                 const { _popup: popup } = layer.bindPopup(popupContent, popupOptions);
-                console.log(e);
                 // Open popup where user clicked not in the layer center
                 popup.setLatLng(e.latlng).openOn(mapRef.current);
             } else {
@@ -177,7 +181,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         currentPopupLayerRef.current = { layer: layer, feature: feature };
     };
 
-    const onEachDivision = (feature, layer: Layer) => {
+    const onEachDivision = (feature: GeoJSON.Feature, layer: LayerContainer) => {
         layer.on({
             popupclose: resetHighlight,
             click: (e: LeafletMouseEvent) => {

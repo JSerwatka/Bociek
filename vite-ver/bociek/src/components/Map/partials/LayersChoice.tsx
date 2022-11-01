@@ -15,6 +15,8 @@ const LayerChoice = () => {
                     attribution='Map tiles by <a href="http://stamen.com" target="_blank" rel="noopener noreferrer">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener noreferrer">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
                     url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
                     subdomains="abcd"
+                    /* @ts-ignore */
+                    // for some reason current react leaflet type doesn't have this prop
                     ext="jpg"
                 />
             </LayersControl.BaseLayer>
