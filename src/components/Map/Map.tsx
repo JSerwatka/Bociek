@@ -87,10 +87,12 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
     };
 
     const resetHighlight = () => {
-        const feature = currentPopupLayerRef.current.feature;
-        const styles = mapNewStyle(feature);
-
-        currentPopupLayerRef.current.layer.setStyle(styles);
+        if (currentPopupLayerRef.current.feature) {
+            const feature = currentPopupLayerRef.current.feature;
+            const styles = mapNewStyle(feature);
+    
+            currentPopupLayerRef.current.layer.setStyle(styles);
+        }
     };
 
     // Loads all feature's data to a popup
