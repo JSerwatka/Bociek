@@ -1,0 +1,54 @@
+@use "./partials/legend";
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+}
+
+.map-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.leaflet-popup-content {
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+}
+
+.leaflet-popup-content .popup-title {
+    font-weight: bolder;
+    padding-bottom: 10px;
+}
+
+.leaflet-popup-content .country-name {
+    font-size: 1.22em;
+}
+
+.leaflet-popup-content .region-name {
+    font-size: 1.1em;
+}
+
+.leaflet-popup-content .weather-data {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    line-height: 25px;
+}
+
+@media screen and (max-width: 585px) {
+    .leaflet-control-zoom {
+        display: none;
+    }
+}
+
+/* --- popup loading ring --- */
+.leaflet-popup-content {
+    height: 248px;
+    min-width: 177px;
+    box-sizing: border-box;
+}
+
+.leaflet-popup-content .lds-ring {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}

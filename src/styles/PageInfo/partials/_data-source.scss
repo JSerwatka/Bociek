@@ -1,0 +1,19 @@
+/* lobelia */
+.lobelia-info-wrapper {
+    display: flex;
+}
+
+.lobelia-info-content {
+    margin-right: 15px;
+    flex-shrink: 1;
+}
+
+.lobelia-earth-img-wrapper img {
+    width: 100px;
+}
+
+/* geojson */
+.geojson-info {
+    margin-top: 15px;
+    width: 70%;
+}

@@ -1,0 +1,20 @@
+.rc-slider-mark-text {
+    font-size: 1.1em !important;
+    color: rgba(32, 32, 32, 0.84) !important;
+}
+
+/* --- small screens --- */
+.rc-slider-vertical {
+    height: 300px !important;
+
+    .rc-slider-dot {
+        margin-left: -4px !important;
+    }
+}
+
+/* for very small screens */
+@media screen and (max-height: 630px) {
+    .rc-slider-vertical {
+        height: 270px !important;
+    }
+}

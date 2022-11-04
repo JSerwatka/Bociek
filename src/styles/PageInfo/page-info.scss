@@ -1,0 +1,70 @@
+@use "./partials/additional-tools";
+@use "./partials/close-button";
+@use "./partials/data-source";
+@use "./partials/github-logo";
+@use "./partials/icons-and-animations";
+@use "./partials/page-info-button";
+@use "./partials/react_leaflet";
+
+.page-info {
+    position: absolute;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+/* ------------------- */
+
+/* --- info content --- */
+.page-info-content {
+    max-width: 500px;
+    min-height: 100%;
+    padding: 10px 30px 30px 30px;
+    background: rgba(255, 255, 255, 1);
+    overflow: auto;
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+}
+
+/* links */
+.page-info-content a {
+    text-decoration: none;
+}
+
+.page-info-content a:link {
+    color: rgb(20, 108, 215);
+}
+
+.page-info-content a:visited {
+    color: rgb(123, 61, 174);
+}
+
+.page-info-content a:active {
+    color: rgb(241, 68, 68);
+}
+
+/* single contribution block */
+.contribution-info {
+    margin-bottom: 40px;
+}
+
+.contribution-title {
+    color: #1e7eb6;
+    font-size: 1.15em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+/* ------------------- */
+
+/* --- loading ring --- */
+.loader-wrapper {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.page-info .lds-ring {
+    position: relative;
+}
+
+.page-info .lds-ring div {
+    left: -30px;
+}
+/* ------------------- */

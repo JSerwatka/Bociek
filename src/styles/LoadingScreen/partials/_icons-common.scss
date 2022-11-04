@@ -1,0 +1,38 @@
+@use "../abstracts/colors";
+
+@keyframes show-hide {
+    0% {
+        opacity: 0;
+    }
+    7% {
+        opacity: 1;
+    }
+    13% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.sunny-body path {
+    fill: colors.$color-sun;
+}
+
+.cloud-offset path {
+    fill: colors.$color-main-background;
+}
+
+.main-cloud path {
+    fill: colors.$color-cloud;
+}
