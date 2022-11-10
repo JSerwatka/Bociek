@@ -1,7 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Layer, LeafletMouseEvent, Map as MapType, Popup as PopupType, StyleFunction } from "leaflet";
+import { Layer, LeafletMouseEvent, Popup as PopupType, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { Ref, RefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
@@ -27,19 +27,20 @@ interface LayerLeaflet extends Layer {
 const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapProps) => {
     const mapRef = useRef<any>();
     const currentPopupLayerRef = useRef<any>();
-    const [globalData, setGlobalData] = useState<GlobalDataType>(januaryMaxTemp);
+    const [globalDataPending, setGlobalDataPending] = useState<boolean>(false);
 
     // Required to use month and dataType in events
     const monthRef = useRef(month);
     const dataTypeRef = useRef(dataType);
+    const globalDataRef = useRef(januaryMaxTemp);
     monthRef.current = month;
     dataTypeRef.current = dataType;
 
     useEffect(() => {
-        (async () => {
-            const data = await getGlobalWeatherData(dataType, monthRef.current, supabase);
-            setGlobalData(data);
-        })();
+        getGlobalWeatherData(dataTypeRef.current, monthRef.current, supabase).then((data) => {
+            globalDataRef.current = data;
+            setGlobalDataPending(false);
+        });
     }, [month, dataType]);
 
     useEffect(() => {
@@ -53,10 +54,15 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
 
     const mapNewStyle = (feature: GeoJSON.Feature) => {
         const regionId = feature.properties?.id;
-        // Get value for fiven data type and region id
+
+        // When all styles applied
+        if (regionId === Object.keys(globalDataRef.current).length - 1) {
+            setGlobalDataPending(true);
+        }
+
         try {
             return {
-                fillColor: getColor(dataTypeRef.current, globalData[regionId] as number),
+                fillColor: getColor(dataTypeRef.current, globalDataRef.current[regionId] as number),
                 fillOpacity: 0.7,
                 weight: 1,
                 opacity: 1,
@@ -78,7 +84,12 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
         ) {
             return;
         }
-        return mapNewStyle(feature);
+
+        if (!globalDataPending) {
+            return mapNewStyle(feature);
+        }
+
+        return;
     };
 
     const highlightFeature = (layer: LayerLeaflet) => {
@@ -146,14 +157,14 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
                     <div class="region-name">${regionName}</div>
                 </div>
                 <ul class="weather-data">
-                    <li>Maximum air temperature: ${weatherData["max_temp"][month]}°C</li>
-                    <li>Average air temperature: ${weatherData["avg_temp"][month]}°C</li>
-                    <li>Minimum air temperature: ${weatherData["min_temp"][month]}°C</li>
-                    <li>Day length: ${weatherData["day_length"][month]}</li>
-                    <li>Precipitations: ${weatherData["precipitation"][month]} mm</li>
-                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][month]}%</li>
-                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][month]}%</li>
-                    <li>Cloud cover: ${weatherData["cloud_cover"][month]}%</li>
+                    <li>Maximum air temperature: ${weatherData["max_temp"][monthRef.current]}°C</li>
+                    <li>Average air temperature: ${weatherData["avg_temp"][monthRef.current]}°C</li>
+                    <li>Minimum air temperature: ${weatherData["min_temp"][monthRef.current]}°C</li>
+                    <li>Day length: ${weatherData["day_length"][monthRef.current]}</li>
+                    <li>Precipitations: ${weatherData["precipitation"][monthRef.current]} mm</li>
+                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][monthRef.current]}%</li>
+                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][monthRef.current]}%</li>
+                    <li>Cloud cover: ${weatherData["cloud_cover"][monthRef.current]}%</li>
                 </ul>
             `;
         } catch (err) {
@@ -183,8 +194,8 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
             minZoom={2}
             scrollWheelZoom={true}
             maxBounds={[
-                [-90, -220],
-                [90, 220]
+                [-90, -320],
+                [90, 320]
             ]}
             ref={mapRef}
         >

@@ -6,12 +6,7 @@ import Map from "./components/Map/Map";
 import PageInfo from "./components/PageInfo/PageInfo";
 import supabase from "./config/supabaseClient";
 import { DataType, GlobalDataType, MonthsType } from "./types/commonTypes";
-import {
-    fetchData,
-    getAllDataTypePolygonWeatherData,
-    getGlobalWeatherData,
-    getPolygonWeatherData
-} from "./utils/fetchData";
+import { fetchData, getGlobalWeatherData } from "./utils/fetchData";
 
 function App() {
     const [month, setMonth] = useState<MonthsType>(0);

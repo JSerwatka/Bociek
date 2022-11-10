@@ -15,7 +15,7 @@ const LoadingScreen = () => {
                 <RainyIcon />
                 <RainbowIcon />
             </div>
-            <div className="loading-msg">Loading something beautiful for you</div>
+            <div className="loading-msg">Loading</div>
         </div>
     );
 };
