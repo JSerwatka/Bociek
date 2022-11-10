@@ -1,12 +1,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Layer, LeafletMouseEvent, Map as MapType, Popup as PopupType, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { Ref, RefObject, useEffect, useRef } from "react";
+import React, { Ref, RefObject, useEffect, useRef, useState } from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
 import { DataType, GlobalDataType, MonthsType } from "../../types/commonTypes";
-import { fetchData, getAllDataTypePolygonWeatherData, getGlobalWeatherData } from "../../utils/fetchData";
+import { getAllDataTypePolygonWeatherData, getGlobalWeatherData } from "../../utils/fetchData";
 import getColor from "../../utils/getColor";
 import LayerChoice from "./partials/LayersChoice";
 import Legend from "./partials/Legend";
@@ -27,12 +27,20 @@ interface LayerLeaflet extends Layer {
 const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapProps) => {
     const mapRef = useRef<any>();
     const currentPopupLayerRef = useRef<any>();
+    const [globalData, setGlobalData] = useState<GlobalDataType>(januaryMaxTemp);
 
     // Required to use month and dataType in events
     const monthRef = useRef(month);
     const dataTypeRef = useRef(dataType);
     monthRef.current = month;
     dataTypeRef.current = dataType;
+
+    useEffect(() => {
+        (async () => {
+            const data = await getGlobalWeatherData(dataType, monthRef.current, supabase);
+            setGlobalData(data);
+        })();
+    }, [month, dataType]);
 
     useEffect(() => {
         // Update currently opened popup data
@@ -48,7 +56,7 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
         // Get value for fiven data type and region id
         try {
             return {
-                fillColor: getColor(dataTypeRef.current, januaryMaxTemp[regionId] as number),
+                fillColor: getColor(dataTypeRef.current, globalData[regionId] as number),
                 fillOpacity: 0.7,
                 weight: 1,
                 opacity: 1,
