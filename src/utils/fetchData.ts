@@ -1,5 +1,4 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { arrayBuffer } from "stream/consumers";
 
 import { AllDataTypesType, DataType, MonthsType, allDataTypes } from "../types/commonTypes";
 import { getHoursFromTime } from "./hoursFromTime";
@@ -37,41 +36,20 @@ export const getGlobalWeatherData = async (
 
     return Object.fromEntries(dataMap);
 };
-// export const getGlobalWeatherData = async (
-//     dataType: DataType,
-//     month: MonthsType,
-//     regionId: number,
-//     supabase: SupabaseClient
-// ): Promise<number> => {
-//     const { data, error } = await supabase
-//         .from(dataType)
-//         .select("value")
-//         .eq("month", month)
-//         .eq("polygon_id", regionId)
-//         .single();
-
-//     if (data?.value === undefined) {
-//         throw new Error(`Data for ${dataType}, polygon id ${regionId} and month ${month} a doesn't exist`);
-//     }
-
-//     if (error) {
-//         throw error;
-//     }
-
-//     return dataType === "day_length" ? getHoursFromTime(data.value) : data.value;
-// };
 
 export const getPolygonWeatherData = async (
     dataType: AllDataTypesType,
     regionId: number,
     supabase: SupabaseClient
 ): Promise<string[]> => {
+    console.time();
     const { data, error } = await supabase
         .from("single_polygon_data")
         .select("values_by_month")
         .eq("data_type", dataType)
         .eq("polygon_id", regionId)
         .single();
+    console.timeEnd();
 
     if (data?.values_by_month === undefined) {
         throw new Error(`Data for ${dataType} and polygon id ${regionId} doesn't exist`);
@@ -90,9 +68,20 @@ export const getAllDataTypePolygonWeatherData = async (
 ): Promise<Record<AllDataTypesType, string[]>> => {
     const dataByDataTypeMap = new Map();
 
-    for (const dataType of allDataTypes) {
-        dataByDataTypeMap.set(dataType, await getPolygonWeatherData(dataType, regionId, supabase));
+    const { data, error } = await supabase
+        .from("single_polygon_data")
+        .select("data_type,values_by_month")
+        .eq("polygon_id", regionId);
+
+    if (!data) {
+        throw new Error(`Data for polygon id ${regionId} doesn't exist`);
     }
+
+    if (error) {
+        throw error;
+    }
+
+    data.forEach((element) => dataByDataTypeMap.set(element.data_type, element.values_by_month));
 
     return Object.fromEntries(dataByDataTypeMap);
 };

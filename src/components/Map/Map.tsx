@@ -146,14 +146,14 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
                     <div class="region-name">${regionName}</div>
                 </div>
                 <ul class="weather-data">
-                    <li>Maximum air temperature: ${weatherData["max_temp"][monthRef.current]}°C</li>
-                    <li>Average air temperature: ${weatherData["avg_temp"][monthRef.current]}°C</li>
-                    <li>Minimum air temperature: ${weatherData["min_temp"][monthRef.current]}°C</li>
-                    <li>Day length: ${weatherData["day_length"][monthRef.current]}</li>
-                    <li>Precipitations: ${weatherData["precipitation"][monthRef.current]} mm</li>
-                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][monthRef.current]}%</li>
-                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][monthRef.current]}%</li>
-                    <li>Cloud cover: ${weatherData["cloud_cover"][monthRef.current]}%</li>
+                    <li>Maximum air temperature: ${weatherData["max_temp"][month]}°C</li>
+                    <li>Average air temperature: ${weatherData["avg_temp"][month]}°C</li>
+                    <li>Minimum air temperature: ${weatherData["min_temp"][month]}°C</li>
+                    <li>Day length: ${weatherData["day_length"][month]}</li>
+                    <li>Precipitations: ${weatherData["precipitation"][month]} mm</li>
+                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][month]}%</li>
+                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][month]}%</li>
+                    <li>Cloud cover: ${weatherData["cloud_cover"][month]}%</li>
                 </ul>
             `;
         } catch (err) {
