@@ -65,22 +65,22 @@ function getDaylengthColor(hours: number): string {
 }
 
 export const grades = {
-    temp: tempGrades,
-    rain: precipitationGrades,
-    daylength: datLengthGrades
+    max_temp: tempGrades,
+    precipitation: precipitationGrades,
+    day_length: datLengthGrades
 };
 
 export default function getColor(dataType: DataType, value: number): string {
     let color;
 
     switch (dataType) {
-        case "temp":
+        case "max_temp":
             color = getTempColor(value);
             break;
-        case "rain":
+        case "precipitation":
             color = getPrecipitationColor(value);
             break;
-        case "daylength":
+        case "day_length":
             color = getDaylengthColor(value);
             break;
         default:

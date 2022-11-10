@@ -31,7 +31,7 @@ const DataTypeIcons = ({ dataType, handleDataTypeChange }: DataTypeIconsProps) =
     return (
         <div className="data-type-wrapper" ref={icons as RefObject<HTMLDivElement>}>
             <img
-                data-name="temp"
+                data-name="max_temp"
                 title="air temperature"
                 onClick={handleIconClick}
                 className="data-type-icon"
@@ -39,7 +39,7 @@ const DataTypeIcons = ({ dataType, handleDataTypeChange }: DataTypeIconsProps) =
                 alt="temperature icon"
             />
             <img
-                data-name="rain"
+                data-name="precipitation"
                 title="rain"
                 onClick={handleIconClick}
                 className="data-type-icon"
@@ -47,7 +47,7 @@ const DataTypeIcons = ({ dataType, handleDataTypeChange }: DataTypeIconsProps) =
                 alt="rain icon"
             />
             <img
-                data-name="daylength"
+                data-name="day_length"
                 title="day length"
                 onClick={handleIconClick}
                 className="data-type-icon"

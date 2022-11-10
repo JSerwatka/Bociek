@@ -12,6 +12,14 @@
     }
 }
 
+.rc-slider-step {
+    pointer-events: all !important;
+
+    .rc-slider-dot {
+        cursor: pointer !important;
+    }
+}
+
 /* for very small screens */
 @media screen and (max-height: 630px) {
     .rc-slider-vertical {

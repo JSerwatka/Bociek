@@ -1,24 +1,22 @@
-import { Layer, LeafletMouseEvent, Map as MapType, Popup as PopupType, StyleFunction } from "leaflet";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Layer, LeafletMouseEvent, Popup as PopupType, StyleFunction } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { Ref, RefObject, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GeoJSON, MapContainer } from "react-leaflet";
 
 import "../../styles/Map/map.css";
-import { DataType, MonthsType } from "../../types/commonTypes";
-import { fetchData } from "../../utils/fetchData";
+import { DataType, GlobalDataType, MonthsType } from "../../types/commonTypes";
+import { getAllDataTypePolygonWeatherData, getGlobalWeatherData } from "../../utils/fetchData";
 import getColor from "../../utils/getColor";
-import { getHoursFromTime } from "../../utils/hoursFromTime";
 import LayerChoice from "./partials/LayersChoice";
 import Legend from "./partials/Legend";
 
-// #TODO use better types
 interface MapProps {
     month: MonthsType;
     dataType: DataType;
-    airTemp: any;
-    precipitation: any;
-    dayLength: any;
-    worldGeojson: any;
+    worldGeojson: any; // #TODO use better types
+    januaryMaxTemp: GlobalDataType;
+    supabase: SupabaseClient;
 }
 
 interface LayerLeaflet extends Layer {
@@ -26,15 +24,24 @@ interface LayerLeaflet extends Layer {
     setStyle: (styles: Record<string, string | number>) => void;
 }
 
-const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength }: MapProps) => {
+const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapProps) => {
     const mapRef = useRef<any>();
     const currentPopupLayerRef = useRef<any>();
+    const [globalDataPending, setGlobalDataPending] = useState<boolean>(false);
 
     // Required to use month and dataType in events
     const monthRef = useRef(month);
     const dataTypeRef = useRef(dataType);
+    const globalDataRef = useRef(januaryMaxTemp);
     monthRef.current = month;
     dataTypeRef.current = dataType;
+
+    useEffect(() => {
+        getGlobalWeatherData(dataTypeRef.current, monthRef.current, supabase).then((data) => {
+            globalDataRef.current = data;
+            setGlobalDataPending(false);
+        });
+    }, [month, dataType]);
 
     useEffect(() => {
         // Update currently opened popup data
@@ -47,24 +54,25 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
 
     const mapNewStyle = (feature: GeoJSON.Feature) => {
         const regionId = feature.properties?.id;
-        // Get value for fiven data type and region id
-        const value =
-            dataTypeRef.current === "temp"
-                ? airTemp.month[monthRef.current][regionId]
-                : dataTypeRef.current === "rain"
-                ? precipitation.month[monthRef.current][regionId]
-                : dataTypeRef.current === "daylength"
-                ? getHoursFromTime(dayLength.month[monthRef.current][regionId])
-                : null;
 
-        return {
-            fillColor: getColor(dataTypeRef.current, value),
-            fillOpacity: 0.7,
-            weight: 1,
-            opacity: 1,
-            color: "grey",
-            dashArray: "3"
-        };
+        // When all styles applied
+        if (regionId === Object.keys(globalDataRef.current).length - 1) {
+            setGlobalDataPending(true);
+        }
+
+        try {
+            return {
+                fillColor: getColor(dataTypeRef.current, globalDataRef.current[regionId] as number),
+                fillOpacity: 0.7,
+                weight: 1,
+                opacity: 1,
+                color: "grey",
+                dashArray: "3"
+            };
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     };
 
     const mapStyles = (feature: GeoJSON.Feature) => {
@@ -76,7 +84,12 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         ) {
             return;
         }
-        return mapNewStyle(feature);
+
+        if (!globalDataPending) {
+            return mapNewStyle(feature);
+        }
+
+        return;
     };
 
     const highlightFeature = (layer: LayerLeaflet) => {
@@ -90,7 +103,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         if (currentPopupLayerRef.current.feature) {
             const feature = currentPopupLayerRef.current.feature;
             const styles = mapNewStyle(feature);
-    
+
             currentPopupLayerRef.current.layer.setStyle(styles);
         }
     };
@@ -136,31 +149,7 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
 
         // Get weather data
         try {
-            const temp = airTemp.month[monthRef.current][regionId];
-            const dayLengthData = dayLength.month[monthRef.current][regionId];
-            const rain = precipitation.month[monthRef.current][regionId];
-
-            const avgTemp = await fetchData(
-                "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/average_air_temperature_centers.json"
-            );
-            const minTemp = await fetchData(
-                "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/minimum_air_temperature_centers.json"
-            );
-            const rainyDays = await fetchData(
-                "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/rainy_days_centers.json"
-            );
-            const veryRainyDays = await fetchData(
-                "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/very_rainy_days_centers.json"
-            );
-            const cloudCover = await fetchData(
-                "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/cloud_cover_centers.json"
-            );
-            const avgTempData = avgTemp.month[monthRef.current][regionId];
-            const minTempData = minTemp.month[monthRef.current][regionId];
-            const rainyDaysData = rainyDays.month[monthRef.current][regionId];
-            const veryRainyDaysData = veryRainyDays.month[monthRef.current][regionId];
-            const cloudCoverData = cloudCover.month[monthRef.current][regionId];
-
+            const weatherData = await getAllDataTypePolygonWeatherData(regionId, supabase);
             // // Update Popup
             popupContent = `
                 <div class="popup-title">
@@ -168,14 +157,14 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
                     <div class="region-name">${regionName}</div>
                 </div>
                 <ul class="weather-data">
-                    <li>Maximum air temperature: ${temp}°C</li>
-                    <li>Average air temperature: ${avgTempData}°C</li>
-                    <li>Minimum air temperature: ${minTempData}°C</li>
-                    <li>Day length: ${dayLengthData}</li>
-                    <li>Precipitations: ${rain} mm</li>
-                    <li>Rainy days (≥ 0.5 mm): ${rainyDaysData}%</li>
-                    <li>Heavy rainy days (≥ 10 mm): ${veryRainyDaysData}%</li>
-                    <li>Cloud cover: ${cloudCoverData}%</li>
+                    <li>Maximum air temperature: ${weatherData["max_temp"][monthRef.current]}°C</li>
+                    <li>Average air temperature: ${weatherData["avg_temp"][monthRef.current]}°C</li>
+                    <li>Minimum air temperature: ${weatherData["min_temp"][monthRef.current]}°C</li>
+                    <li>Day length: ${weatherData["day_length"][monthRef.current]}</li>
+                    <li>Precipitations: ${weatherData["precipitation"][monthRef.current]} mm</li>
+                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][monthRef.current]}%</li>
+                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][monthRef.current]}%</li>
+                    <li>Cloud cover: ${weatherData["cloud_cover"][monthRef.current]}%</li>
                 </ul>
             `;
         } catch (err) {
@@ -188,11 +177,11 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
         currentPopupLayerRef.current = { layer: layer, feature: feature };
     };
 
-    const onEachDivision = (feature: GeoJSON.Feature, layer: Layer) => {
+    const onEachDivision = async (feature: GeoJSON.Feature, layer: Layer) => {
         layer.on({
             popupclose: resetHighlight,
-            click: (e: LeafletMouseEvent) => {
-                createNewPopup(feature, layer as LayerLeaflet, e);
+            click: async (e: LeafletMouseEvent) => {
+                await createNewPopup(feature, layer as LayerLeaflet, e);
                 highlightFeature(layer as LayerLeaflet);
             }
         });
@@ -205,8 +194,8 @@ const Map = ({ month, dataType, worldGeojson, airTemp, precipitation, dayLength 
             minZoom={2}
             scrollWheelZoom={true}
             maxBounds={[
-                [-90, -220],
-                [90, 220]
+                [-90, -320],
+                [90, 320]
             ]}
             ref={mapRef}
         >
