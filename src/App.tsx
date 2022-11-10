@@ -4,19 +4,23 @@ import DataSelector from "./components/DataSelector/DataSelector";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import Map from "./components/Map/Map";
 import PageInfo from "./components/PageInfo/PageInfo";
-import { DataType, MonthsType } from "./types/commonTypes";
-import { fetchData } from "./utils/fetchData";
+import supabase from "./config/supabaseClient";
+import { DataType, GlobalDataType, MonthsType } from "./types/commonTypes";
+import {
+    fetchData,
+    getAllDataTypePolygonWeatherData,
+    getGlobalWeatherData,
+    getPolygonWeatherData
+} from "./utils/fetchData";
 
 function App() {
     const [month, setMonth] = useState<MonthsType>(0);
-    const [dataType, setDataType] = useState<DataType>("temp");
+    const [dataType, setDataType] = useState<DataType>("max_temp");
 
     const [error, setError] = useState<string>("");
     const [isPending, setIsPending] = useState(true);
     const [worldGeojson, setWorldGeojson] = useState(null);
-    const [airTemp, setAirTemp] = useState(null);
-    const [precipitation, setPrecipitation] = useState(null);
-    const [dayLength, setDayLength] = useState(null);
+    const [januaryMaxTemp, setJanuaryMaxTemp] = useState<GlobalDataType>();
 
     const handleMonthChange = useCallback((month: MonthsType) => setMonth(month), [month]);
     const handleDataTypeChange = useCallback((dataType: DataType) => setDataType(dataType), [dataType]);
@@ -27,20 +31,10 @@ function App() {
                 const fetchedWorldGeojson = await fetchData(
                     "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/world-admin1.json"
                 );
-                const fetchedTempJson = await fetchData(
-                    "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/maximum_air_temperature_centers.json"
-                );
-                const fetchedRainJson = await fetchData(
-                    "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/precipitation_centers.json"
-                );
-                const fetchedDaylengthJson = await fetchData(
-                    "https://bociek-weather-data.s3.eu-de.cloud-object-storage.appdomain.cloud/daylength_centers.json"
-                );
+                const januaryMaxTemp = await getGlobalWeatherData("max_temp", 0, supabase);
 
+                setJanuaryMaxTemp(januaryMaxTemp);
                 setWorldGeojson(fetchedWorldGeojson);
-                setAirTemp(fetchedTempJson);
-                setPrecipitation(fetchedRainJson);
-                setDayLength(fetchedDaylengthJson);
             } catch (err) {
                 console.error((err as Error).message);
                 setError((err as Error).message);
@@ -66,9 +60,8 @@ function App() {
                         month={month}
                         dataType={dataType}
                         worldGeojson={worldGeojson}
-                        airTemp={airTemp}
-                        precipitation={precipitation}
-                        dayLength={dayLength}
+                        januaryMaxTemp={januaryMaxTemp!}
+                        supabase={supabase}
                     />
                 </div>
             )}

@@ -1,6 +1,7 @@
-import { PostgrestError, SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { arrayBuffer } from "stream/consumers";
 
-import { DataType, MonthsType } from "../types/commonTypes";
+import { AllDataTypesType, DataType, MonthsType, allDataTypes } from "../types/commonTypes";
 import { getHoursFromTime } from "./hoursFromTime";
 
 export const fetchData = async (url: string) => {
@@ -14,29 +15,57 @@ export const fetchData = async (url: string) => {
     }
 };
 
-type WeatherQueryReturnType = Promise<[number | string | string[], PostgrestError | null]>;
-
 export const getGlobalWeatherData = async (
     dataType: DataType,
     month: MonthsType,
-    regionId: number,
     supabase: SupabaseClient
-): WeatherQueryReturnType => {
-    const { data, error } = await supabase
-        .from(dataType)
-        .select("value")
-        .eq("month", month)
-        .eq("polygon_id", regionId)
-        .single();
+): Promise<any> => {
+    const { data, error } = await supabase.from(dataType).select("polygon_id,value").eq("month", month);
+    const dataMap = new Map();
 
-    return [dataType === "day_length" ? getHoursFromTime(data?.value) : data?.value, error];
+    if (!data) {
+        throw new Error(`Data for ${dataType} and month ${month} a doesn't exist`);
+    }
+
+    if (error) {
+        throw error;
+    }
+
+    data.forEach((element) =>
+        dataMap.set(element.polygon_id, dataType === "day_length" ? getHoursFromTime(element.value) : element.value)
+    );
+
+    return Object.fromEntries(dataMap);
 };
+// export const getGlobalWeatherData = async (
+//     dataType: DataType,
+//     month: MonthsType,
+//     regionId: number,
+//     supabase: SupabaseClient
+// ): Promise<number> => {
+//     const { data, error } = await supabase
+//         .from(dataType)
+//         .select("value")
+//         .eq("month", month)
+//         .eq("polygon_id", regionId)
+//         .single();
+
+//     if (data?.value === undefined) {
+//         throw new Error(`Data for ${dataType}, polygon id ${regionId} and month ${month} a doesn't exist`);
+//     }
+
+//     if (error) {
+//         throw error;
+//     }
+
+//     return dataType === "day_length" ? getHoursFromTime(data.value) : data.value;
+// };
 
 export const getPolygonWeatherData = async (
-    dataType: DataType,
+    dataType: AllDataTypesType,
     regionId: number,
     supabase: SupabaseClient
-): WeatherQueryReturnType => {
+): Promise<string[]> => {
     const { data, error } = await supabase
         .from("single_polygon_data")
         .select("values_by_month")
@@ -44,5 +73,26 @@ export const getPolygonWeatherData = async (
         .eq("polygon_id", regionId)
         .single();
 
-    return [data?.values_by_month, error];
+    if (data?.values_by_month === undefined) {
+        throw new Error(`Data for ${dataType} and polygon id ${regionId} doesn't exist`);
+    }
+
+    if (error) {
+        throw error;
+    }
+
+    return data.values_by_month;
+};
+
+export const getAllDataTypePolygonWeatherData = async (
+    regionId: number,
+    supabase: SupabaseClient
+): Promise<Record<AllDataTypesType, string[]>> => {
+    const dataByDataTypeMap = new Map();
+
+    for (const dataType of allDataTypes) {
+        dataByDataTypeMap.set(dataType, await getPolygonWeatherData(dataType, regionId, supabase));
+    }
+
+    return Object.fromEntries(dataByDataTypeMap);
 };

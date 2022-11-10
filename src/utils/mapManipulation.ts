@@ -1,63 +1,68 @@
-import { DataType } from "../types/commonTypes";
-import getColor, { grades } from "./getColor";
-import L from "leaflet";
+// @ts-nocheck
+// TODO remove??
+// import L from "leaflet";
 
-export const createLegend = (dataType: DataType) => {
-    const div = L.DomUtil.create("div", "legend rounded-box slide-in");
-    const currentGrade = grades[dataType];
+// import { DataType } from "../types/commonTypes";
+// import getColor, { grades } from "./getColor";
 
-    let from;
-    let to;
-    let range;
-    let color;
+// export const createLegend = (dataType: DataType) => {
+//     const div = L.DomUtil.create("div", "legend rounded-box slide-in");
+//     const currentGrade = grades[dataType];
 
-    // Slide button
-    const slideButton = L.DomUtil.create("div", "slide-btn");
+//     let from;
+//     let to;
+//     let range;
+//     let color;
 
-    slideButton.addEventListener("click", () => {
-        div.classList.toggle("slide-in");
-        div.classList.toggle("slide-out");
-    });
+//     // Slide button
+//     const slideButton = L.DomUtil.create("div", "slide-btn");
 
-    div.appendChild(slideButton);
+//     slideButton.addEventListener("click", () => {
+//         div.classList.toggle("slide-in");
+//         div.classList.toggle("slide-out");
+//     });
 
-    // Main legend
-    const mainLegend = L.DomUtil.create("div");
-    div.appendChild(mainLegend);
+//     div.appendChild(slideButton);
 
-    // Create legend label
-    mainLegend.innerHTML += `<div class="legend-title">${getlegendLabel(dataType)}</div>`;
+//     // Main legend
+//     const mainLegend = L.DomUtil.create("div");
+//     div.appendChild(mainLegend);
 
-    for (let i = 0; i < currentGrade.length; i++) {
-        from = currentGrade[i];
-        to = currentGrade[i + 1];
-        color = getColor(dataType, from + 1);
+//     // Create legend label
+//     mainLegend.innerHTML += `<div class="legend-title">${getlegendLabel(dataType)}</div>`;
 
-        // Create a proper range info based on: first, last or other
-        if (i === 0) {
-            range = "< " + to;
-        } else if (i === currentGrade.length - 1) {
-            range = "> " + from;
-        } else {
-            range = from + " to " + to;
-        }
+//     for (let i = 0; i < currentGrade.length; i++) {
+//         from = currentGrade[i];
+//         to = currentGrade[i + 1];
+//         color = getColor(dataType, from + 1);
 
-        // Add range with color
-        mainLegend.innerHTML += `<div><i style="background:${color}"></i> ${range}</div>`;
-    }
+//         // Create a proper range info based on: first, last or other
+//         if (i === 0) {
+//             range = "< " + to;
+//         } else if (i === currentGrade.length - 1) {
+//             range = "> " + from;
+//         } else {
+//             range = from + " to " + to;
+//         }
 
-    return div;
-};
+//         // Add range with color
+//         mainLegend.innerHTML += `<div><i style="background:${color}"></i> ${range}</div>`;
+//     }
 
-const getlegendLabel = (dataType: DataType): string => {
-    switch (dataType) {
-        case "temp":
-            return "Average maximum air temperature in °C";
-        case "rain":
-            return "Average monthly precipitations in <em>mm</em>";
-        case "daylength":
-            return "Day length in hours for the 15th day of the month";
-        default:
-            throw new Error("Incorrect data type");
-    }
-};
+//     return div;
+// };
+
+// const getlegendLabel = (dataType: DataType): string => {
+//     switch (dataType) {
+//         case "max_temp":
+//             return "Average maximum air temperature in °C";
+//         case "precipitation":
+//             return "Average monthly precipitations in <em>mm</em>";
+//         case "day_length":
+//             return "Day length in hours for the 15th day of the month";
+//         default:
+//             throw new Error("Incorrect data type");
+//     }
+// };
+const a = 10;
+export {};

@@ -15,11 +15,11 @@ function Legend({ dataType }: LegendProps) {
 
     const getlegendLabel = (dataType: DataType): string => {
         switch (dataType) {
-            case "temp":
+            case "max_temp":
                 return "Average maximum air temperature in °C";
-            case "rain":
+            case "precipitation":
                 return "Average monthly precipitations in <em>mm</em>";
-            case "daylength":
+            case "day_length":
                 return "Day length in hours for the 15th day of the month";
             default:
                 throw new Error("Incorrect data type");
