@@ -34,22 +34,18 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
     monthRef.current = month;
     dataTypeRef.current = dataType;
 
-    // useEffect(() => {
-    //     // Update currently opened popup data
-    //     if (currentPopupLayerRef.current && currentPopupLayerRef.current.layer.isPopupOpen()) {
-    //         const layer = currentPopupLayerRef.current.layer;
-    //         const feature = currentPopupLayerRef.current.feature;
-    //         createNewPopup(feature, layer);
-    //     }
-    // }, [month]);
+    useEffect(() => {
+        // Update currently opened popup data
+        if (currentPopupLayerRef.current && currentPopupLayerRef.current.layer.isPopupOpen()) {
+            const layer = currentPopupLayerRef.current.layer;
+            const feature = currentPopupLayerRef.current.feature;
+            createNewPopup(feature, layer);
+        }
+    }, [month]);
 
     const mapNewStyle = (feature: GeoJSON.Feature) => {
         const regionId = feature.properties?.id;
         // Get value for fiven data type and region id
-
-        console.log(dataTypeRef.current);
-        console.log(januaryMaxTemp[regionId]);
-        console.log(getColor(dataTypeRef.current, januaryMaxTemp[regionId] as number));
         try {
             return {
                 fillColor: getColor(dataTypeRef.current, januaryMaxTemp[regionId] as number),
@@ -134,24 +130,24 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
 
         // Get weather data
         try {
-            // const weatherData = await getAllDataTypePolygonWeatherData(regionId, supabase);
-            // // // Update Popup
-            // popupContent = `
-            //     <div class="popup-title">
-            //         <div class="country-name">${countryName}</div>
-            //         <div class="region-name">${regionName}</div>
-            //     </div>
-            //     <ul class="weather-data">
-            //         <li>Maximum air temperature: ${weatherData["max_temp"][monthRef.current]}°C</li>
-            //         <li>Average air temperature: ${weatherData["avg_temp"][monthRef.current]}°C</li>
-            //         <li>Minimum air temperature: ${weatherData["min_temp"][monthRef.current]}°C</li>
-            //         <li>Day length: ${weatherData["day_length"][monthRef.current]}</li>
-            //         <li>Precipitations: ${weatherData["precipitation"][monthRef.current]} mm</li>
-            //         <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][monthRef.current]}%</li>
-            //         <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][monthRef.current]}%</li>
-            //         <li>Cloud cover: ${weatherData["cloud_cover"][monthRef.current]}%</li>
-            //     </ul>
-            // `;
+            const weatherData = await getAllDataTypePolygonWeatherData(regionId, supabase);
+            // // Update Popup
+            popupContent = `
+                <div class="popup-title">
+                    <div class="country-name">${countryName}</div>
+                    <div class="region-name">${regionName}</div>
+                </div>
+                <ul class="weather-data">
+                    <li>Maximum air temperature: ${weatherData["max_temp"][monthRef.current]}°C</li>
+                    <li>Average air temperature: ${weatherData["avg_temp"][monthRef.current]}°C</li>
+                    <li>Minimum air temperature: ${weatherData["min_temp"][monthRef.current]}°C</li>
+                    <li>Day length: ${weatherData["day_length"][monthRef.current]}</li>
+                    <li>Precipitations: ${weatherData["precipitation"][monthRef.current]} mm</li>
+                    <li>Rainy days (≥ 0.5 mm): ${weatherData["rainy_days"][monthRef.current]}%</li>
+                    <li>Heavy rainy days (≥ 10 mm): ${weatherData["very_rainy_days"][monthRef.current]}%</li>
+                    <li>Cloud cover: ${weatherData["cloud_cover"][monthRef.current]}%</li>
+                </ul>
+            `;
         } catch (err) {
             console.error((err as Error).message);
             popupContent = `Error while fetching data`;
@@ -162,15 +158,15 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
         currentPopupLayerRef.current = { layer: layer, feature: feature };
     };
 
-    // const onEachDivision = async (feature: GeoJSON.Feature, layer: Layer) => {
-    //     layer.on({
-    //         popupclose: resetHighlight,
-    //         click: async (e: LeafletMouseEvent) => {
-    //             // await createNewPopup(feature, layer as LayerLeaflet, e);
-    //             highlightFeature(layer as LayerLeaflet);
-    //         }
-    //     });
-    // };
+    const onEachDivision = async (feature: GeoJSON.Feature, layer: Layer) => {
+        layer.on({
+            popupclose: resetHighlight,
+            click: async (e: LeafletMouseEvent) => {
+                await createNewPopup(feature, layer as LayerLeaflet, e);
+                highlightFeature(layer as LayerLeaflet);
+            }
+        });
+    };
 
     return (
         <MapContainer
@@ -185,7 +181,7 @@ const Map = ({ month, dataType, worldGeojson, januaryMaxTemp, supabase }: MapPro
             ref={mapRef}
         >
             <LayerChoice />
-            <GeoJSON data={worldGeojson} style={mapStyles as StyleFunction} />
+            <GeoJSON data={worldGeojson} style={mapStyles as StyleFunction} onEachFeature={onEachDivision} />
             <Legend dataType={dataType} />
         </MapContainer>
     );
